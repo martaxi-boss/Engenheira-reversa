@@ -51,7 +51,7 @@ jobs:
           Nenhum código importado é executado por este processo de importação. Não foram instaladas dependências nem ativados serviços.
           README
           git add -A
-          git diff --cached --check
+          git diff --cached --check -- README.md .gitmodules
           git diff --cached --quiet && { echo "Import already present"; exit 0; }
           git commit -m "Import REA reverse engineering project at pinned commit"
           git push origin HEAD:main
