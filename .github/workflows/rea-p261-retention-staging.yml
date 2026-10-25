@@ -55,8 +55,9 @@ jobs:
       - name: Verify all existing binary and investigation regressions
         working-directory: rea
         run: npx --no-install vitest run src/application/binary src/application/investigation
-      - name: Print exact formatter delta for reviewed P261 file
+      - name: Verify canonical formatter for P261 changed source
         working-directory: rea
-        run: |
-          npx --no-install oxfmt src/application/binary/BinarySession.ts src/application/binary/BinarySessionRecords.ts src/application/binary/BinarySessionLiveness.test.ts
-          git diff -- src/application/binary/BinarySessionLiveness.test.ts
+        run: npx --no-install oxfmt --check src/application/binary/BinarySession.ts src/application/binary/BinarySessionRecords.ts src/application/binary/BinarySessionLiveness.test.ts
+      - name: Validate source typechecking and lint without deployment
+        working-directory: rea
+        run: npm run check:fast
