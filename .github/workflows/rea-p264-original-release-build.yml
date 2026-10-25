@@ -1,0 +1,56 @@
+name: REA P264 original release compile rehearsal
+on:
+  push:
+    branches:
+      - rea/p261-preserve-investigation-records-20261025
+    paths:
+      - ".github/workflows/rea-p264-original-release-build.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: rea-p264-source-only-release
+  cancel-in-progress: false
+jobs:
+  original-release:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout fixed original REA source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Node 24 original REA compiler
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: rea/package-lock.json
+      - name: Exact source dependencies in disposable runner
+        working-directory: rea
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Compile original REA production files and MCP
+        working-directory: rea
+        run: npm run compile
+      - name: Verify fixed source compiled into original runtime outputs
+        working-directory: rea
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s dist/application/binary/BinarySession.js
+          test -s dist/application/binary/BinarySessionRecords.js
+          test -s dist/mcp/main.js
+          grep -q "clearTransientSessionState" dist/application/binary/BinarySession.js
+          grep -q "clearTransientSessionState" dist/application/binary/BinarySessionRecords.js
+          echo "REA_P264_COMPILED_ORIGINAL_SOURCE=PASS"
+          echo "REA_P264_PRODUCTION_SHA256:"
+          sha256sum dist/application/binary/BinarySession.js dist/application/binary/BinarySessionRecords.js dist/mcp/main.js
+          du -sh dist
+          tar -czf "$RUNNER_TEMP/rea-p264-original-fixed-dist.tar.gz" -C dist .
+          test -s "$RUNNER_TEMP/rea-p264-original-fixed-dist.tar.gz"
+      - name: Store private source-derived compiled candidate (never private Evidence)
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: rea-p264-original-fixed-dist
+          path: ${{ runner.temp }}/rea-p264-original-fixed-dist.tar.gz
+          retention-days: 2
