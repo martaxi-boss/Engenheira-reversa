@@ -1,0 +1,35 @@
+name: REA P261 isolated retention regression
+on:
+  push:
+    branches:
+      - rea/p261-preserve-investigation-records-20261025
+    paths:
+      - "rea/src/application/binary/**"
+      - ".github/workflows/rea-p261-retention-staging.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: rea-p261-retention-regression
+  cancel-in-progress: false
+jobs:
+  isolated-retention-test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout original REA source fork
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Node.js for original REA tests
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: rea/package-lock.json
+      - name: Install dependencies in disposable runner only
+        working-directory: rea
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Run binary lifecycle and investigation record regressions
+        working-directory: rea
+        run: npx --no-install vitest run src/application/binary/BinarySessionLiveness.test.ts src/application/investigation/InvestigationRecords.test.ts
