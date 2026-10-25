@@ -540,3 +540,57 @@ it("retains Evidence and Unknowns when a binary session closes", async () => {
   }
   expect(session.exportEvidenceBundle()).toEqual(before);
 });
+
+
+it("round-trips eleven Evidence and one Unknown through original records import after binary close", async () => {
+  const { session } = openSession();
+  for (let index = 0; index < 10; index += 1) {
+    const record = createEvidence(undefined, ANALYSIS_SNAPSHOT_PROVIDER, {
+      operation: "p262-archive-fixture",
+      parameters: { ordinal: index },
+      result: { ordinal: index },
+      confidence: "derived",
+      authority: "analyst-inference",
+    });
+    expect(session.recordEvidence(record)).toMatchObject({ ok: true });
+  }
+  const seeded = session.exportEvidenceBundle();
+  const initialEvidence = seeded.records[0];
+  if (initialEvidence === undefined) throw new Error("Missing seeded Evidence");
+  const input = recordUnknownInputSchema.parse({
+    question: "Does a detached archive still contain its original Unknown?",
+    severity: "low",
+    domain: "retention",
+    supporting_evidence_ids: [initialEvidence.evidence_id],
+    required_authority: "analyst-inference",
+    required_confidence: "derived",
+    required_environment: null,
+    recommended_probes: [],
+    relationships: [],
+  });
+  expect(session.recordUnknown(input)).toMatchObject({ ok: true });
+  const before = session.exportEvidenceBundle();
+  expect(before.records).toHaveLength(11);
+  expect(before.unknowns).toHaveLength(1);
+  try {
+    expect((await session.open(process.execPath)).ok).toBe(true);
+    expect((await session.close()).ok).toBe(true);
+    expect(session.exportEvidenceBundle()).toEqual(before);
+    // Simulate an out-of-process archive transport without publishing user data.
+    const recovered = new InvestigationRecords();
+    const archived = JSON.parse(JSON.stringify(before)) as unknown;
+    const imported = recovered.mergeEvidenceBundle(archived);
+    expect(imported).toMatchObject({
+      ok: true,
+      value: { recordsAdded: 11, unknownsAdded: 1 },
+    });
+    expect(recovered.exportEvidenceBundle()).toEqual(before);
+    expect(recovered.mergeEvidenceBundle(archived)).toMatchObject({
+      ok: true,
+      value: { recordsAdded: 0, unknownsAdded: 0 },
+    });
+  } finally {
+    await session.close();
+  }
+  expect(session.exportEvidenceBundle()).toEqual(before);
+});
