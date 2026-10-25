@@ -541,7 +541,6 @@ it("retains Evidence and Unknowns when a binary session closes", async () => {
   expect(session.exportEvidenceBundle()).toEqual(before);
 });
 
-
 it("round-trips eleven Evidence and one Unknown through original records import after binary close", async () => {
   const { session } = openSession();
   for (let index = 0; index < 10; index += 1) {
