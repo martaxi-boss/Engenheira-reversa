@@ -1,0 +1,41 @@
+name: REA P262 isolated Evidence recovery rehearsal
+on:
+  push:
+    branches:
+      - rea/p261-preserve-investigation-records-20261025
+    paths:
+      - "rea/src/application/binary/**"
+      - ".github/workflows/rea-p262-private-isolated-rehearsal.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: rea-p262-private-isolated-rehearsal
+  cancel-in-progress: false
+jobs:
+  isolated-recovery:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    steps:
+      - name: Checkout original REA source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Install Node 24
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: rea/package-lock.json
+      - name: Install isolated dependencies
+        working-directory: rea
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Original binary and investigation lifecycle regression
+        working-directory: rea
+        run: npx --no-install vitest run src/application/binary src/application/investigation
+      - name: Source format
+        working-directory: rea
+        run: npx --no-install oxfmt --check src/application/binary/BinarySession.ts src/application/binary/BinarySessionRecords.ts src/application/binary/BinarySessionLiveness.test.ts
+      - name: Original full typecheck and lint
+        working-directory: rea
+        run: npm run check:fast
