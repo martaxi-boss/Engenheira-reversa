@@ -2,6 +2,9 @@ import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { createTestTempDirectory } from "../../../tests/fixtures/temporaryDirectory.js";
 import { elf } from "../../domain/binaryTarget.fixture.js";
+import { ANALYSIS_SNAPSHOT_PROVIDER } from "../../domain/analysisSnapshot.fixture.js";
+import { createEvidence } from "../../domain/evidence.js";
+import { recordUnknownInputSchema } from "../../domain/residualUnknown.js";
 import { describe, expect, it } from "vitest";
 
 import {
@@ -498,3 +501,43 @@ const killableDeepProvider = (options: {
     },
   };
 };
+
+
+it("retains Evidence and Unknowns when a binary session closes", async () => {
+  const { session } = openSession();
+  const evidence = createEvidence(undefined, ANALYSIS_SNAPSHOT_PROVIDER, {
+    operation: "p261-retention-fixture",
+    parameters: { session: "owned" },
+    result: true,
+    confidence: "derived",
+    authority: "analyst-inference",
+  });
+  expect(session.recordEvidence(evidence)).toMatchObject({ ok: true });
+  const input = recordUnknownInputSchema.parse({
+    question: "Do source-owned InvestigationRecords survive close_binary?",
+    severity: "low",
+    domain: "retention",
+    supporting_evidence_ids: [evidence.evidence_id],
+    required_authority: "analyst-inference",
+    required_confidence: "derived",
+    required_environment: null,
+    recommended_probes: [],
+    relationships: [],
+  });
+  expect(session.recordUnknown(input)).toMatchObject({ ok: true });
+  const before = session.exportEvidenceBundle();
+  expect(before.records).toHaveLength(2);
+  expect(before.unknowns).toHaveLength(1);
+  try {
+    expect((await session.open(process.execPath)).ok).toBe(true);
+    expect((await session.close()).ok).toBe(true);
+    // A binary is gone, but investigation history is still available and exact.
+    expect(session.exportEvidenceBundle()).toEqual(before);
+    expect(session.listUnknowns()).toHaveLength(1);
+    expect((await session.open(process.execPath)).ok).toBe(true);
+    expect(session.exportEvidenceBundle()).toEqual(before);
+  } finally {
+    await session.close();
+  }
+  expect(session.exportEvidenceBundle()).toEqual(before);
+});
