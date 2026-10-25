@@ -39,3 +39,17 @@ jobs:
       - name: Original full typecheck and lint
         working-directory: rea
         run: npm run check:fast
+
+      - name: Build original unmodified InvestigationRecords into a standalone private restoration validator
+        working-directory: rea
+        run: |
+          set -euo pipefail
+          ./node_modules/.bin/esbuild src/application/investigation/InvestigationRecords.ts --bundle --platform=node --format=esm --target=node22 --outfile="$RUNNER_TEMP/rea-p262-InvestigationRecords.mjs"
+          test -s "$RUNNER_TEMP/rea-p262-InvestigationRecords.mjs"
+          echo "REA_P262_ORIGINAL_INVESTIGATION_BUNDLE=BUILT_FOR_PRIVATE_OFFLINE_VALIDATION"
+      - name: Preserve source-derived validator only, never user Evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: rea-p262-original-investigation-validator
+          path: ${{ runner.temp }}/rea-p262-InvestigationRecords.mjs
+          retention-days: 1
