@@ -502,7 +502,6 @@ const killableDeepProvider = (options: {
   };
 };
 
-
 it("retains Evidence and Unknowns when a binary session closes", async () => {
   const { session } = openSession();
   const evidence = createEvidence(undefined, ANALYSIS_SNAPSHOT_PROVIDER, {
