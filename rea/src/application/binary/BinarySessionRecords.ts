@@ -297,11 +297,21 @@ export abstract class BinarySessionRecords {
     this.#emitSnapshotChanged();
   }
 
-  protected clearSessionRecords(): void {
-    this.#records.clear();
+  /**
+   * Drop target-bound analysis state without discarding investigation history.
+   * Closing a binary must not destroy Evidence or Unknown revisions that are
+   * still needed for export, provenance, and an independent recovery archive.
+   */
+  protected clearTransientSessionState(): void {
     this.#snapshot.clear();
     this.#snapshotInvalidated = false;
     this.#emitSnapshotChanged();
+  }
+
+  /** Explicit full investigation reset: never call as a side effect of close. */
+  protected clearSessionRecords(): void {
+    this.#records.clear();
+    this.clearTransientSessionState();
   }
 
   #emitSnapshotChanged(): void {
