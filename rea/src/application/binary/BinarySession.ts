@@ -502,7 +502,9 @@ export class BinarySession
               ? { retainDocument: true }
               : {}),
           });
-    if (clearRecords) this.clearSessionRecords();
+    // Keep immutable Evidence and Unknown history across provider retirement.
+    // Closing a target invalidates its transient analysis snapshot only.
+    if (clearRecords) this.clearTransientSessionState();
     this.#clearRuntimeAvailability();
     const fileResources = await this.closeWriteResources();
     const candidateResources = await this.#providerRouter.closeOwnedResources();
