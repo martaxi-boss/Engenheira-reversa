@@ -1,12 +1,11 @@
 # Engenharia reversa
 
-Este repositório contém uma cópia do projeto **REA — Reverse Engineer Anything**, do autor [morluto](https://github.com/morluto/rea), na pasta [rea](rea/).
+Este repositório mantém na pasta [rea](rea/) uma cópia **byte-exata do código-fonte** do lançamento oficial [REA 6.8.0](https://github.com/morluto/rea), importada do commit \`160d821ac9a0310afcb8d1fc427862dd6508add5\`.
 
-- Projeto original: https://github.com/morluto/rea
-- Revisão importada: `7a0c47bfa4259af859779000bf8bc8aaf16b35bd`
+- Fonte: https://github.com/morluto/rea
 - Licença original: [MIT](rea/LICENSE)
-- Documentação e instruções: [README do REA](rea/README.md)
+- Guia do motor: [README REA](rea/README.md)
 
-A cópia preserva os ficheiros do projeto e as referências dos cinco submódulos originais. O ficheiro `.gitmodules` na raiz adapta os caminhos desses submódulos à pasta `rea/`.
+Os caminhos dos cinco submódulos originais são adaptados no \`.gitmodules\` da raiz. A ligação ChatGPT/GitHub/SSH à VPS reside noutro repositório e não altera o código do autor.
 
-Nenhum código importado é executado por este processo de importação. Não foram instaladas dependências nem ativados serviços.
+A igualdade aqui verificada é do código-fonte; a ativação do motor da VPS e as respetivas dependências são tratadas separadamente.
