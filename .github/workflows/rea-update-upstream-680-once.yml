@@ -1,0 +1,68 @@
+name: REA 6.8.0 official source sync (one time)
+on:
+  push:
+    paths:
+      - '.github/workflows/rea-update-upstream-680-once.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: rea-one-time-source-sync
+  cancel-in-progress: false
+jobs:
+  sync-official:
+    if: github.repository == 'martaxi-boss/Engenheira-reversa'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - name: Check out existing destination
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: true
+          fetch-depth: 2
+      - name: Synchronize only rea/ from exact official release commit
+        shell: bash
+        env:
+          REA_OFFICIAL_SHA: 160d821ac9a0310afcb8d1fc427862dd6508add5
+        run: |
+          set -euo pipefail
+          test "$(git branch --show-current)" = "main"
+          test -f rea/package.json
+          test -f rea/LICENSE
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch --no-tags --depth=1 https://github.com/morluto/rea.git "$REA_OFFICIAL_SHA"
+          test "$(git rev-parse FETCH_HEAD)" = "$REA_OFFICIAL_SHA"
+          test "$(git show FETCH_HEAD:package.json | python3 -c 'import json,sys; print(json.load(sys.stdin)["version"])')" = "6.8.0"
+          upstream_tree="$(git rev-parse 'FETCH_HEAD^{tree}')"
+          git rm -r -q -- rea
+          git read-tree --prefix=rea/ -u 'FETCH_HEAD^{tree}'
+          test -f rea/LICENSE
+          test -f rea/package.json
+          sed 's@path = third_party/@path = rea/third_party/@' rea/.gitmodules > .gitmodules
+          cat > README.md <<'REA_OWNER_README'
+          # Engenharia reversa
+
+          Este repositório mantém na pasta [rea](rea/) uma cópia **byte-exata do código-fonte** do lançamento oficial [REA 6.8.0](https://github.com/morluto/rea), importada do commit \`160d821ac9a0310afcb8d1fc427862dd6508add5\`.
+
+          - Fonte: https://github.com/morluto/rea
+          - Licença original: [MIT](rea/LICENSE)
+          - Guia do motor: [README REA](rea/README.md)
+
+          Os caminhos dos cinco submódulos originais são adaptados no \`.gitmodules\` da raiz. A ligação ChatGPT/GitHub/SSH à VPS reside noutro repositório e não altera o código do autor.
+
+          A igualdade aqui verificada é do código-fonte; a ativação do motor da VPS e as respetivas dependências são tratadas separadamente.
+          REA_OWNER_README
+          git add -A -- README.md .gitmodules rea
+          git diff --cached --check
+          if git diff --cached --quiet; then
+            echo "REA_SYNC_ALREADY_CURRENT=PASS"
+          else
+            git commit -m "rea: synchronize exact official 6.8.0 release tree (retain original submodules)"
+            test "$(git rev-parse HEAD:rea)" = "$upstream_tree"
+            git push origin HEAD:main
+          fi
+          test "$(git rev-parse HEAD:rea)" = "$upstream_tree"
+          echo "REA_SYNC_OFFICIAL_TREE=$upstream_tree"
+          echo "REA_SYNC_RELEASE=6.8.0"
+          echo "REA_SYNC_SOURCE_EQUALS_UPSTREAM=PASS"
