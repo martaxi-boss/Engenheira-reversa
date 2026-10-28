@@ -12,10 +12,12 @@ A igualdade aqui verificada é do código-fonte; a ativação do motor da VPS e 
 
 ## Certificações funcionais — REA 6.8.0
 
-**Estado validado:** 150 ferramentas MCP a verde no âmbito realmente testado (125 anteriores + 25 novas); 79 pendentes num catálogo de 229.
+**Estado validado:** 151 ferramentas MCP a verde no âmbito realmente testado (125 anteriores + 26 novas); 78 pendentes num catálogo de 229.
 
 - [Registo canónico das 229 ferramentas com estado individual e proveniência](certifications/rea-6.8.0.json).
 - [Registo operacional e provas históricas no repositório VPS](https://github.com/martaxi-boss/VPS/blob/98f7bb3a4a6ecd262d25aa2fc7edae9a1e3ad929/rea-linux/certification/functional-ledger.json).
-- [Relatório da meta de 150](https://github.com/martaxi-boss/VPS/blob/98f7bb3a4a6ecd262d25aa2fc7edae9a1e3ad929/rea-linux/certification/priority4-target150-batch-f-final-20261028.json).
+- [Relatório das primeiras 150](https://github.com/martaxi-boss/VPS/blob/98f7bb3a4a6ecd262d25aa2fc7edae9a1e3ad929/rea-linux/certification/priority4-target150-batch-f-final-20261028.json).
 
 **Verde significa certificação limitada ao cenário comprovado.** Não significa certificação de fornecedores pagos, funcionalidades não testadas ou ferramentas exclusivas de outros sistemas operativos. Não há qualquer importação automática de certificações da versão 6.7.0. O código original de 6.8.0 na pasta `rea/` mantém-se byte-exato e não foi modificado.
+
+- [Certificação real adicional do fecho de sessões binárias](https://github.com/martaxi-boss/VPS/blob/4af5a79b3aaa9b5a54dc4093899a7353c7c6b56c/rea-linux/certification/priority5-close-binary-scoped-20261028.json).
