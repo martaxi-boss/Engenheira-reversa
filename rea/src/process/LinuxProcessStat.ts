@@ -5,6 +5,8 @@ export interface LinuxProcessStat {
   readonly pid: number;
   readonly startTime: string;
   readonly lifecycle: ProcessLifecycle | undefined;
+  /** Kernel-owned task, confirmed by Linux PF_KTHREAD from /proc/<pid>/stat. */
+  readonly kernelThread?: true;
   readonly parentPid: number;
   readonly processGroupId: number;
   readonly sessionId: number;
@@ -83,6 +85,11 @@ export const parseLinuxProcessStat = (
     pid,
     startTime,
     lifecycle,
+    // PF_KTHREAD is a Linux procfs ABI bit, not a name/PPID heuristic.
+    // Unknown flags do not establish kernel ownership.
+    ...(Number.isSafeInteger(flags) && (flags & 0x00200000) !== 0
+      ? { kernelThread: true as const }
+      : {}),
     parentPid,
     processGroupId,
     sessionId,
