@@ -122,3 +122,38 @@ it.each(["invalid", "-1", "4.1", "9007199254740992"])(
     });
   },
 );
+
+it("identifies kernel workers only by the native PF_KTHREAD bit", () => {
+  const kernel = parseLinuxProcessStat(
+    statRecord({
+      command: "kworker/u12:2-events_power_efficient",
+      state: "I",
+      parentPid: "2",
+      processGroupId: "0",
+      sessionId: "0",
+      flags: "2097152",
+    }),
+  );
+  expect(kernel).toMatchObject({
+    pid: 42,
+    kernelThread: true,
+    parentPid: 2,
+    processGroupId: 0,
+    lifecycle: "non-zombie",
+  });
+  expect(
+    parseLinuxProcessStat(
+      statRecord({ command: "kworker/u12:2", flags: "0" }),
+    )?.kernelThread,
+  ).toBeUndefined();
+  expect(
+    parseLinuxProcessStat(
+      statRecord({ command: "ordinary-worker", flags: "2097152" }),
+    )?.kernelThread,
+  ).toBe(true);
+  expect(
+    parseLinuxProcessStat(
+      statRecord({ command: "kworker", flags: "unknown" }),
+    )?.kernelThread,
+  ).toBeUndefined();
+});
