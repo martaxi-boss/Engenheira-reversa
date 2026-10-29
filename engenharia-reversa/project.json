@@ -16,7 +16,7 @@
     "evidence_path": "/home/ubuntu/rea-original-upstream-680-evidence",
     "previously_installed_and_compiled": "PASS_FROM_2026_10_29_SSH_TESTS",
     "new_installation_required": false,
-    "live_readback_this_change": "PASS_INDEPENDENT_VENDORS_AND_SKILL_HEALTH_RUN_40970285268",
+    "live_readback_this_change": "STRICT_INDEPENDENCE_PASS_40974645346_AND_GUARD_HEALTH_40974869693",
     "final_runtime_path": "/home/ubuntu/rea-final-runtime"
   },
   "operational_bridge": {
@@ -24,14 +24,19 @@
     "branch": "rea/one-skill-bridge-20261023",
     "workflow": ".github/workflows/rea-mcp-transport-20261027.yml",
     "transport": "GitHub Actions -> pinned SSH -> original CLI",
-    "confirmed_by_run": 40970395308,
+    "confirmed_by_run": 40974869693,
     "request_path": "rea-linux/skill-requests/current.json",
     "reader_path": "rea-linux/skill-bridge/execute_request.py",
     "request_operations": [
       "health",
       "providers",
       "inspect_elf",
-      "apk_demo"
+      "apk_demo",
+      "isolation_audit",
+      "environment_audit",
+      "provider_diagnostics",
+      "strict_separation_audit",
+      "optional_source_symlinks"
     ]
   },
   "previous_legacy": {
@@ -124,22 +129,56 @@
       "kind": "ORIGINAL_DOCTOR_PROVIDER_ROOT_CAUSE_DETAIL",
       "status": "PASS_3_PROVIDER_DOCTORS_2_OPTIONAL_UNREADY",
       "url": "https://github.com/martaxi-boss/VPS/actions/runs/40972191490"
+    },
+    {
+      "run_id": 40974091601,
+      "kind": "PRIVATE_CHROMIUM_ILSPY_PWNDBG_PWNTOOLS_COPIES",
+      "status": "PASS_4_COPIES_VERSIONS",
+      "url": "https://github.com/martaxi-boss/VPS/actions/runs/40974091601"
+    },
+    {
+      "run_id": 40974350944,
+      "kind": "CLEAN_OLD_SHEBANGS_VENV_CONFIG_IN_PRIVATE_FINAL",
+      "status": "PASS_0_OLD_PATHS_IN_SCANNED_CONFIGURATION",
+      "url": "https://github.com/martaxi-boss/VPS/actions/runs/40974350944"
+    },
+    {
+      "run_id": 40974532931,
+      "kind": "SKILL_HEALTH_WITH_ZERO_LEGACY_PROVIDER_PATHS",
+      "status": "PASS_4_OF_4_0_LEGACY",
+      "url": "https://github.com/martaxi-boss/VPS/actions/runs/40974532931"
+    },
+    {
+      "run_id": 40974645346,
+      "kind": "STRICT_RUNTIME_SYMLINK_AND_LAUNCHER_REFERENCE_AUDIT",
+      "status": "PASS_0_OLD_REFS_290_SYMLINKS",
+      "url": "https://github.com/martaxi-boss/VPS/actions/runs/40974645346"
+    },
+    {
+      "run_id": 40974717355,
+      "kind": "STRICT_PRIVATE_APK_FUNCTIONAL_TEST",
+      "status": "PASS_3_OF_3",
+      "url": "https://github.com/martaxi-boss/VPS/actions/runs/40974717355"
+    },
+    {
+      "run_id": 40974869693,
+      "kind": "STRICT_RUNTIME_FAIL_CLOSED_GUARD_HEALTH",
+      "status": "PASS_4_OF_4_ZERO_LEGACY",
+      "url": "https://github.com/martaxi-boss/VPS/actions/runs/40974869693"
     }
   ],
   "dependency_isolation": {
     "node_modules": "ISOLATED_COPY_ACTIVE_VERIFIED_8_OF_8_RUN_40968620168",
     "node_modules_path": "/home/ubuntu/rea-final-runtime/node_modules",
     "node_modules_copy_mib_approx": 866,
-    "external_supplier_runtime": "ACTIVE_NEW_PATHS_VERIFIED_SKILL_HEALTH_RUN_40970285268",
+    "external_supplier_runtime": "PRIVATE_NEW_PATHS_ONLY_HEALTH_AND_APK_PASS",
     "external_supplier_copy_root": "/home/ubuntu/rea-final-runtime/vendors",
     "copied_supplier_directories": 12,
     "external_supplier_stage_run": 40969427731,
-    "external_suppliers_still_point_to_old_paths": true,
-    "fully_independent": false,
-    "legacy_retirement_gate": "BLOCKED_ACTIVE_LEGACY_ENGINE_PROCESS_AND_UNCERTIFIED_OPTIONAL_SUPPLIERS",
-    "active_legacy_supplier_names": [
-      "chromium"
-    ],
+    "external_suppliers_still_point_to_old_paths": false,
+    "fully_independent": true,
+    "legacy_retirement_gate": "BLOCKED_ONLY_BY_ACTIVE_OLD_PROCESS_RETIREMENT_REVIEW_AND_EXPLICIT_DELETION_APPROVAL",
+    "active_legacy_supplier_names": [],
     "retested_copied_supplier_run": 40969647492,
     "unblob_independent_wrapper_run": 40970111752,
     "unblob_independent_wrapper_path": "/home/ubuntu/rea-final-runtime/bin/unblob",
@@ -153,12 +192,34 @@
     "final_runtime_size_gib_approx": 3.04,
     "free_disk_gib_after_copies_approx": 23.71,
     "legacy_engine_processes_observed": 1,
-    "other_processes_referencing_legacy_paths_observed": 1
+    "other_processes_referencing_legacy_paths_observed": 1,
+    "independence_scope": "APPLICATION_RUNTIME_NO_DEPENDENCIES_ON_OLD_REA; host OS packages remain OS base",
+    "project_owned_optional_copies": [
+      "chromium-playwright-1.58.2",
+      "rea-optional-ilspycmd-11.2.0",
+      "rea-optional-pwndbg-2026.09.15",
+      "rea-optional-pwntools-4.15.0"
+    ],
+    "new_optional_provider_copy_run": 40974091601,
+    "private_launcher_normalization_run": 40974350944,
+    "final_private_provider_health_run": 40974532931,
+    "final_private_provider_apk_run": 40974717355,
+    "final_strict_symlink_audit_run": 40974645346,
+    "final_runtime_enforcement_guard_run": 40974869693,
+    "runtime_launchers_old_path_refs": 0,
+    "runtime_symlinks_into_old": 0,
+    "runtime_provider_entries_into_old": 0,
+    "runtime_project_entries_scanned": 9252,
+    "runtime_vendor_entries_scanned": 64713,
+    "runtime_symlinks_checked": 290,
+    "host_os_prerequisites_are_shared_between_apps": true,
+    "host_os_scope": "Ubuntu global base /usr/bin; not project legacy artifacts",
+    "final_runtime_new_free_gib_approx": 22.62
   },
   "chatgpt_skill": {
     "installed": "CONFIRMED",
-    "bound_to_final_motor": "PASS_SKILL_HEALTH_ON_ISOLATED_RUNTIME",
-    "end_to_end": "HEALTH_PASS_40970285268_AND_APK_3_PASS_40970395308",
+    "bound_to_final_motor": "NO_LEGACY_PROVIDERS_STRICT_GUARD_ACTIVE",
+    "end_to_end": "STRICT_HEALTH_40974869693_AND_APK_40974717355",
     "repository_source": "engenharia-reversa/skills/engenharia-reversa/SKILL.md",
     "update_archive_prepared": true,
     "installed_skill_source_sync": "PENDING_PLUGIN_RELEASE_VALIDATION",
@@ -197,6 +258,7 @@
     "audit_run": 40971914250,
     "diagnostic_run": 40972191490,
     "report_path": "engenharia-reversa/AUDITORIA_COMPARATIVA_ORIGINAL_20261029.md",
-    "change_type": "AUDIT_READ_ONLY_NO_INSTALL"
+    "change_type": "AUDIT_READ_ONLY_NO_INSTALL",
+    "current_scope_update": "HOPPER_EXCLUDED_IN_FINAL_AFTER_STRICT_ISOLATION; 25_PROGRAM_ENTRIES_WITH_FRIDA; original 26/26 snapshot historical"
   }
 }
