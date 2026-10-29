@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-"""Checks for the new isolated project; never executes the analyzed engine."""
+"""Contrato do projeto final: o motor usado nos testes da tarde e nenhum outro."""
 import configparser
 import json
-import pathlib
+from pathlib import Path
 import subprocess
 import unittest
 
-ROOT = pathlib.Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[2]
 NEW = ROOT / "engenharia-reversa"
 ORIGINAL = NEW / "original"
-PIN = "5f9187cd279084581fd8c333ba4c6c2c8c506c11"
+PIN = "160d821ac9a0310afcb8d1fc427862dd6508add5"
 URL = "https://github.com/morluto/rea.git"
 
 
@@ -17,47 +17,49 @@ def git(*args, cwd=ROOT):
     return subprocess.check_output(["git", *args], cwd=cwd, text=True).strip()
 
 
-class IsolatedOriginalTests(unittest.TestCase):
-    def test_existing_legacy_folder_is_left_intact(self):
-        self.assertTrue((ROOT / "rea" / "README.md").is_file())
-        self.assertTrue(git("rev-parse", "HEAD:rea"))
+class FinalProject(unittest.TestCase):
+    def test_legacy_code_and_certifications_preserved(self):
+        self.assertEqual(git("rev-parse", "HEAD:rea"), "15e6fec513dcce08cefdbcf441200986397e2793")
+        self.assertEqual(git("rev-parse", "HEAD:certifications"), "8616de55052a9986bf992f902587abe3d32992af")
 
-    def test_submodule_is_a_separate_gitlink(self):
+    def test_submodule_points_to_same_original_used_in_live_tests(self):
         entry = git("ls-files", "--stage", "--", "engenharia-reversa/original")
         self.assertEqual(entry, f"160000 {PIN} 0\tengenharia-reversa/original")
-
-    def test_official_submodule_url(self):
-        config = configparser.ConfigParser()
-        self.assertTrue(config.read(ROOT / ".gitmodules"))
-        section = 'submodule "engenharia-reversa/original"'
-        self.assertTrue(config.has_section(section))
-        self.assertEqual(config.get(section, "path"), "engenharia-reversa/original")
-        self.assertEqual(config.get(section, "url"), URL)
-
-    def test_separate_project_config(self):
-        manifest = json.loads((NEW / "project.json").read_text(encoding="utf-8"))
-        self.assertEqual(manifest["id"], "engenharia-reversa-novo")
-        self.assertEqual(manifest["upstream"]["commit"], PIN)
-        self.assertEqual(manifest["repository_path"], "engenharia-reversa")
-        self.assertFalse(manifest["isolation"]["may_remove_legacy"])
-        self.assertEqual(manifest["vps"]["private_root"], "/home/ubuntu/engenharia-reversa-novo")
-
-    def test_official_source_is_checked_out_exactly(self):
-        self.assertTrue((ORIGINAL / "package.json").is_file(), "submodule nao foi inicializado")
         self.assertEqual(git("rev-parse", "HEAD", cwd=ORIGINAL), PIN)
-        package = json.loads((ORIGINAL / "package.json").read_text(encoding="utf-8"))
-        self.assertEqual(package.get("name"), "rea-agents")
-        self.assertTrue((ORIGINAL / "scripts" / "rea.mjs").is_file())
         self.assertEqual(git("remote", "get-url", "origin", cwd=ORIGINAL), URL)
+        package = json.loads((ORIGINAL / "package.json").read_text(encoding="utf-8"))
+        self.assertEqual(package["name"], "rea-agents")
+        self.assertEqual(package["version"], "6.8.0")
+        self.assertTrue((ORIGINAL / "scripts" / "rea.mjs").is_file())
 
-    def test_new_scripts_do_not_target_legacy(self):
-        deploy = (NEW / "scripts" / "vps_install.sh").read_text(encoding="utf-8")
-        self.assertIn("engenharia-reversa-novo", deploy)
-        self.assertNotIn("rea-original-upstream-680", deploy)
-        self.assertNotIn("/srv/rea", deploy)
-        active_script = "\n".join(line for line in deploy.splitlines() if not line.lstrip().startswith("#"))
-        self.assertNotRegex(active_script, r"(?m)^\s*sudo(?:\s|$)|[;&|]\s*sudo(?:\s|$)")
-        self.assertNotIn("rm -rf", active_script)
+    def test_official_url(self):
+        cfg = configparser.ConfigParser()
+        self.assertTrue(cfg.read(ROOT / ".gitmodules"))
+        sect = 'submodule "engenharia-reversa/original"'
+        self.assertEqual(cfg.get(sect, "path"), "engenharia-reversa/original")
+        self.assertEqual(cfg.get(sect, "url"), URL)
+
+    def test_final_project_manifest_not_a_duplicate(self):
+        obj = json.loads((NEW / "project.json").read_text(encoding="utf-8"))
+        self.assertEqual(obj["verified_source_commit"], PIN)
+        self.assertEqual(obj["vps_installation"]["canonical_path"], "/home/ubuntu/rea-original-upstream-680")
+        self.assertFalse(obj["vps_installation"]["new_installation_required"])
+        self.assertFalse(obj["dependency_isolation"]["fully_independent"])
+        self.assertFalse(obj["previous_legacy"]["retirement_permitted"])
+        self.assertEqual(obj["acceptance_evidence"][1]["run_id"], 40915197781)
+        self.assertNotIn("/home/ubuntu/engenharia-reversa-novo", json.dumps(obj))
+
+    def test_safe_read_only_script_and_workflow(self):
+        src = (NEW / "scripts" / "vps_verify_existing.py").read_text(encoding="utf-8")
+        w = (ROOT / ".github/workflows/engenharia-reversa-novo.yml").read_text(encoding="utf-8")
+        for blocked in ("sudo ", "sshpass ", "npm ci", "apt-get", "rm -rf", "git clone", "ENG_REV_VPS_SSH_KEY"):
+            self.assertNotIn(blocked, src)
+            self.assertNotIn(blocked, w)
+        self.assertNotIn("instalar-vps-somente-manual", w)
+        self.assertNotIn("/home/ubuntu/engenharia-reversa-novo", w)
+
+    def test_old_duplicate_script_removed(self):
+        self.assertFalse((NEW / "scripts" / "vps_install.sh").exists())
 
 
 if __name__ == "__main__":

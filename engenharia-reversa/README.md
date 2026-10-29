@@ -1,46 +1,38 @@
-# Engenharia Reversa - projeto novo e isolado
+# Engenharia Reversa — motor final de 29 de outubro de 2026
 
-Este projeto e **novo** e vive apenas em `engenharia-reversa/` no repositorio `martaxi-boss/Engenheira-reversa`. O projeto legado continua intacto na pasta `rea/`. **Nao utilizar executaveis, Node modules, bridge, servicos, chaves SSH, evidencias ou configuracoes da pasta antiga.**
+**Este é o projeto final escolhido pelo proprietário.** Não instalar outro motor em paralelo, nem substituir os trabalhos efetuados à tarde.
 
-## Fonte original, sem alteracoes
+## Identidade do motor final testado
 
-- Origem: https://github.com/morluto/rea.git
-- Integracao: submodulo Git proprio em `engenharia-reversa/original/`.
-- Commit original imutavel para este ensaio: `5f9187cd279084581fd8c333ba4c6c2c8c506c11`.
-- O pacote upstream ainda usa a designacao de versao `6.8.0`; isso **nao** transforma a copia independente no projeto legado. A identidade e dada pelo commit original, pasta, configuracoes e instalacao isolados.
-- Submodulo mantido no repositório para acesso a fonte original sem copiar nem modificar o codigo do autor.
+- Fonte oficial: `https://github.com/morluto/rea.git`.
+- Commit efetivamente testado no Ubuntu: `160d821ac9a0310afcb8d1fc427862dd6508add5` (tag do autor `rea-agents-6.8.0`).
+- A versão do pacote continua `6.8.0`; a instalação é independente da instalação legada.
+- Instalação real na VPS: `/home/ubuntu/rea-original-upstream-680`.
+- Evidências e registos na VPS: `/home/ubuntu/rea-original-upstream-680-evidence`.
+- Arquivo de código deste novo projeto no GitHub: `engenharia-reversa/original` (submódulo diretamente ao autor no commit exato).
+- Projeto legado, preservado: pasta `rea/` no mesmo repositório e instalação `/opt/rea-reversa/rea` na VPS.
 
-Para preparar a fonte numa copia do repositorio:
+## Resultados já testados na VPS
 
-```bash
-git submodule update --init --depth 1 engenharia-reversa/original
-python3 -m unittest discover -s engenharia-reversa/tests -p 'test_*.py' -v
-bash -n engenharia-reversa/scripts/vps_install.sh
-```
+- [Run 40913611670](https://github.com/martaxi-boss/VPS/actions/runs/40913611670): fonte oficial, dependências verificadas, compilação e seis capturas reais com resultado positivo.
+- [Run 40915197781](https://github.com/martaxi-boss/VPS/actions/runs/40915197781): 44/44 ensaios controlados, 0 falhas e 0 ocorrências de `cleanup_incomplete` nos cenários observados.
+- [Run 40944719135](https://github.com/martaxi-boss/VPS/actions/runs/40944719135): Binwalk 3.1 com inspeção real PASS; Frida descoberta sem prova em alvo; Cutter instalado sem bridge GUI ativa; Chromium instalado sem sessão iniciada.
 
-## VPS: instalacao independente
+Estes são resultados limitados aos cenários comprovados. Não afirmar que todas as 229 ferramentas ou todos os fornecedores funcionam.
 
-- Destino exclusivo: `/home/ubuntu/engenharia-reversa-novo/`, para o utilizador `ubuntu`.
-- Fonte: `/home/ubuntu/engenharia-reversa-novo/source/` (checkout limpo diretamente do upstream no commit acima).
-- Dados, cache, temporarios e evidencias: `state/`, `cache/`, `tmp/`, `evidence/` dentro da pasta exclusiva.
-- O script `scripts/vps_install.sh` e idempotente e nao requer root; verifica a identidade do checkout e nao executa nem instala os fornecedores pagos ou incompatíveis.
-- O script preserva integralmente os outros diretorios do servidor. Nao reutiliza o motor antigo.
+## Via de execução que já funcionou
 
-## GitHub Actions e ligacao SSH
+A operação real usou GitHub Actions do repositório `martaxi-boss/VPS`, ramo `rea/one-skill-bridge-20261023`, workflow `.github/workflows/rea-mcp-transport-20261027.yml`, via SSH com identidade de host validada, executando o CLI na instalação `/home/ubuntu/rea-original-upstream-680`. **O fluxo operacional existe; não criar ligações alternativas por rotina.** A cópia do código e a Skill do projeto final pertencem à pasta `engenharia-reversa/` deste repositório.
 
-O workflow separado `.github/workflows/engenharia-reversa-novo.yml` testa apenas a arvore nova e o submodulo oficial. Para ligar a VPS utiliza **somente** a configuracao dedicada ao projeto novo:
+## Bloqueio a resolver antes de eliminar o antigo
 
-- Secret: `ENG_REV_VPS_SSH_KEY` (chave privada SSH para este projeto).
-- Vars: `ENG_REV_VPS_HOST`, `ENG_REV_VPS_USER` e `ENG_REV_VPS_HOST_PIN` (fingerprint SHA256 Ed25519 verificado de antemao).
-- Deploy de VPS nunca corre num push normal: requer execucao manual `workflow_dispatch` com `vps_install=true` e configuracao SSH valida.
+Na última verificação, a instalação final reutilizava `node_modules` por ligação simbólica para `/opt/rea-reversa/rea/node_modules`. Alguns fornecedores também estavam em `/opt/rea-reversa/providers`. **O motor final foi testado, mas ainda não é totalmente independente do legado.** Migrar/verificar as dependências e fornecedores necessários, sem apagar nem modificar o legado, e repetir apenas os testes afetados antes de autorizar eliminação.
 
-Nenhuma chave, host, segredo, workflow, motor ou certificado do legado e copiado para o projeto novo. Um sucesso no teste de estrutura **nao** representa descompilacao avancada, certificacao de fornecedores ou VPS instalada.
+## Estado e verificação
 
-## Criterios para considerar novo operacional
+- `project.json` fixa a identidade, ambiente real, ligação operacional, provas e limites.
+- `scripts/vps_verify_existing.py` observa o motor existente (não instala, não modifica e não remove).
+- `.github/workflows/engenharia-reversa-novo.yml` valida o código GitHub sem instalar duplicados na VPS.
+- A Skill `engenharia-reversa` deve ser atualizada para apontar a este motor e esta ligação; a comunicação real da Skill com o motor continua por provar ponta-a-ponta.
 
-1. Estrutura GitHub e commit oficial imutavel: verificar no workflow novo.
-2. Instalacao separada na VPS: instalacao via SSH dedicado e read-back verificavel.
-3. Dependencias de compilacao e fornecedores: inventario e ensaios reais **deste** ambiente.
-4. Motor e CLI: comandos e testes reais sobre amostras controladas, incluindo descompilacao quando suportada.
-5. Skill ChatGPT: apontar exclusivamente para este projeto e demonstrar chamada real.
-6. Nenhuma regressao ou dependencia do legado. **Nunca apagar o legado antes de ordem expressa do proprietario.**
+**A eliminação de `rea/` e dos componentes legados exige ordem expressa posterior do proprietário.**

@@ -1,30 +1,70 @@
 {
-  "id": "engenharia-reversa-novo",
+  "id": "engenharia-reversa-final",
   "display_name": "Engenharia Reversa",
   "repository": "martaxi-boss/Engenheira-reversa",
   "repository_path": "engenharia-reversa",
+  "verified_source_commit": "160d821ac9a0310afcb8d1fc427862dd6508add5",
   "upstream": {
     "repository": "https://github.com/morluto/rea.git",
-    "commit": "5f9187cd279084581fd8c333ba4c6c2c8c506c11",
-    "source_path": "engenharia-reversa/original"
+    "commit": "160d821ac9a0310afcb8d1fc427862dd6508add5",
+    "tag": "rea-agents-6.8.0",
+    "source_path": "engenharia-reversa/original",
+    "package_version": "6.8.0"
   },
-  "vps": {
-    "login_user": "ubuntu",
-    "private_root": "/home/ubuntu/engenharia-reversa-novo",
-    "ssh_configuration_namespace": "ENG_REV_VPS"
+  "vps_installation": {
+    "canonical_path": "/home/ubuntu/rea-original-upstream-680",
+    "evidence_path": "/home/ubuntu/rea-original-upstream-680-evidence",
+    "previously_installed_and_compiled": "PASS_FROM_2026_10_29_SSH_TESTS",
+    "new_installation_required": false,
+    "live_readback_this_change": "NOT_RUN"
   },
-  "isolation": {
-    "separate_source": true,
-    "separate_workflows": true,
-    "separate_data": true,
-    "shared_runtime_dependencies": false,
-    "may_remove_legacy": false
+  "operational_bridge": {
+    "repository": "martaxi-boss/VPS",
+    "branch": "rea/one-skill-bridge-20261023",
+    "workflow": ".github/workflows/rea-mcp-transport-20261027.yml",
+    "transport": "GitHub Actions -> pinned SSH -> original CLI",
+    "confirmed_by_run": 40915197781
   },
-  "status": {
-    "source_reference": "PINNED",
-    "github_structure": "PENDING_CI",
-    "vps": "NOT_DEPLOYED",
-    "advanced_analysis": "NOT_TESTED",
-    "chatgpt_skill_binding": "NOT_VERIFIED"
-  }
+  "previous_legacy": {
+    "repository_folder": "rea/",
+    "installation_path": "/opt/rea-reversa/rea",
+    "retirement_permitted": false,
+    "untouched": true
+  },
+  "acceptance_evidence": [
+    {
+      "run_id": 40913611670,
+      "kind": "BUILD_AND_CAPTURE",
+      "status": "PASS",
+      "url": "https://github.com/martaxi-boss/VPS/actions/runs/40913611670"
+    },
+    {
+      "run_id": 40915197781,
+      "kind": "44_STRESS_SCENARIOS",
+      "status": "44_PASS_0_FAIL_0_CLEANUP_INCOMPLETE",
+      "url": "https://github.com/martaxi-boss/VPS/actions/runs/40915197781"
+    },
+    {
+      "run_id": 40944719135,
+      "kind": "SUPPLIERS_REAL_SCOPE",
+      "status": "MIXED_SCOPED_PASS_AND_PENDING",
+      "url": "https://github.com/martaxi-boss/VPS/actions/runs/40944719135"
+    }
+  ],
+  "dependency_isolation": {
+    "node_modules": "SYMLINK_TO_LEGACY_RECORDED",
+    "provider_paths": "SOME_UNDER_LEGACY_PROVIDERS",
+    "fully_independent": false,
+    "legacy_retirement_gate": "BLOCKED_UNTIL_SELF_CONTAINED_AND_RETESTED"
+  },
+  "chatgpt_skill": {
+    "installed": "CONFIRMED",
+    "bound_to_final_motor": "PENDING_SKILL_UPDATE",
+    "end_to_end": "NOT_TESTED"
+  },
+  "prohibitions": [
+    "DELETE_LEGACY_WITHOUT_NEW_OWNER_ORDER",
+    "DUPLICATE_ENGINE_INSTALL",
+    "MISREPORT_PROVIDER_CERTIFICATION"
+  ]
 }
