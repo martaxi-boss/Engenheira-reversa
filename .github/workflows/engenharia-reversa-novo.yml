@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-      - align/engenharia-reversa-final-20261029
+      - 'align/engenharia-reversa-*'
     paths:
       - 'engenharia-reversa/**'
       - '.gitmodules'
