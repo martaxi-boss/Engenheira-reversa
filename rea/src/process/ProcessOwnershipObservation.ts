@@ -1051,6 +1051,7 @@ export const createSystemProcessOwnershipHost = (
               ) => ({
                 state: "readable" as const,
                 identity: `linux-starttime:${facts.startTime}`,
+                ...(facts.kernelThread === true ? { kernelThread: true as const } : {}),
                 ...(effectiveUid === undefined ? {} : { effectiveUid }),
                 ...(environmentRestriction === undefined
                   ? {}
