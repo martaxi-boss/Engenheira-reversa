@@ -1,9 +1,10 @@
-> **Dois projetos independentes neste mesmo repositorio**
->
-> - [Engenharia Reversa - novo, diretamente da fonte original](engenharia-reversa/README.md): projeto isolado na pasta `engenharia-reversa/`.
-> - [REA legado](rea/README.md): preservado na pasta `rea/`, sem alteracoes nem remocoes.
->
-> A eliminacao do legado nao esta autorizada. O novo exige validacao real completa antes de qualquer decisao futura.
+# Engenharia Reversa — projetos separados no mesmo repositório
+
+**Motor final:** [engenharia-reversa/](engenharia-reversa/README.md), versão original testada na VPS em `/home/ubuntu/rea-original-upstream-680`, commit oficial `160d821ac9a0310afcb8d1fc427862dd6508add5`.
+
+**Motor legado:** [rea/](rea/README.md). Preservado, juntamente com as certificações, até o projeto final trabalhar autonomamente pela nova Skill e o proprietário autorizar a remoção.
+
+O pacote do autor tem o número de versão 6.8.0 nos dois casos. A independência exige diretórios, dependências e fluxos próprios, não alterar artificialmente a versão.
 
 ---
 
