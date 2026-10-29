@@ -16,14 +16,15 @@
     "evidence_path": "/home/ubuntu/rea-original-upstream-680-evidence",
     "previously_installed_and_compiled": "PASS_FROM_2026_10_29_SSH_TESTS",
     "new_installation_required": false,
-    "live_readback_this_change": "PASS_HEALTH_GITHUB_SSH_RUN_40961687695"
+    "live_readback_this_change": "PASS_INDEPENDENT_VENDORS_AND_SKILL_HEALTH_RUN_40970285268",
+    "final_runtime_path": "/home/ubuntu/rea-final-runtime"
   },
   "operational_bridge": {
     "repository": "martaxi-boss/VPS",
     "branch": "rea/one-skill-bridge-20261023",
     "workflow": ".github/workflows/rea-mcp-transport-20261027.yml",
     "transport": "GitHub Actions -> pinned SSH -> original CLI",
-    "confirmed_by_run": 40961687695,
+    "confirmed_by_run": 40970395308,
     "request_path": "rea-linux/skill-requests/current.json",
     "reader_path": "rea-linux/skill-bridge/execute_request.py",
     "request_operations": [
@@ -57,18 +58,81 @@
       "kind": "SUPPLIERS_REAL_SCOPE",
       "status": "MIXED_SCOPED_PASS_AND_PENDING",
       "url": "https://github.com/martaxi-boss/VPS/actions/runs/40944719135"
+    },
+    {
+      "run_id": 40968408461,
+      "kind": "NODE_MODULES_COPY_866_MIB_SHA_VERIFIED",
+      "status": "PASS",
+      "url": "https://github.com/martaxi-boss/VPS/actions/runs/40968408461"
+    },
+    {
+      "run_id": 40968620168,
+      "kind": "ATOMIC_NODE_MODULES_SWITCH_AND_8_REAL_CLI_TESTS",
+      "status": "8_OF_8_PASS_0_CLEANUP_INCOMPLETE",
+      "url": "https://github.com/martaxi-boss/VPS/actions/runs/40968620168"
+    },
+    {
+      "run_id": 40968899758,
+      "kind": "GHIDRA_JADX_UNBLOB_REAL_RETEST_ON_ISOLATED_NODE_MODULES",
+      "status": "PASS",
+      "url": "https://github.com/martaxi-boss/VPS/actions/runs/40968899758"
+    },
+    {
+      "run_id": 40969427731,
+      "kind": "12_VENDOR_DISTRIBUTION_COPIES_AND_12_ENTRYPOINT_HASHES",
+      "status": "STAGED_PASS_NOT_ACTIVE",
+      "url": "https://github.com/martaxi-boss/VPS/actions/runs/40969427731"
+    },
+    {
+      "run_id": 40969647492,
+      "kind": "COPIED_GHIDRA_JADX_UNBLOB_11_REAL_FUNCTIONAL_TESTS",
+      "status": "11_OF_11_PASS_0_CLEANUP",
+      "url": "https://github.com/martaxi-boss/VPS/actions/runs/40969647492"
+    },
+    {
+      "run_id": 40970111752,
+      "kind": "INDEPENDENT_UNBLOB_PYTHON_WRAPPER_FIRMWARE_EXTRACTION",
+      "status": "PASS",
+      "url": "https://github.com/martaxi-boss/VPS/actions/runs/40970111752"
+    },
+    {
+      "run_id": 40970285268,
+      "kind": "SKILL_HEALTH_WITH_NEW_NODE_AND_VENDOR_PATHS",
+      "status": "4_OF_4_PASS_ONLY_CHROMIUM_OLD",
+      "url": "https://github.com/martaxi-boss/VPS/actions/runs/40970285268"
+    },
+    {
+      "run_id": 40970395308,
+      "kind": "SKILL_APK_DECOMPILATION_USING_NEW_NODE_AND_VENDOR_RUNTIME",
+      "status": "3_OF_3_PASS_0_CLEANUP_INCOMPLETE",
+      "url": "https://github.com/martaxi-boss/VPS/actions/runs/40970395308"
     }
   ],
   "dependency_isolation": {
-    "node_modules": "SYMLINK_TO_LEGACY_RECORDED",
-    "provider_paths": "SOME_UNDER_LEGACY_PROVIDERS",
+    "node_modules": "ISOLATED_COPY_ACTIVE_VERIFIED_8_OF_8_RUN_40968620168",
+    "node_modules_path": "/home/ubuntu/rea-final-runtime/node_modules",
+    "node_modules_copy_mib_approx": 866,
+    "external_supplier_runtime": "ACTIVE_NEW_PATHS_VERIFIED_SKILL_HEALTH_RUN_40970285268",
+    "external_supplier_copy_root": "/home/ubuntu/rea-final-runtime/vendors",
+    "copied_supplier_directories": 12,
+    "external_supplier_stage_run": 40969427731,
+    "external_suppliers_still_point_to_old_paths": true,
     "fully_independent": false,
-    "legacy_retirement_gate": "BLOCKED_UNTIL_SELF_CONTAINED_AND_RETESTED"
+    "legacy_retirement_gate": "BLOCKED_OPTIONAL_CHROMIUM_AND_ACTIVE_LEGACY_CONSUMERS_REQUIRE_REVIEW",
+    "active_legacy_supplier_names": [
+      "chromium"
+    ],
+    "retested_copied_supplier_run": 40969647492,
+    "unblob_independent_wrapper_run": 40970111752,
+    "unblob_independent_wrapper_path": "/home/ubuntu/rea-final-runtime/bin/unblob",
+    "activated_supplier_bridge_run": 40970285268,
+    "legacy_running_processes_observed_in_audit": 2,
+    "legacy_processes_rechecked_after_migration": false
   },
   "chatgpt_skill": {
     "installed": "CONFIRMED",
-    "bound_to_final_motor": "PASS_HEALTH_VIA_GITHUB_CONNECTOR",
-    "end_to_end": "PASS_CONTROLLED_HEALTH_RUN_40961687695",
+    "bound_to_final_motor": "PASS_SKILL_HEALTH_ON_ISOLATED_RUNTIME",
+    "end_to_end": "HEALTH_PASS_40970285268_AND_APK_3_PASS_40970395308",
     "repository_source": "engenharia-reversa/skills/engenharia-reversa/SKILL.md",
     "update_archive_prepared": true,
     "installed_skill_source_sync": "PENDING_PLUGIN_RELEASE_VALIDATION",

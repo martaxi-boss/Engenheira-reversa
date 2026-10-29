@@ -1,48 +1,58 @@
-# Engenharia Reversa — motor final de 29 de outubro de 2026
+# Engenharia Reversa — projeto FINAL (29 de outubro de 2026)
 
-**Este é o projeto final escolhido pelo proprietário.** Não instalar outro motor em paralelo, nem substituir os trabalhos efetuados à tarde.
+**Este é o motor FINAL escolhido pelo proprietário.** Foi mantido o checkout original efetivamente testado na VPS. Não criar novo motor, novo workflow, MCP ou coordenador.
 
-## Identidade do motor final testado
+## Identidade e repositórios
 
-- Fonte oficial: `https://github.com/morluto/rea.git`.
-- Commit efetivamente testado no Ubuntu: `160d821ac9a0310afcb8d1fc427862dd6508add5` (tag do autor `rea-agents-6.8.0`).
-- A versão do pacote continua `6.8.0`; a instalação é independente da instalação legada.
-- Instalação real na VPS: `/home/ubuntu/rea-original-upstream-680`.
-- Evidências e registos na VPS: `/home/ubuntu/rea-original-upstream-680-evidence`.
-- Arquivo de código deste novo projeto no GitHub: `engenharia-reversa/original` (submódulo diretamente ao autor no commit exato).
-- Projeto legado, preservado: pasta `rea/` no mesmo repositório e instalação `/opt/rea-reversa/rea` na VPS.
+- **Motor na VPS Ubuntu:** `/home/ubuntu/rea-original-upstream-680`
+- **Código original do autor:** `morluto/rea`, commit fixo `160d821ac9a0310afcb8d1fc427862dd6508add5`, tag `rea-agents-6.8.0`.
+- **Versão do pacote:** `6.8.0`. O projeto final usa a instalação separada e comprovada; este número não corresponde a um motor novo inventado.
+- **Fonte canónica no GitHub:** `martaxi-boss/Engenheira-reversa`, pasta `engenharia-reversa/`; submódulo `engenharia-reversa/original` fixado no commit acima.
+- **Transporte operacional existente:** `martaxi-boss/VPS`, branch `rea/one-skill-bridge-20261023`, workflow `.github/workflows/rea-mcp-transport-20261027.yml`; GitHub Actions → SSH de host fixado → CLI do motor final.
+- **Evidências locais:** `/home/ubuntu/rea-original-upstream-680-evidence`.
+- **Legado preservado:** `rea/` no GitHub e `/opt/rea-reversa/rea` na VPS.
 
-## Resultados já testados na VPS
+## Estrutura de dependências reorganizada na VPS
 
-- [Run 40913611670](https://github.com/martaxi-boss/VPS/actions/runs/40913611670): fonte oficial, dependências verificadas, compilação e seis capturas reais com resultado positivo.
-- [Run 40915197781](https://github.com/martaxi-boss/VPS/actions/runs/40915197781): 44/44 ensaios controlados, 0 falhas e 0 ocorrências de `cleanup_incomplete` nos cenários observados.
-- [Run 40944719135](https://github.com/martaxi-boss/VPS/actions/runs/40944719135): Binwalk 3.1 com inspeção real PASS; Frida descoberta sem prova em alvo; Cutter instalado sem bridge GUI ativa; Chromium instalado sem sessão iniciada.
+| Elemento | Caminho | Estado verificado |
+| --- | --- | --- |
+| Motor final (código original) | `/home/ubuntu/rea-original-upstream-680` | PASS |
+| Módulos Node.js próprios (~866 MiB) | `/home/ubuntu/rea-final-runtime/node_modules` | **Ativos; 8/8 testes PASS** |
+| Cópias independentes de 12 fornecedores (~2,19 GiB) | `/home/ubuntu/rea-final-runtime/vendors` | **Cópias ativas na ligação da Skill; 11 testes funcionais PASS em fornecedores selecionados** |
+| Provas e inventários | `/home/ubuntu/rea-original-upstream-680-evidence/isolation-20261029` | Preservados |
+| Instalação anterior | `/opt/rea-reversa/rea` | Preservada; sem remoção |
 
-Estes são resultados limitados aos cenários comprovados. Não afirmar que todas as 229 ferramentas ou todos os fornecedores funcionam.
+As cópias incluem Node 24, JDK 21, Ghidra, JADX, Unblob, Binwalk, Rizin, Kuna, Wakaru, Mitmproxy, Cutter e WABT. A Skill já usa os novos caminhos; isto não certifica individualmente todas as funções dos doze programas. Foram excluídos Chromium (sandbox/AppArmor bloqueado) e Hopper (build/licença não certificada). A presença ou cópia de um programa **não equivale** a todas as suas funções estarem certificadas.
 
-## Via de execução que já funcionou
+## Evidências reais (GitHub Actions → VPS)
 
-A operação real usou GitHub Actions do repositório `martaxi-boss/VPS`, ramo `rea/one-skill-bridge-20261023`, workflow `.github/workflows/rea-mcp-transport-20261027.yml`, via SSH com identidade de host validada, executando o CLI na instalação `/home/ubuntu/rea-original-upstream-680`. **O fluxo operacional existe; não criar ligações alternativas por rotina.** A cópia do código e a Skill do projeto final pertencem à pasta `engenharia-reversa/` deste repositório.
+- [40915197781](https://github.com/martaxi-boss/VPS/actions/runs/40915197781): 44/44 testes de resistência, sem `cleanup_incomplete` nos cenários ensaiados.
+- [40965936183](https://github.com/martaxi-boss/VPS/actions/runs/40965936183): pedido originado na Skill instalada, motor final e quatro operações reais PASS.
+- [40968408461](https://github.com/martaxi-boss/VPS/actions/runs/40968408461): cópia independente dos módulos Node com verificações de integridade.
+- [40968620168](https://github.com/martaxi-boss/VPS/actions/runs/40968620168): troca da ligação do `node_modules` para a cópia independente e **8/8 testes reais PASS**, incluindo três análises Android.
+- [40968899758](https://github.com/martaxi-boss/VPS/actions/runs/40968899758): ensaios funcionais Ghidra, JADX, Unblob e limpeza de processos depois da troca.
+- [40969427731](https://github.com/martaxi-boss/VPS/actions/runs/40969427731): **12 fornecedores copiados e 12 ficheiros de entrada comparados por SHA-256**.
+- [40969647492](https://github.com/martaxi-boss/VPS/actions/runs/40969647492): **11/11** testes funcionais Ghidra, JADX, Unblob, limpeza; detetada e corrigida depois a referência interna antiga do launcher Unblob.
+- [40970111752](https://github.com/martaxi-boss/VPS/actions/runs/40970111752): Unblob testado com Python da nova pasta por wrapper próprio, extração real e hashes PASS.
+- [40970285268](https://github.com/martaxi-boss/VPS/actions/runs/40970285268): **Skill → GitHub → SSH → motor final**, agora com caminhos do runtime próprio, saúde 4/4 PASS; 26 componentes presentes, apenas Chromium ainda referenciado na pasta antiga.
+- [40970395308](https://github.com/martaxi-boss/VPS/actions/runs/40970395308): **Skill analisa APK com os novos caminhos, 3/3 PASS**, sem `cleanup_incomplete`.
 
-## Bloqueio a resolver antes de eliminar o antigo
+Estes resultados não significam que todas as 229 ferramentas do catálogo tenham sido certificadas neste motor.
 
-Na última verificação, a instalação final reutilizava `node_modules` por ligação simbólica para `/opt/rea-reversa/rea/node_modules`. Alguns fornecedores também estavam em `/opt/rea-reversa/providers`. **O motor final foi testado, mas ainda não é totalmente independente do legado.** Migrar/verificar as dependências e fornecedores necessários, sem apagar nem modificar o legado, e repetir apenas os testes afetados antes de autorizar eliminação.
+## O que falta para remover o legado
 
-## Skill versionada
+1. **Confirmar os fornecedores opcionais ainda não certificados e quaisquer referências internas restantes**. Chromium continua na pasta antiga e não tem sessão funcional certificada; Hopper continua com limitações de versão/licença.
+2. Validar os serviços/processos que continuam a utilizar a instalação antiga (na auditoria anterior foram encontrados dois), antes de interromper ou remover qualquer um.
+3. Repetir os testes afetados, confirmar a Skill, preservar os dados e obter uma ordem separada de remoção.
+4. Para redução de espaço no GitHub, lembrar que apagar ficheiros do HEAD não remove automaticamente os objetos do histórico Git; nunca reescrever histórico ou fazer force-push sem aprovação específica.
 
-A fonte da Skill associada a este projeto está em [`skills/engenharia-reversa/SKILL.md`](skills/engenharia-reversa/SKILL.md). O pacote de atualização da Skill deve refletir estes ficheiros, mas a inclusão no GitHub **não prova** atualização da instalação no ChatGPT nem uma chamada efetiva ao motor na VPS.
+**Não apagar já `rea/`, `/opt/rea-reversa/rea`, os fornecedores antigos nem as evidências.** Consultar [RETIRADA_LEGADO.md](RETIRADA_LEGADO.md) para as condições verificáveis.
 
-## Estado e verificação
+## Verificação, documentação e Skill
 
-- `project.json` fixa a identidade, ambiente real, ligação operacional, provas e limites.
-- `scripts/vps_verify_existing.py` observa o motor existente (não instala, não modifica e não remove).
-- `.github/workflows/engenharia-reversa-novo.yml` valida o código GitHub sem instalar duplicados na VPS.
-- A Skill `engenharia-reversa` deve ser atualizada para apontar a este motor e esta ligação; a comunicação real da Skill com o motor continua por provar ponta-a-ponta.
+- `project.json` guarda identidade, estado real e IDs das provas.
+- `scripts/vps_verify_existing.py` faz verificação de leitura do checkout, sem instalação ou limpeza.
+- `skills/engenharia-reversa/SKILL.md` define a execução por GitHub Actions na VPS.
+- `.github/workflows/engenharia-reversa-novo.yml` certifica a estrutura canónica no GitHub, sem criar instalações na VPS.
 
-**A eliminação de `rea/` e dos componentes legados exige ordem expressa posterior do proprietário.**
-
-## Ligacao operacional comprovada (29/10/2026)
-
-O pedido `health-20261029-live-002` foi submetido a partir do ChatGPT pelo GitHub, no workflow operacional existente. O job `engenharia-reversa-skill` acedeu pela ligacao SSH fixada ao checkout FINAL e validou o SHA, hashes, CLI 6.8.0, inventario e inspecao ELF: **PASS**. [Run 40961687695](https://github.com/martaxi-boss/VPS/actions/runs/40961687695).
-
-A ponte aceita pedidos limitados `health`, `providers`, `inspect_elf`, `apk_demo`, sem comandos arbitrarios. Nao transporta automaticamente ficheiros privados do utilizador. Dependencias ainda partilhadas impedem a eliminacao do legado.
+O motor final é único; as provas são rastreáveis e cada migração é reversível até à eliminação expressamente autorizada do legado.
