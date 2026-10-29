@@ -40,3 +40,9 @@ A fonte da Skill associada a este projeto está em [`skills/engenharia-reversa/S
 - A Skill `engenharia-reversa` deve ser atualizada para apontar a este motor e esta ligação; a comunicação real da Skill com o motor continua por provar ponta-a-ponta.
 
 **A eliminação de `rea/` e dos componentes legados exige ordem expressa posterior do proprietário.**
+
+## Ligacao operacional comprovada (29/10/2026)
+
+O pedido `health-20261029-live-002` foi submetido a partir do ChatGPT pelo GitHub, no workflow operacional existente. O job `engenharia-reversa-skill` acedeu pela ligacao SSH fixada ao checkout FINAL e validou o SHA, hashes, CLI 6.8.0, inventario e inspecao ELF: **PASS**. [Run 40961687695](https://github.com/martaxi-boss/VPS/actions/runs/40961687695).
+
+A ponte aceita pedidos limitados `health`, `providers`, `inspect_elf`, `apk_demo`, sem comandos arbitrarios. Nao transporta automaticamente ficheiros privados do utilizador. Dependencias ainda partilhadas impedem a eliminacao do legado.

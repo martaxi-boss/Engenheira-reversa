@@ -16,14 +16,22 @@
     "evidence_path": "/home/ubuntu/rea-original-upstream-680-evidence",
     "previously_installed_and_compiled": "PASS_FROM_2026_10_29_SSH_TESTS",
     "new_installation_required": false,
-    "live_readback_this_change": "NOT_RUN"
+    "live_readback_this_change": "PASS_HEALTH_GITHUB_SSH_RUN_40961687695"
   },
   "operational_bridge": {
     "repository": "martaxi-boss/VPS",
     "branch": "rea/one-skill-bridge-20261023",
     "workflow": ".github/workflows/rea-mcp-transport-20261027.yml",
     "transport": "GitHub Actions -> pinned SSH -> original CLI",
-    "confirmed_by_run": 40915197781
+    "confirmed_by_run": 40961687695,
+    "request_path": "rea-linux/skill-requests/current.json",
+    "reader_path": "rea-linux/skill-bridge/execute_request.py",
+    "request_operations": [
+      "health",
+      "providers",
+      "inspect_elf",
+      "apk_demo"
+    ]
   },
   "previous_legacy": {
     "repository_folder": "rea/",
@@ -59,10 +67,12 @@
   },
   "chatgpt_skill": {
     "installed": "CONFIRMED",
-    "bound_to_final_motor": "CONFIGURED_SOURCE_NOT_DEPLOYED",
-    "end_to_end": "NOT_TESTED",
+    "bound_to_final_motor": "PASS_HEALTH_VIA_GITHUB_CONNECTOR",
+    "end_to_end": "PASS_CONTROLLED_HEALTH_RUN_40961687695",
     "repository_source": "engenharia-reversa/skills/engenharia-reversa/SKILL.md",
-    "update_archive_prepared": true
+    "update_archive_prepared": true,
+    "installed_skill_source_sync": "PENDING_PLUGIN_RELEASE_VALIDATION",
+    "live_ops_limit": "ALLOWED_READ_ONLY_FIXED_FIXTURES"
   },
   "prohibitions": [
     "DELETE_LEGACY_WITHOUT_NEW_OWNER_ORDER",
