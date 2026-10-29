@@ -35,6 +35,7 @@ As cópias incluem Node 24, JDK 21, Ghidra, JADX, Unblob, Binwalk, Rizin, Kuna, 
 - [40969647492](https://github.com/martaxi-boss/VPS/actions/runs/40969647492): **11/11** testes funcionais Ghidra, JADX, Unblob, limpeza; detetada e corrigida depois a referência interna antiga do launcher Unblob.
 - [40970111752](https://github.com/martaxi-boss/VPS/actions/runs/40970111752): Unblob testado com Python da nova pasta por wrapper próprio, extração real e hashes PASS.
 - [40970285268](https://github.com/martaxi-boss/VPS/actions/runs/40970285268): **Skill → GitHub → SSH → motor final**, agora com caminhos do runtime próprio, saúde 4/4 PASS; 26 componentes presentes, apenas Chromium ainda referenciado na pasta antiga.
+- [40970395308](https://github.com/martaxi-boss/VPS/actions/runs/40970395308): **Skill analisa APK com os novos caminhos, 3/3 PASS**, sem `cleanup_incomplete`.
 
 Estes resultados não significam que todas as 229 ferramentas do catálogo tenham sido certificadas neste motor.
 

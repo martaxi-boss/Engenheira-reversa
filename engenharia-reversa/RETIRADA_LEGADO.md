@@ -12,6 +12,7 @@
 - [x] Ghidra, JADX e Unblob funcionais com as cópias — [40969647492](https://github.com/martaxi-boss/VPS/actions/runs/40969647492).
 - [x] Unblob a usar Python da nova cópia, sem invocar o antigo launcher — [40970111752](https://github.com/martaxi-boss/VPS/actions/runs/40970111752).
 - [x] Skill → GitHub Actions → SSH → motor final a utilizar caminhos novos, 4/4 operações PASS — [40970285268](https://github.com/martaxi-boss/VPS/actions/runs/40970285268).
+- [x] APK pública analisada pela Skill com fornecedores copiados, 3/3 operações PASS — [40970395308](https://github.com/martaxi-boss/VPS/actions/runs/40970395308).
 
 ## Portas que impedem eliminar o antigo já
 

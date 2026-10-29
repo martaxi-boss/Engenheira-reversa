@@ -24,7 +24,7 @@
     "branch": "rea/one-skill-bridge-20261023",
     "workflow": ".github/workflows/rea-mcp-transport-20261027.yml",
     "transport": "GitHub Actions -> pinned SSH -> original CLI",
-    "confirmed_by_run": 40970285268,
+    "confirmed_by_run": 40970395308,
     "request_path": "rea-linux/skill-requests/current.json",
     "reader_path": "rea-linux/skill-bridge/execute_request.py",
     "request_operations": [
@@ -100,6 +100,12 @@
       "kind": "SKILL_HEALTH_WITH_NEW_NODE_AND_VENDOR_PATHS",
       "status": "4_OF_4_PASS_ONLY_CHROMIUM_OLD",
       "url": "https://github.com/martaxi-boss/VPS/actions/runs/40970285268"
+    },
+    {
+      "run_id": 40970395308,
+      "kind": "SKILL_APK_DECOMPILATION_USING_NEW_NODE_AND_VENDOR_RUNTIME",
+      "status": "3_OF_3_PASS_0_CLEANUP_INCOMPLETE",
+      "url": "https://github.com/martaxi-boss/VPS/actions/runs/40970395308"
     }
   ],
   "dependency_isolation": {
@@ -126,7 +132,7 @@
   "chatgpt_skill": {
     "installed": "CONFIRMED",
     "bound_to_final_motor": "PASS_SKILL_HEALTH_ON_ISOLATED_RUNTIME",
-    "end_to_end": "PASS_RUN_40970285268",
+    "end_to_end": "HEALTH_PASS_40970285268_AND_APK_3_PASS_40970395308",
     "repository_source": "engenharia-reversa/skills/engenharia-reversa/SKILL.md",
     "update_archive_prepared": true,
     "installed_skill_source_sync": "PENDING_PLUGIN_RELEASE_VALIDATION",
