@@ -92,6 +92,8 @@ export type ProcessIdentityObservation =
   | {
       readonly state: "readable";
       readonly identity: string;
+      /** Linux kernel-owned task, established from the native PF_KTHREAD bit only. */
+      readonly kernelThread?: true;
       /** Effective UID from the same native observation, when that boundary reports it. */
       readonly effectiveUid?: number;
       /** Linux procfs reason the kernel withholds this generation's environment from REA. */
