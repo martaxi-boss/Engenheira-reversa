@@ -106,6 +106,12 @@
       "kind": "SKILL_APK_DECOMPILATION_USING_NEW_NODE_AND_VENDOR_RUNTIME",
       "status": "3_OF_3_PASS_0_CLEANUP_INCOMPLETE",
       "url": "https://github.com/martaxi-boss/VPS/actions/runs/40970395308"
+    },
+    {
+      "run_id": 40971066042,
+      "kind": "READ_ONLY_PRIVILEGED_LEGACY_DISK_FOOTPRINT_AND_PROCESSES",
+      "status": "PASS_RETIREMENT_BLOCKED",
+      "url": "https://github.com/martaxi-boss/VPS/actions/runs/40971066042"
     }
   ],
   "dependency_isolation": {
@@ -118,7 +124,7 @@
     "external_supplier_stage_run": 40969427731,
     "external_suppliers_still_point_to_old_paths": true,
     "fully_independent": false,
-    "legacy_retirement_gate": "BLOCKED_OPTIONAL_CHROMIUM_AND_ACTIVE_LEGACY_CONSUMERS_REQUIRE_REVIEW",
+    "legacy_retirement_gate": "BLOCKED_ACTIVE_LEGACY_ENGINE_PROCESS_AND_UNCERTIFIED_OPTIONAL_SUPPLIERS",
     "active_legacy_supplier_names": [
       "chromium"
     ],
@@ -127,7 +133,15 @@
     "unblob_independent_wrapper_path": "/home/ubuntu/rea-final-runtime/bin/unblob",
     "activated_supplier_bridge_run": 40970285268,
     "legacy_running_processes_observed_in_audit": 2,
-    "legacy_processes_rechecked_after_migration": false
+    "legacy_processes_rechecked_after_migration": false,
+    "legacy_footprint_audit_run": 40971066042,
+    "legacy_engine_size_gib_approx": 1.01,
+    "legacy_providers_size_gib_approx": 3,
+    "legacy_tools_size_gib_approx": 1.24,
+    "final_runtime_size_gib_approx": 3.04,
+    "free_disk_gib_after_copies_approx": 23.71,
+    "legacy_engine_processes_observed": 1,
+    "other_processes_referencing_legacy_paths_observed": 1
   },
   "chatgpt_skill": {
     "installed": "CONFIRMED",
