@@ -1,3 +1,12 @@
+> **Dois projetos independentes neste mesmo repositorio**
+>
+> - [Engenharia Reversa - novo, diretamente da fonte original](engenharia-reversa/README.md): projeto isolado na pasta `engenharia-reversa/`.
+> - [REA legado](rea/README.md): preservado na pasta `rea/`, sem alteracoes nem remocoes.
+>
+> A eliminacao do legado nao esta autorizada. O novo exige validacao real completa antes de qualquer decisao futura.
+
+---
+
 # Engenharia reversa
 
 Este repositório mantém na pasta [rea](rea/) uma cópia **byte-exata do código-fonte** do lançamento oficial [REA 6.8.0](https://github.com/morluto/rea), importada do commit \`160d821ac9a0310afcb8d1fc427862dd6508add5\`.

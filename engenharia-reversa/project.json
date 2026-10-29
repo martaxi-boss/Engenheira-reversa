@@ -1,0 +1,30 @@
+{
+  "id": "engenharia-reversa-novo",
+  "display_name": "Engenharia Reversa",
+  "repository": "martaxi-boss/Engenheira-reversa",
+  "repository_path": "engenharia-reversa",
+  "upstream": {
+    "repository": "https://github.com/morluto/rea.git",
+    "commit": "5f9187cd279084581fd8c333ba4c6c2c8c506c11",
+    "source_path": "engenharia-reversa/original"
+  },
+  "vps": {
+    "login_user": "ubuntu",
+    "private_root": "/home/ubuntu/engenharia-reversa-novo",
+    "ssh_configuration_namespace": "ENG_REV_VPS"
+  },
+  "isolation": {
+    "separate_source": true,
+    "separate_workflows": true,
+    "separate_data": true,
+    "shared_runtime_dependencies": false,
+    "may_remove_legacy": false
+  },
+  "status": {
+    "source_reference": "PINNED",
+    "github_structure": "PENDING_CI",
+    "vps": "NOT_DEPLOYED",
+    "advanced_analysis": "NOT_TESTED",
+    "chatgpt_skill_binding": "NOT_VERIFIED"
+  }
+}

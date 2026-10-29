@@ -13,3 +13,6 @@
 [submodule "third_party/wakaru"]
 	path = rea/third_party/wakaru
 	url = https://github.com/pionxzh/wakaru.git
+[submodule "engenharia-reversa/original"]
+	path = engenharia-reversa/original
+	url = https://github.com/morluto/rea.git

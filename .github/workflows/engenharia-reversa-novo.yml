@@ -1,0 +1,81 @@
+name: Engenharia Reversa Novo - original isolado
+on:
+  push:
+    branches:
+      - main
+      - novo/engenharia-reversa-isolada-20261029
+    paths:
+      - "engenharia-reversa/**"
+      - ".gitmodules"
+      - ".github/workflows/engenharia-reversa-novo.yml"
+  workflow_dispatch:
+    inputs:
+      vps_install:
+        description: "Instalar fonte original apenas na pasta dedicada da VPS, usando SSH proprio"
+        required: false
+        default: false
+        type: boolean
+permissions:
+  contents: read
+concurrency:
+  group: engenharia-reversa-novo-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  verificar-isolamento:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout sem carregar o projeto antigo
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+          submodules: false
+      - name: Preparar apenas a fonte oficial do projeto novo
+        shell: bash
+        run: |
+          set -euo pipefail
+          git submodule update --init --depth 1 engenharia-reversa/original
+      - name: Validar isolamento, origem e scripts sem executar o motor
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m unittest discover -s engenharia-reversa/tests -p 'test_*.py' -v
+          bash -n engenharia-reversa/scripts/vps_install.sh
+          echo "NOVO_ENGINE_GITHUB_LAYOUT=PASS"
+          echo "NOVO_ENGINE_VPS_INSTALL=NOT_RUN"
+          echo "NOVO_ENGINE_DECOMPILATION=NOT_TESTED"
+  instalar-vps-somente-manual:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.vps_install && github.actor == 'martaxi-boss' }}
+    needs: verificar-isolamento
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout apenas do script novo
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+          submodules: false
+      - name: SSH exclusivo do projeto novo com fingerprint validado
+        shell: bash
+        env:
+          ENG_REV_VPS_SSH_KEY: ${{ secrets.ENG_REV_VPS_SSH_KEY }}
+          ENG_REV_VPS_HOST: ${{ vars.ENG_REV_VPS_HOST }}
+          ENG_REV_VPS_USER: ${{ vars.ENG_REV_VPS_USER }}
+          ENG_REV_VPS_HOST_PIN: ${{ vars.ENG_REV_VPS_HOST_PIN }}
+        run: |
+          set -euo pipefail
+          test -n "$ENG_REV_VPS_SSH_KEY"
+          test -n "$ENG_REV_VPS_HOST"
+          test -n "$ENG_REV_VPS_USER"
+          test -n "$ENG_REV_VPS_HOST_PIN"
+          test "$ENG_REV_VPS_USER" = "ubuntu"
+          install -d -m 700 "$RUNNER_TEMP/novo-ssh"
+          printf '%s\n' "$ENG_REV_VPS_SSH_KEY" > "$RUNNER_TEMP/novo-ssh/key"
+          chmod 600 "$RUNNER_TEMP/novo-ssh/key"
+          ssh-keyscan -T 15 -t ed25519 "$ENG_REV_VPS_HOST" 2>/dev/null > "$RUNNER_TEMP/novo-ssh/known_hosts"
+          test -s "$RUNNER_TEMP/novo-ssh/known_hosts"
+          observed="$(ssh-keygen -lf "$RUNNER_TEMP/novo-ssh/known_hosts" -E sha256 | awk '{print $2}')"
+          test "$observed" = "$ENG_REV_VPS_HOST_PIN"
+          ssh -T -i "$RUNNER_TEMP/novo-ssh/key" -o IdentitiesOnly=yes -o PreferredAuthentications=publickey -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$RUNNER_TEMP/novo-ssh/known_hosts" "$ENG_REV_VPS_USER@$ENG_REV_VPS_HOST" "bash -s" < engenharia-reversa/scripts/vps_install.sh
+          echo "NOVO_ENGINE_VPS_SOURCE=PASS"
