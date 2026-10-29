@@ -112,6 +112,18 @@
       "kind": "READ_ONLY_PRIVILEGED_LEGACY_DISK_FOOTPRINT_AND_PROCESSES",
       "status": "PASS_RETIREMENT_BLOCKED",
       "url": "https://github.com/martaxi-boss/VPS/actions/runs/40971066042"
+    },
+    {
+      "run_id": 40971914250,
+      "kind": "AUTHOR_ORIGINAL_VS_LIVE_LINUX_FULL_DEPENDENCIES_PROGRAMS_AUDIT",
+      "status": "PASS_42_42_MANDATORY_26_26_PRESENT",
+      "url": "https://github.com/martaxi-boss/VPS/actions/runs/40971914250"
+    },
+    {
+      "run_id": 40972191490,
+      "kind": "ORIGINAL_DOCTOR_PROVIDER_ROOT_CAUSE_DETAIL",
+      "status": "PASS_3_PROVIDER_DOCTORS_2_OPTIONAL_UNREADY",
+      "url": "https://github.com/martaxi-boss/VPS/actions/runs/40972191490"
     }
   ],
   "dependency_isolation": {
@@ -156,5 +168,35 @@
     "DELETE_LEGACY_WITHOUT_NEW_OWNER_ORDER",
     "DUPLICATE_ENGINE_INSTALL",
     "MISREPORT_PROVIDER_CERTIFICATION"
-  ]
+  ],
+  "last_original_author_environment_audit": {
+    "date": "2026-10-29",
+    "reference_repository": "morluto/rea",
+    "reference_commit": "160d821ac9a0310afcb8d1fc427862dd6508add5",
+    "linux": "Ubuntu 24.04.4 LTS x86_64",
+    "required_npm_dependencies_present": 42,
+    "required_npm_dependencies_declared": 42,
+    "required_npm_dependencies_missing": 0,
+    "optional_frida": "17.23.2_INSTALLED",
+    "development_dependencies_present": 27,
+    "inventory_programs_present": 26,
+    "inventory_programs_declared": 26,
+    "ghidra_doctor": "PASS",
+    "jadx_doctor": "PASS",
+    "kuna_doctor": "PASS",
+    "hopper_doctor": "FAIL_VERSION_CHECK_OPTIONAL",
+    "ida_doctor": "FAIL_REGISTRATION_ABSENT_OPTIONAL",
+    "free_not_in_path": [
+      "clang",
+      "cmake",
+      "lldb",
+      "ltrace"
+    ],
+    "chromium_path_still_legacy": true,
+    "runtime_legacy_retirement_allowed": false,
+    "audit_run": 40971914250,
+    "diagnostic_run": 40972191490,
+    "report_path": "engenharia-reversa/AUDITORIA_COMPARATIVA_ORIGINAL_20261029.md",
+    "change_type": "AUDIT_READ_ONLY_NO_INSTALL"
+  }
 }
