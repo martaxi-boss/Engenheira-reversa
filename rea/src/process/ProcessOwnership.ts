@@ -1590,8 +1590,51 @@ const scanWithOwnershipEvidence = async (
     observationRows,
     host,
   );
+  // Linux kworkers are kernel tasks without user-space environments.
+  // Reading /proc/<pid>/environ can fail with ESRCH for a *live* kworker;
+  // this is not evidence that an REA-owned process survived cleanup.
+  //
+  // Exclude only confirmed native kernel threads, never process names or
+  // stale ps rows. Bracket the PF_KTHREAD observation by a second native
+  // identity read, including the generation and parent/group relation.
+  // Retained candidates are always examined, even if a PID was reused by
+  // a kernel thread after an earlier capture observation.
+  const possibleKernelThreads = observationRows.filter(({ pid }) => {
+    const first = firstIdentities.get(pid);
+    return (
+      !retainedPids.has(pid) &&
+      first?.state === "readable" &&
+      first.kernelThread === true &&
+      first.relation?.state === "observed" &&
+      first.relation.parentPid === 2 &&
+      first.relation.processGroupId === 0
+    );
+  });
+  const confirmedKernelThreads = await readNativeProcessIdentityMap(
+    possibleKernelThreads,
+    host,
+  );
+  const nativeKernelPids = new Set(
+    possibleKernelThreads
+      .filter(({ pid }) => {
+        const before = firstIdentities.get(pid);
+        const after = confirmedKernelThreads.get(pid);
+        return (
+          before?.state === "readable" &&
+          after?.state === "readable" &&
+          before.identity === after.identity &&
+          after.kernelThread === true &&
+          after.relation?.state === "observed" &&
+          after.relation.parentPid === 2 &&
+          after.relation.processGroupId === 0
+        );
+      })
+      .map(({ pid }) => pid),
+  );
+
   const candidates = observationRows.filter((process) => {
     if (retainedPids.has(process.pid)) return true;
+    if (nativeKernelPids.has(process.pid)) return false;
     if (!baseline.has(process.pid)) return true;
     const before = baseline.get(process.pid);
     const now = firstIdentities.get(process.pid);
