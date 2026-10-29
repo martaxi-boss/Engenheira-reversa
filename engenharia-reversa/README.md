@@ -48,6 +48,8 @@ Estes resultados não significam que todas as 229 ferramentas do catálogo tenha
 
 **Não apagar já `rea/`, `/opt/rea-reversa/rea`, os fornecedores antigos nem as evidências.** Consultar [RETIRADA_LEGADO.md](RETIRADA_LEGADO.md) para as condições verificáveis.
 
+A [auditoria 40971066042](https://github.com/martaxi-boss/VPS/actions/runs/40971066042) mediu ~1,01 GiB no motor legado, ~3,00 GiB de fornecedores antigos e ~1,24 GiB em ferramentas antigas, mas ainda encontrou um processo ativo ligado ao motor legado e outro processo referenciando caminhos antigos. São **candidatos à futura limpeza**, não espaço automaticamente recuperável.
+
 ## Verificação, documentação e Skill
 
 - `project.json` guarda identidade, estado real e IDs das provas.

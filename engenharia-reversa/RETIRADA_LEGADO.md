@@ -30,3 +30,22 @@ O projeto final está em `engenharia-reversa/` com o original fixado como submó
 ## Regras
 
 Não criar outro motor, não usar Codex, não instalar MCP adicional, não mexer noutros projetos. A ligação operacional é o workflow SSH já existente em `martaxi-boss/VPS`; GitHub é fonte documental, não um substituto do teste real.
+
+## Medição final de espaço e consumidores (auditoria read-only 29/10)
+
+[GitHub Actions 40971066042](https://github.com/martaxi-boss/VPS/actions/runs/40971066042) comprovou:
+
+| Pasta | Espaço ocupado aproximado |
+| --- | ---: |
+| `/opt/rea-reversa/rea` (motor antigo **incluindo** os módulos) | 1,01 GiB |
+| `/opt/rea-reversa/rea/node_modules` (subpasta acima, **não somar novamente**) | 0,85 GiB |
+| `/opt/rea-reversa/providers` (instalações externas antigas) | 3,00 GiB |
+| `/opt/rea-reversa/tools` (programas externos antigos) | 1,24 GiB |
+| `/home/ubuntu/rea-final-runtime` (estrutura final, já copiada e ativa) | 3,04 GiB |
+| VPS — espaço livre após cópias | 23,71 GiB |
+
+**Não equivale a espaço recuperável imediatamente**: pode haver conteúdo partilhado com outros serviços, caches protegidos, fornecedores opcionais ainda não migrados e ficheiros necessários a provas.
+
+Foram observados **dois processos** que referenciam caminhos da árvore antiga: um processo Node com referência direta ao **motor legado**, e um processo Python com referência a caminhos antigos que precisam de ser identificados. Nenhum foi parado ou alterado. O motor final mantém o estado `ISOLATED_FINAL_RUNTIME` no diagnóstico.
+
+**Próxima condição obrigatória:** identificar os serviços associados aos dois processos e confirmar que podem ser desativados ou migrados sem afetar outros projetos. Retirar o legado continua **bloqueado**.
