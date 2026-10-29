@@ -58,3 +58,7 @@ A [auditoria 40971066042](https://github.com/martaxi-boss/VPS/actions/runs/40971
 - `.github/workflows/engenharia-reversa-novo.yml` certifica a estrutura canónica no GitHub, sem criar instalações na VPS.
 
 O motor final é único; as provas são rastreáveis e cada migração é reversível até à eliminação expressamente autorizada do legado.
+
+## Auditoria integral comparativa com o autor (29/10/2026)
+
+Foi executada auditoria read-only na VPS [40971914250](https://github.com/martaxi-boss/VPS/actions/runs/40971914250), complementada por diagnósticos [40972191490](https://github.com/martaxi-boss/VPS/actions/runs/40972191490), comparando o motor final com **o mesmo commit original do autor**, não com a instalação antiga. Resultado: **42/42 dependências npm obrigatórias, 1/1 Frida opcional, 27/27 de desenvolvimento e 26/26 programas no inventário disponíveis**. Ghidra/JADX/Kuna PASS; Hopper/IDA opcionais pendentes. O relatório identifica ferramentas gratuitas opcionais não encontradas no PATH e as não aplicáveis a Linux. Ver [AUDITORIA_COMPARATIVA_ORIGINAL_20261029.md](AUDITORIA_COMPARATIVA_ORIGINAL_20261029.md). Não houve instalações nem remoções.
