@@ -1602,6 +1602,7 @@ const scanWithOwnershipEvidence = async (
   const possibleKernelThreads = observationRows.filter(({ pid }) => {
     const first = firstIdentities.get(pid);
     return (
+      host.platform === "linux" &&
       !retainedPids.has(pid) &&
       first?.state === "readable" &&
       first.kernelThread === true &&
