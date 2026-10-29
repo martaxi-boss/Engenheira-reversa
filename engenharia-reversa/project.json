@@ -59,8 +59,10 @@
   },
   "chatgpt_skill": {
     "installed": "CONFIRMED",
-    "bound_to_final_motor": "PENDING_SKILL_UPDATE",
-    "end_to_end": "NOT_TESTED"
+    "bound_to_final_motor": "CONFIGURED_SOURCE_NOT_DEPLOYED",
+    "end_to_end": "NOT_TESTED",
+    "repository_source": "engenharia-reversa/skills/engenharia-reversa/SKILL.md",
+    "update_archive_prepared": true
   },
   "prohibitions": [
     "DELETE_LEGACY_WITHOUT_NEW_OWNER_ORDER",

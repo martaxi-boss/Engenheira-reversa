@@ -28,6 +28,10 @@ A operação real usou GitHub Actions do repositório `martaxi-boss/VPS`, ramo `
 
 Na última verificação, a instalação final reutilizava `node_modules` por ligação simbólica para `/opt/rea-reversa/rea/node_modules`. Alguns fornecedores também estavam em `/opt/rea-reversa/providers`. **O motor final foi testado, mas ainda não é totalmente independente do legado.** Migrar/verificar as dependências e fornecedores necessários, sem apagar nem modificar o legado, e repetir apenas os testes afetados antes de autorizar eliminação.
 
+## Skill versionada
+
+A fonte da Skill associada a este projeto está em [`skills/engenharia-reversa/SKILL.md`](skills/engenharia-reversa/SKILL.md). O pacote de atualização da Skill deve refletir estes ficheiros, mas a inclusão no GitHub **não prova** atualização da instalação no ChatGPT nem uma chamada efetiva ao motor na VPS.
+
 ## Estado e verificação
 
 - `project.json` fixa a identidade, ambiente real, ligação operacional, provas e limites.
