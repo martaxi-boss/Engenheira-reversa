@@ -18,8 +18,11 @@ Os testes acima nao provam que todas as ferramentas e fornecedores foram certifi
 
 ## Dependencias e regra de eliminacao
 
-- Ultimo estado conhecido: a pasta `node_modules` do motor final e um symlink para o antigo `/opt/rea-reversa/rea/node_modules`; alguns binarios externos estao sob `/opt/rea-reversa/providers`.
-- Isso torna a independencia completa **pendente**, mesmo que o motor final tenha passado os testes da tarde. Antes de eliminar o legado, obter dependencias e fornecedores autonomos, verificar o ambiente atual da VPS e repetir os testes afetados.
+- Estado verificado em [40968620168](https://github.com/martaxi-boss/VPS/actions/runs/40968620168): `node_modules` do motor final foi movido, como copia independente, para `/home/ubuntu/rea-final-runtime/node_modules`, mantendo um symlink do checkout para esse caminho. O motor passou 8/8 ensaios; o legado nao foi alterado.
+- [40968899758](https://github.com/martaxi-boss/VPS/actions/runs/40968899758): provas funcionais Ghidra, JADX, Unblob e limpeza de processos depois da independencia npm.
+- [40969427731](https://github.com/martaxi-boss/VPS/actions/runs/40969427731): copiaram-se 12 distribuicoes externas para `/home/ubuntu/rea-final-runtime/vendors`; hashes dos 12 executaveis/artefactos coincidem, mas ainda nao se demonstrou independencia integral dos fornecedores.
+- [40969647492](https://github.com/martaxi-boss/VPS/actions/runs/40969647492): 11 testes reais de fornecedores copiados PASS; [40970111752](https://github.com/martaxi-boss/VPS/actions/runs/40970111752): Python do Unblob independente e extração comprovada; [40970285268](https://github.com/martaxi-boss/VPS/actions/runs/40970285268): Skill health 4/4 nos novos caminhos, único item ainda referenciado na árvore antiga no inventário atual: Chromium.
+- A independencia completa **continua pendente** porque alguns fornecedores e processos ativos ainda referenciam pastas antigas. Antes de eliminar o legado, obter dependencias e fornecedores autonomos, verificar o ambiente atual da VPS e repetir os testes afetados.
 - Nao eliminar, relocalizar, parar servicos ou limpar ficheiros do projeto antigo sem nova ordem explicita do proprietario, apos certificacao de autonomia.
 
 ## Uso na Skill

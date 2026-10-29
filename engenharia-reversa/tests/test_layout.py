@@ -72,6 +72,15 @@ class FinalProject(unittest.TestCase):
         self.assertIn("/home/ubuntu/rea-original-upstream-680", content)
         self.assertNotIn("ENG_REV_VPS_SSH_KEY", content)
 
+    def test_runtime_dependency_isolation_and_retirement_gate(self):
+        obj = json.loads((NEW / "project.json").read_text(encoding="utf-8"))
+        isolation = obj["dependency_isolation"]
+        self.assertEqual(isolation["node_modules_path"], "/home/ubuntu/rea-final-runtime/node_modules")
+        self.assertEqual(isolation["external_supplier_copy_root"], "/home/ubuntu/rea-final-runtime/vendors")
+        self.assertFalse(isolation["fully_independent"])
+        self.assertFalse(obj["previous_legacy"]["retirement_permitted"])
+        self.assertTrue((NEW / "RETIRADA_LEGADO.md").is_file())
+
     def test_old_duplicate_script_removed(self):
         self.assertFalse((NEW / "scripts" / "vps_install.sh").exists())
 

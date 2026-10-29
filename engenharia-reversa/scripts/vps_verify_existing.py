@@ -12,6 +12,7 @@ URL = "https://github.com/morluto/rea.git"
 CANONICAL = Path("/home/ubuntu/rea-original-upstream-680")
 EVIDENCE = Path("/home/ubuntu/rea-original-upstream-680-evidence")
 LEGACY = Path("/opt/rea-reversa/rea")
+FINAL_RUNTIME = Path("/home/ubuntu/rea-final-runtime")
 EXPECTED_BINARIES = {
     "dist/process/ProcessOwnership.js": "2171c79dfa0e49c8836cef350c966746ceb90b246a2d678b2e98578167aff852",
     "dist/process/ProcessOwnershipObservation.js": "81b1aaeded14556d884adaffa570cef41909deb01f76fc25a2d7bd0f9a775655",
@@ -73,7 +74,12 @@ def inventory(root=CANONICAL, evidence=EVIDENCE, legacy=LEGACY):
     if deps.is_symlink():
         dest = deps.resolve(strict=False)
         r["observations"]["node_modules"] = {"kind": "symlink", "target": str(dest)}
-        r["dependency_isolation"] = "BLOCKED_SHARED_LEGACY" if dest == (legacy / "node_modules").resolve(strict=False) else "BLOCKED_OTHER_SYMLINK"
+        if dest == (legacy / "node_modules").resolve(strict=False):
+            r["dependency_isolation"] = "BLOCKED_SHARED_LEGACY"
+        elif dest == (FINAL_RUNTIME / "node_modules").resolve(strict=False) and dest.is_dir():
+            r["dependency_isolation"] = "FINAL_RUNTIME_COPY_PRESENT_VERIFY_TEST_EVIDENCE"
+        else:
+            r["dependency_isolation"] = "BLOCKED_OTHER_SYMLINK"
     elif deps.is_dir():
         r["dependency_isolation"] = "LOCAL_DIRECTORY_NOT_YET_CERTIFIED"
         r["observations"]["node_modules"] = {"kind": "local_directory"}
@@ -82,6 +88,10 @@ def inventory(root=CANONICAL, evidence=EVIDENCE, legacy=LEGACY):
     r["observations"]["evidence_dir_exists"] = evidence.is_dir()
     providers = Path("/opt/rea-reversa/providers")
     r["providers"] = "PRESENT_BUT_SHARED_LOCATION" if providers.is_dir() else "NOT_VERIFIED"
+    copies = FINAL_RUNTIME / "vendors"
+    r["observations"]["final_vendor_copies_present"] = copies.is_dir() and not copies.is_symlink()
+    r["observations"]["final_runtime_present"] = FINAL_RUNTIME.is_dir() and not FINAL_RUNTIME.is_symlink()
+    # Copy alone is not a certified provider and does not authorize legacy removal.
     return r
 
 
