@@ -58,6 +58,20 @@ class FinalProject(unittest.TestCase):
         self.assertNotIn("instalar-vps-somente-manual", w)
         self.assertNotIn("/home/ubuntu/engenharia-reversa-novo", w)
 
+    def test_versioned_skill_source_is_available(self):
+        folder = NEW / "skills" / "engenharia-reversa"
+        for name in (
+            "SKILL.md", "agents/openai.yaml",
+            "references/ambiente_final.md", "references/metodologia.md",
+            "references/relatorio.md", "scripts/inspecionar_artefacto.py"
+        ):
+            self.assertTrue((folder / name).is_file(), name)
+        content = (folder / "SKILL.md").read_text(encoding="utf-8")
+        self.assertTrue(content.startswith("---\nname: engenharia-reversa\n"))
+        self.assertIn(PIN, content)
+        self.assertIn("/home/ubuntu/rea-original-upstream-680", content)
+        self.assertNotIn("ENG_REV_VPS_SSH_KEY", content)
+
     def test_old_duplicate_script_removed(self):
         self.assertFalse((NEW / "scripts" / "vps_install.sh").exists())
 
