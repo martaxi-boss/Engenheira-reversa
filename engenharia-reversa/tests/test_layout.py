@@ -55,7 +55,9 @@ class IsolatedOriginalTests(unittest.TestCase):
         self.assertIn("engenharia-reversa-novo", deploy)
         self.assertNotIn("rea-original-upstream-680", deploy)
         self.assertNotIn("/srv/rea", deploy)
-        self.assertNotIn("sudo ", deploy)
+        active_script = "\n".join(line for line in deploy.splitlines() if not line.lstrip().startswith("#"))
+        self.assertNotRegex(active_script, r"(?m)^\s*sudo(?:\s|$)|[;&|]\s*sudo(?:\s|$)")
+        self.assertNotIn("rm -rf", active_script)
 
 
 if __name__ == "__main__":

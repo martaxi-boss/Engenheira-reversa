@@ -22,7 +22,7 @@ fi
 mkdir -p "${ROOT}/state" "${ROOT}/cache" "${ROOT}/tmp" "${ROOT}/evidence"
 
 if [[ ! -d "${SOURCE}/.git" ]]; then
-  git clone --no-checkout --filter=blob:none --depth=1 "${OFFICIAL_URL}" "${SOURCE}"
+  git clone --filter=blob:none --depth=1 "${OFFICIAL_URL}" "${SOURCE}"
 fi
 if [[ "$(git -C "${SOURCE}" remote get-url origin)" != "${OFFICIAL_URL}" ]]; then
   echo "BLOCKED: o checkout nao aponta para a fonte oficial" >&2

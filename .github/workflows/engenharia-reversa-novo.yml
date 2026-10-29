@@ -42,7 +42,12 @@ jobs:
           set -euo pipefail
           python3 -m unittest discover -s engenharia-reversa/tests -p 'test_*.py' -v
           bash -n engenharia-reversa/scripts/vps_install.sh
+          test_home="$(mktemp -d "${RUNNER_TEMP}/engenharia-reversa-novo.XXXXXX")"
+          trap 'rm -rf -- "$test_home"' EXIT
+          HOME="$test_home" bash engenharia-reversa/scripts/vps_install.sh
+          test -f "$test_home/engenharia-reversa-novo/source/scripts/rea.mjs"
           echo "NOVO_ENGINE_GITHUB_LAYOUT=PASS"
+          echo "NOVO_ENGINE_INSTALLER_SANDBOX=PASS"
           echo "NOVO_ENGINE_VPS_INSTALL=NOT_RUN"
           echo "NOVO_ENGINE_DECOMPILATION=NOT_TESTED"
   instalar-vps-somente-manual:
