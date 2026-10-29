@@ -235,3 +235,16 @@ A auditoria de processos [40971066042](https://github.com/martaxi-boss/VPS/actio
 4. Para libertar espaço: auditar os dois consumidores ativos e dependências opcionais antes de qualquer eliminação. Ler [RETIRADA_LEGADO.md](RETIRADA_LEGADO.md).
 
 Nenhuma instalação, eliminação, nova Skill, motor, workflow ou MCP foi realizada **nesta auditoria**. O estudo baseia-se na versão original exata, na árvore atual da VPS e nos logs novos das duas execuções.
+
+## Atualização posterior — separação completa da execução face ao legado (29/10/2026)
+
+Esta auditoria de dependências foi feita antes de terminar a migração de componentes opcionais. A informação histórica acima mantém-se válida para a hora da captura, **mas deixou de representar a configuração atual**.
+
+- Copiados Chromium, ILSpy, Pwndbg e Pwntools para o runtime privado final em [40974091601](https://github.com/martaxi-boss/VPS/actions/runs/40974091601), com correção de ligações internas do Pwndbg.
+- Normalizadas referências antigas em lançadores/venvs das cópias em [40974350944](https://github.com/martaxi-boss/VPS/actions/runs/40974350944).
+- O motor final passou health 4/4, com **0 fornecedores ativos apontados à instalação antiga**, em [40974532931](https://github.com/martaxi-boss/VPS/actions/runs/40974532931).
+- Auditoria final [40974645346](https://github.com/martaxi-boss/VPS/actions/runs/40974645346): 290 symlinks examinados e nenhum apontado ao legado; 0 referências de launcher/config nos ficheiros analisados; 0 caminhos do inventário final para o antigo.
+- Análise APK 3/3 PASS em [40974717355](https://github.com/martaxi-boss/VPS/actions/runs/40974717355); bloqueio de regressão no bridge comprovado em [40974869693](https://github.com/martaxi-boss/VPS/actions/runs/40974869693).
+- Hopper foi **excluído da lista de fornecedores ativos do motor final**, por falta de prontidão/licença. A contagem operacional passou a 25 componentes (inclui o binding Frida); o inventário histórico de 26 incluía Hopper por presença no host.
+
+A dependência de ferramentas comuns do Ubuntu em `/usr/bin` não é uma dependência do motor antigo, mas sim a base partilhada do sistema operativo. A eliminação do legado continua bloqueada enquanto os processos próprios antigos estiverem em execução.

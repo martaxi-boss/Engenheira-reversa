@@ -22,7 +22,7 @@
 | Provas e inventários | `/home/ubuntu/rea-original-upstream-680-evidence/isolation-20261029` | Preservados |
 | Instalação anterior | `/opt/rea-reversa/rea` | Preservada; sem remoção |
 
-As cópias incluem Node 24, JDK 21, Ghidra, JADX, Unblob, Binwalk, Rizin, Kuna, Wakaru, Mitmproxy, Cutter e WABT. A Skill já usa os novos caminhos; isto não certifica individualmente todas as funções dos doze programas. Foram excluídos Chromium (sandbox/AppArmor bloqueado) e Hopper (build/licença não certificada). A presença ou cópia de um programa **não equivale** a todas as suas funções estarem certificadas.
+As cópias incluem Node 24, JDK 21, Ghidra, JADX, Unblob, Binwalk, Rizin, Kuna, Wakaru, Mitmproxy, Cutter e WABT. A Skill já usa os novos caminhos; isto não certifica individualmente todas as funções dos doze programas. O Chromium foi copiado para a pasta privada final e teve versão verificada; a sessão de navegador continua sem certificação por limitações de sandbox/AppArmor. O Hopper comercial foi excluído do inventário ativo do projeto final. A presença ou cópia de um programa **não equivale** a todas as suas funções estarem certificadas.
 
 ## Evidências reais (GitHub Actions → VPS)
 
@@ -41,7 +41,7 @@ Estes resultados não significam que todas as 229 ferramentas do catálogo tenha
 
 ## O que falta para remover o legado
 
-1. **Confirmar os fornecedores opcionais ainda não certificados e quaisquer referências internas restantes**. Chromium continua na pasta antiga e não tem sessão funcional certificada; Hopper continua com limitações de versão/licença.
+1. **Rever apenas capacidades opcionais não certificadas**, sem reintroduzir dependências do sistema antigo. O Chromium já está na pasta privada final, mas a sessão de navegador ainda não está certificada; Hopper foi excluído do inventário ativo, sem partilhar a instalação global.
 2. Validar os serviços/processos que continuam a utilizar a instalação antiga (na auditoria anterior foram encontrados dois), antes de interromper ou remover qualquer um.
 3. Repetir os testes afetados, confirmar a Skill, preservar os dados e obter uma ordem separada de remoção.
 4. Para redução de espaço no GitHub, lembrar que apagar ficheiros do HEAD não remove automaticamente os objetos do histórico Git; nunca reescrever histórico ou fazer force-push sem aprovação específica.
@@ -62,3 +62,7 @@ O motor final é único; as provas são rastreáveis e cada migração é revers
 ## Auditoria integral comparativa com o autor (29/10/2026)
 
 Foi executada auditoria read-only na VPS [40971914250](https://github.com/martaxi-boss/VPS/actions/runs/40971914250), complementada por diagnósticos [40972191490](https://github.com/martaxi-boss/VPS/actions/runs/40972191490), comparando o motor final com **o mesmo commit original do autor**, não com a instalação antiga. Resultado: **42/42 dependências npm obrigatórias, 1/1 Frida opcional, 27/27 de desenvolvimento e 26/26 programas no inventário disponíveis**. Ghidra/JADX/Kuna PASS; Hopper/IDA opcionais pendentes. O relatório identifica ferramentas gratuitas opcionais não encontradas no PATH e as não aplicáveis a Linux. Ver [AUDITORIA_COMPARATIVA_ORIGINAL_20261029.md](AUDITORIA_COMPARATIVA_ORIGINAL_20261029.md). Não houve instalações nem remoções.
+
+## Separação rigorosa do motor antigo — verificada
+
+Os componentes específicos do motor final têm agora cópias próprias, sem qualquer caminho ativo para a instalação 6.8 antiga. Foram analisados 9 252 itens no checkout e 64 713 no runtime, incluindo 290 symlinks (0 para o legado): [40974645346](https://github.com/martaxi-boss/VPS/actions/runs/40974645346). A Skill passou health 4/4 e APK 3/3 após a migração, com regra de bloqueio de regressão no bridge. Ver [SEPARACAO_ABSOLUTA_20261029.md](SEPARACAO_ABSOLUTA_20261029.md). Isto **não autoriza apagar a instalação antiga enquanto os seus processos estiverem ativos**.

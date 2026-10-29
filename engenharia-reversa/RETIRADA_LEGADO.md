@@ -17,15 +17,15 @@
 ## Portas que impedem eliminar o antigo já
 
 - [ ] **Consumidores ativos:** a auditoria [40968060294](https://github.com/martaxi-boss/VPS/actions/runs/40968060294) encontrou dois processos associados a caminhos antigos (um Node e um Python). Confirmar que serviço os utiliza, se pertence a outro projeto e que substituição é adequada. Não parar processos de terceiros.
-- [ ] **Fornecedor opcional Chromium:** ainda aponta para `/opt/rea-reversa/providers/chromium-playwright-1.58.2` e o sandbox está bloqueado; não contornar AppArmor nem declarar este fornecedor certificado.
+- [x] **Chromium sem partilha:** cópia própria em `/home/ubuntu/rea-final-runtime/vendors/providers/chromium-playwright-1.58.2` (run 40974091601). A sessão de navegador **não** está certificada devido ao sandbox; não contornar AppArmor.
 - [ ] **Hopper:** pacote externo existente, versão/build não certificado para o motor, sem licença paga. Não adicionar aos fornecedores certificados por simples presença.
-- [ ] **Referências internas:** fazer leitura final de scripts, configurações, virtualenvs e symlinks para verificar que nenhuma operação necessária continua a depender da instalação antiga. Não confundir 26 componentes presentes com certificação integral das 229 ferramentas.
+- [x] **Referências internas usadas pela Skill:** auditados 9 252 itens do checkout e 64 713 do runtime, incluindo 290 symlinks: 0 referências de execução e 0 links para o motor antigo no escopo [40974645346](https://github.com/martaxi-boss/VPS/actions/runs/40974645346). Não confundir isto com certificação de todas as 229 ferramentas.
 - [ ] **Verificação de serviço pós-retirada:** plano de rollback, prova de saúde e ensaios com entradas controladas após migração dos consumidores.
 - [ ] **Autorização separada de remoção:** somente depois de todas as portas acima estarem resolvidas, identificar caminhos exatos autorizados, estimativa de espaço libertado e plano de reversão.
 
 ## GitHub
 
-O projeto final está em `engenharia-reversa/` com o original fixado como submódulo. O antigo está em `rea/` (árvore Git e respetivos submódulos), `certifications/` e histórico. **Não apagar ainda**. Quando for expressamente aprovado, preparar um PR que remova apenas os caminhos legados e as secções legadas de `.gitmodules`, preservando o submódulo final, código e evidências essenciais. Remover ficheiros do HEAD diminui o checkout, mas não elimina automaticamente o histórico Git nem garante uma redução igual do armazenamento remoto; não executar reescrita de histórico/force push por rotina.
+O projeto final tem o seu diretório `engenharia-reversa/` e runtime exclusivo na VPS, com o original fixado como submódulo. O antigo está em `rea/` (árvore Git e respetivos submódulos), `certifications/` e histórico. **Não apagar ainda**. Quando for expressamente aprovado, preparar um PR que remova apenas os caminhos legados e as secções legadas de `.gitmodules`, preservando o submódulo final, código e evidências essenciais. Remover ficheiros do HEAD diminui o checkout, mas não elimina automaticamente o histórico Git nem garante uma redução igual do armazenamento remoto; não executar reescrita de histórico/force push por rotina.
 
 ## Regras
 
@@ -48,4 +48,4 @@ Não criar outro motor, não usar Codex, não instalar MCP adicional, não mexer
 
 Foram observados **dois processos** que referenciam caminhos da árvore antiga: um processo Node com referência direta ao **motor legado**, e um processo Python com referência a caminhos antigos que precisam de ser identificados. Nenhum foi parado ou alterado. O motor final mantém o estado `ISOLATED_FINAL_RUNTIME` no diagnóstico.
 
-**Próxima condição obrigatória:** identificar os serviços associados aos dois processos e confirmar que podem ser desativados ou migrados sem afetar outros projetos. Retirar o legado continua **bloqueado**.
+**Próxima condição obrigatória:** identificar os serviços associados aos dois processos e confirmar que podem ser desativados sem afetar outros projetos. A nova instalação já deixou de utilizar fornecedores ou dependências do legado — prova [40974645346](https://github.com/martaxi-boss/VPS/actions/runs/40974645346). Retirar o legado continua **bloqueado** por causa dos seus processos e da autorização de retirada.
