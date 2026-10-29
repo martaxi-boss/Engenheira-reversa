@@ -15,6 +15,20 @@ description: Usar a Engenharia Reversa para auditar, descompilar e investigar so
 - **Dependências ainda por isolar**: `node_modules` do novo motor tem/teve ligação simbólica para `/opt/rea-reversa/rea/node_modules`, e alguns fornecedores estão sob `/opt/rea-reversa/providers`. A independência total e a ligação da própria Skill ao motor ainda **não foram certificadas de ponta a ponta**. Nunca declarar o legado pronto para apagar; a remoção exige migração/validação e ordem explícita futura.
 - **Não utilizar o conector antigo `REA_6_8_0` como execução do motor final.** Usar apenas a CLI do checkout final, identificada pelo SHA do commit e caminhos reais. Se não houver possibilidade de executar GitHub Actions/SSH no contexto, distinguir `acesso a registos` de `execução real pendente`.
 
+## Ponte operacional para pedidos reais (GitHub Actions -> SSH -> CLI final)
+
+A Skill pode enviar pedidos de leitura ao motor final pelo conector GitHub instalado. A existencia destas instrucoes nao prova a execucao: **ler os logs exatos de cada pedido**.
+
+- Repositorio de transporte: `martaxi-boss/VPS`, branch `rea/one-skill-bridge-20261023`, ficheiro `rea-linux/skill-requests/current.json`, script `rea-linux/skill-bridge/execute_request.py`, workflow existente `.github/workflows/rea-mcp-transport-20261027.yml`.
+- Operacoes permitidas: `health`, `providers`, `inspect_elf`, `apk_demo` (APK publica com hash fixado). Sem comandos shell ou caminhos arbitrarios. Para analisar ficheiros privados do utilizador e preciso primeiro um transporte seguro especifico.
+- Primeiro ler `current.json` na branch acima com o conector GitHub `fetch_file`, guardando o SHA do blob. Gerar um identificador unico de 8-80 caracteres `[A-Za-z0-9._-]`.
+- Enviar usando GitHub `update_file` na MESMA branch, com a mensagem `skill-request: <request_id>`, o SHA consultado e estas cinco chaves exatas: `schema_version:1`, `project:"engenharia-reversa-final"`, `engine_commit:"160d821ac9a0310afcb8d1fc427862dd6508add5"`, `request_id`, `operation`.
+- Obter o SHA do novo commit e procurar a execucao GitHub Actions cujo `head_sha` corresponda exatamente. Ler os jobs com `fetch_workflow_run_jobs`, selecionar `engenharia-reversa-skill`, depois ler os logs via `fetch_workflow_job_logs`.
+- Apenas declarar PASS depois de ler `REA_SKILL_BRIDGE_RESULT=<JSON>` e confirmar `request_id`, `status:PASS`, identidade do motor e resultados reais. Se faltar, reportar BLOQUEADO sem inventar sucesso.
+- A CLI executa na VPS `/home/ubuntu/rea-original-upstream-680/scripts/rea.mjs` depois de conferir commit, hashes compilados e versao; o conector antigo `REA_6_8_0` nao e utilizado.
+- `present:true` na lista de fornecedores so confirma presenca do programa, nao certificacao funcional. Ainda existem dependencias partilhadas com `/opt/rea-reversa`; nao apagar o legado.
+- Este procedimento nao cria novo motor, workflow, servidor, servico ou MCP. Consultar `references/ponte_operacional.md` para exemplos.
+
 ## Identidade e separação absoluta
 
 - Tratar esta Skill como **um projeto novo e independente**. Não carregar nem assumir versões de motores, repositórios, branches, servidores, credenciais, integrações, workflows, relatórios ou resultados de projetos anteriores.

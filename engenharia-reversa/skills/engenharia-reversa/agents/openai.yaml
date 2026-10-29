@@ -1,4 +1,4 @@
 interface:
   display_name: "Engenharia Reversa"
   short_description: "Análise e auditoria técnica independente com provas verificáveis"
-  default_prompt: "Usa a Engenharia Reversa FINAL instalada em /home/ubuntu/rea-original-upstream-680; consulta engenharia-reversa/project.json no GitHub, valida a ponte existente e apresenta provas reais. Nao uses o motor legado nem declares uma ligacao sem teste."
+  default_prompt: "Executa pedidos controlados no motor FINAL pela ponte GitHub Actions existente, valida os resultados e evita usar o REA legado."
