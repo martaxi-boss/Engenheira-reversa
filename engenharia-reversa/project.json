@@ -313,6 +313,13 @@
     "strict_scan_legacy_symlinks": 0,
     "strict_scan_legacy_launcher_references": 0,
     "strict_scan_legacy_active_providers": 0,
-    "installed_plugin_validation": "Installed skill read-back still includes pre-retirement instructions. GitHub source is fixed; release sync not verified."
+    "installed_plugin_validation": "As of 2026-10-30 the installed Engenharia Reversa skill still has pre-retirement instructions. GitHub skill source is fixed; publishing to the existing installed plugin requires its exact verified backend plugin ID/current release.",
+    "legacy_chatgpt_connector": {
+      "slug": "rea-6-8-0",
+      "result": "UNINSTALLED",
+      "date": "2026-10-30",
+      "verified_by": "Plugin_Management.uninstall_app",
+      "note": "Only the old ChatGPT connector was uninstalled. The original author's final engine, GitHub operational bridge, and final Engenharia Reversa skill were retained."
+    }
   }
 }
