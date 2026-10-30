@@ -248,11 +248,11 @@
   "chatgpt_skill": {
     "installed": "CONFIRMED",
     "bound_to_final_motor": "NO_LEGACY_PROVIDERS_STRICT_GUARD_ACTIVE",
-    "end_to_end": "STRICT_HEALTH_40974869693_AND_APK_40974717355",
+    "end_to_end": "MCP_CATALOG_41027641420_DESCRIBE_41028138424_CALL_41028238883",
     "repository_source": "engenharia-reversa/skills/engenharia-reversa/SKILL.md",
     "update_archive_prepared": true,
-    "installed_skill_source_sync": "PENDING_PLUGIN_RELEASE_VALIDATION",
-    "live_ops_limit": "ALLOWED_READ_ONLY_FIXED_FIXTURES"
+    "installed_skill_source_sync": "VERIFIED_INSTALLED_PLUGIN_V1_0_2_WITH_CANONICAL_SOURCE",
+    "live_ops_limit": "DYNAMIC_ORIGINAL_MCP_TOOL_SELECTION; EFFECT_AWARE_READ_ONLY; MUTATING_TOOLS_REQUIRE_SEPARATE_AUTHORIZATION"
   },
   "prohibitions": [
     "DELETE_LEGACY_WITHOUT_NEW_OWNER_ORDER",
@@ -298,7 +298,7 @@
     "auxiliary_docs_corrected": true,
     "verifier_checks_final_runtime": true,
     "vps_operational_bridge_cleanup": "COMPLETED_PR_310",
-    "installed_plugin_skill_release": "PENDING_INSTALLED_PLUGIN_NOT_SYNCHRONIZED",
+    "installed_plugin_skill_release": "PUBLISHED_PLUGIN_V1_0_2",
     "fresh_ssh_post_cleanup_test": "PASS",
     "vps_bridge_cleanup_commit": "2faa3621ef607de9388e404bc614cc9555542f2a",
     "vps_bridge_ci_run": 40980084601,
@@ -313,7 +313,7 @@
     "strict_scan_legacy_symlinks": 0,
     "strict_scan_legacy_launcher_references": 0,
     "strict_scan_legacy_active_providers": 0,
-    "installed_plugin_validation": "As of 2026-10-30 the installed Engenharia Reversa skill still has pre-retirement instructions. GitHub skill source is fixed; publishing to the existing installed plugin requires its exact verified backend plugin ID/current release.",
+    "installed_plugin_validation": "Read-back verified plugin release v1.0.2: dynamic original MCP catalog, schema lookup and tool call, without new MCP; original engine unchanged.",
     "legacy_chatgpt_connector": {
       "slug": "rea-6-8-0",
       "result": "UNINSTALLED",
@@ -342,6 +342,18 @@
       "post_deletion_runtime_private_copies_present": true,
       "post_deletion_disk_free_bytes": 30223257600,
       "notes": "du prior to removal reported ~41M+272M+104M for directories, but df free delta measured only 65523712 bytes; do not claim all du blocks were reclaimed. Three copies removed. Other staging uv and final runtime preserved."
+    },
+    "dynamic_mcp_bridge_20261030": {
+      "engine_commit": "160d821ac9a0310afcb8d1fc427862dd6508add5",
+      "catalog_test_run": 41027641420,
+      "catalog_tools": 229,
+      "schema_lookup_run": 41028138424,
+      "dynamic_tool_call_run": 41028238883,
+      "dynamic_tool_call": "inspect_analysis_settings",
+      "dynamic_tool_call_status": "PASS",
+      "legacy_suppliers_used": 0,
+      "does_not_prove_all_tools_certified": true,
+      "effects_checked": true
     }
   }
 }
