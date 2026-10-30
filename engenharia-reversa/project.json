@@ -320,6 +320,28 @@
       "date": "2026-10-30",
       "verified_by": "Plugin_Management.uninstall_app",
       "note": "Only the old ChatGPT connector was uninstalled. The original author's final engine, GitHub operational bridge, and final Engenharia Reversa skill were retained."
+    },
+    "additional_hygiene_20261030": {
+      "component": "three optional supplier staging copies only",
+      "deleted_paths": [
+        "/home/ubuntu/.local/share/rea-optional-ilspycmd-11.2.0",
+        "/home/ubuntu/.local/share/rea-optional-pwndbg-2026.09.15",
+        "/home/ubuntu/.local/share/rea-optional-pwntools-4.15.0"
+      ],
+      "terminal_measured_additional_free_bytes": 65523712,
+      "terminal_measured_additional_free_mib_approx": 62.49,
+      "terminal_evidence": "OWNER_CONNECTBOT_SCREENSHOT_2026-10-30_0627UTC",
+      "post_deletion_ssh_action_run": 41014260926,
+      "post_deletion_verify_status": "PASS",
+      "post_deletion_dir_presence": [
+        false,
+        false,
+        false
+      ],
+      "post_deletion_final_source_commit_ok": true,
+      "post_deletion_runtime_private_copies_present": true,
+      "post_deletion_disk_free_bytes": 30223257600,
+      "notes": "du prior to removal reported ~41M+272M+104M for directories, but df free delta measured only 65523712 bytes; do not claim all du blocks were reclaimed. Three copies removed. Other staging uv and final runtime preserved."
     }
   }
 }
