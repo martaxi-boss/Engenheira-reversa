@@ -17,7 +17,8 @@
     "previously_installed_and_compiled": "PASS_FROM_2026_10_29_SSH_TESTS",
     "new_installation_required": false,
     "live_readback_this_change": "STRICT_INDEPENDENCE_PASS_40974645346_AND_GUARD_HEALTH_40974869693",
-    "final_runtime_path": "/home/ubuntu/rea-final-runtime"
+    "final_runtime_path": "/home/ubuntu/rea-final-runtime",
+    "post_legacy_cleanup_verification": "2026-10-30_USER_TERMINAL_PROVIDERS_PASS_LEGACY_ABSENT_29G_FREE"
   },
   "operational_bridge": {
     "repository": "martaxi-boss/VPS",
@@ -42,12 +43,12 @@
   "previous_legacy": {
     "repository_folder": "rea/",
     "installation_path": "/opt/rea-reversa/rea",
-    "retirement_permitted": false,
+    "retirement_permitted": true,
     "untouched": false,
     "vps_cleanup": {
       "observed_on": "2026-10-30",
       "evidence": "USER_SUPPLIED_CONNECTBOT_SCREENSHOTS_AFTER_EXECUTION",
-      "status": "LEGACY_RUNTIME_MAIN_DIRECTORIES_REMOVED_RESIDUAL_FILES_PRESENT",
+      "status": "LEGACY_DIRECTORY_ABSENT_FINAL_PROVIDERS_EXIT_ZERO",
       "services_disabled": [
         "rea-reversa-mcp.service",
         "rea-mcp-oauth.service"
@@ -58,18 +59,20 @@
         "/opt/rea-reversa/tools",
         "/opt/rea-reversa/oauth-auth"
       ],
-      "remaining_entries_unverified": [
-        "/opt/rea-reversa/.rea-reversa-deployment-v1",
-        "/opt/rea-reversa/bin",
-        "/opt/rea-reversa/rollbacks",
-        "/opt/rea-reversa/upgrades"
-      ],
-      "final_cli_post_cleanup": "PROVIDERS_EXIT_ZERO_USER_SCREENSHOT",
+      "remaining_entries_unverified": [],
+      "final_cli_post_cleanup": "PROVIDERS_EXIT_ZERO_AFTER_FULL_REMOVAL_USER_SCREENSHOT",
       "free_disk_before_gb_rounded": 23,
-      "free_disk_after_gb_rounded": 28,
-      "github_legacy_removed": false,
-      "reminder": "Do not delete remaining entries until ownership and dependencies have been inspected; source version 6.8.0 belongs to the distinct final checkout as well."
-    }
+      "free_disk_after_gb_rounded": 29,
+      "github_legacy_removed": true,
+      "reminder": "The independent final checkout also declares package version 6.8.0, but is not the retired installation; no Git history rewrite performed."
+    },
+    "repository_removed_from_head": true,
+    "removal_authorized_by_owner": true,
+    "github_deleted_paths": [
+      "rea/",
+      "certifications/"
+    ],
+    "legacy_submodules_removed": 5
   },
   "acceptance_evidence": [
     {
@@ -203,14 +206,14 @@
     "external_supplier_stage_run": 40969427731,
     "external_suppliers_still_point_to_old_paths": false,
     "fully_independent": true,
-    "legacy_retirement_gate": "BLOCKED_ONLY_BY_ACTIVE_OLD_PROCESS_RETIREMENT_REVIEW_AND_EXPLICIT_DELETION_APPROVAL",
+    "legacy_retirement_gate": "CLEARED_OWNER_APPROVED_LEGACY_REMOVED_2026_10_30",
     "active_legacy_supplier_names": [],
     "retested_copied_supplier_run": 40969647492,
     "unblob_independent_wrapper_run": 40970111752,
     "unblob_independent_wrapper_path": "/home/ubuntu/rea-final-runtime/bin/unblob",
     "activated_supplier_bridge_run": 40970285268,
     "legacy_running_processes_observed_in_audit": 2,
-    "legacy_processes_rechecked_after_migration": false,
+    "legacy_processes_rechecked_after_migration": true,
     "legacy_footprint_audit_run": 40971066042,
     "legacy_engine_size_gib_approx": 1.01,
     "legacy_providers_size_gib_approx": 3,

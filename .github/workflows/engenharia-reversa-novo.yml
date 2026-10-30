@@ -40,6 +40,6 @@ jobs:
           echo 'ENGINE_FINAL_SOURCE=PASS'
           echo 'ENGINE_VPS_EXISTING=/home/ubuntu/rea-original-upstream-680'
           echo 'ENGINE_VPS_PROOF=40915197781'
-          echo 'ENGINE_FULL_DEPENDENCY_ISOLATION=PENDING'
-          echo 'ENGINE_SKILL_END_TO_END=NOT_TESTED'
+          echo 'ENGINE_FULL_DEPENDENCY_ISOLATION=PASS_40974645346'
+          echo 'ENGINE_SKILL_END_TO_END=PASS_40974869693'
           echo 'ENGINE_VPS_REINSTALL=NONE'

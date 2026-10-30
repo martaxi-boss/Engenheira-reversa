@@ -2,7 +2,7 @@
 
 ## Regra do proprietário
 
-**O motor FINAL não usa dependências nem fornecedores instalados exclusivamente para o 6.8 anterior.** Cada projeto tem o seu código e runtime separados. Não reintroduzir ligações ao legado. O motor anterior não foi atualizado nem desinstalado.
+**O motor FINAL não usa dependências nem fornecedores instalados exclusivamente para o 6.8 anterior.** Cada projeto tem o seu código e runtime separados. Não reintroduzir ligações ao legado. O motor anterior foi desativado e eliminado em 30/10/2026, após verificação do checkout final.
 
 ## Estrutura na VPS
 
@@ -41,10 +41,8 @@ O teste é limitado aos diretórios e ficheiros examinados. Não demonstra funci
 
 Comandos do Ubuntu como `/usr/bin/gdb`, `/usr/bin/ffmpeg`, `/usr/bin/adb` ou o Python de base pertencem ao próprio sistema operativo e podem servir várias aplicações. **Isto não cria uma dependência entre o motor final e o 6.8.** Um isolamento completo das bibliotecas e pacotes do próprio Ubuntu exigiria um ambiente de sistema separado (como um contentor com imagem própria); isso não foi criado nem é necessário para separar os motores.
 
-### O que ainda impede apagar o projeto antigo
+### Atualização de retirada — 30/10/2026
 
-A [auditoria 40971066042](https://github.com/martaxi-boss/VPS/actions/runs/40971066042) identificou dois processos com referências ao legado, um deles associado diretamente ao motor antigo. São **processos do sistema antigo**, não dependências do final; não foram interrompidos.
+A auditoria anterior [40971066042](https://github.com/martaxi-boss/VPS/actions/runs/40971066042) identificou dois processos do legado. O proprietário identificou-os como `rea-reversa-mcp.service` e `rea-mcp-oauth.service`, parou-os e desativou-os. O teste posterior mostrou ausência de processos antigos, `/opt/rea-reversa` completamente eliminado e a CLI `providers --json` do motor final a funcionar, com 29 GB livres. Prova: capturas do terminal fornecidas ao projeto em 30/10/2026.
 
-A remoção das suas pastas, dos fornecedores antigos, dos submódulos `rea/` e do histórico Git exige avaliação de consumidores ativos e uma operação de retirada separada. A independência do final já não depende da eliminação do antigo.
-
-Não foram instalados novos motores, servidores, MCPs, coordenadores, DNS ou workflows. O GitHub mantém as árvores de código antigo e final em pastas distintas até a futura retirada aprovada.
+O repositório GitHub atual já não inclui `rea/`, `certifications/` ou os cinco submódulos históricos antigos; manteve `engenharia-reversa/original` fixado no commit do autor. A ponte `martaxi-boss/VPS` e o histórico Git não foram apagados. Não foram instalados motores, servidores, MCPs, DNS ou workflows adicionais nesta retirada.
