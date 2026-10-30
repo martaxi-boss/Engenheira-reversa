@@ -297,8 +297,22 @@
     "legacy_directory_absent_from_main": true,
     "auxiliary_docs_corrected": true,
     "verifier_checks_final_runtime": true,
-    "vps_operational_bridge_cleanup": "PENDING",
-    "installed_plugin_skill_release": "PENDING_VALIDATION",
-    "fresh_ssh_post_cleanup_test": "NOT_VERIFIED_DURING_THIS_AUDIT"
+    "vps_operational_bridge_cleanup": "COMPLETED_PR_310",
+    "installed_plugin_skill_release": "PENDING_INSTALLED_PLUGIN_NOT_SYNCHRONIZED",
+    "fresh_ssh_post_cleanup_test": "PASS",
+    "vps_bridge_cleanup_commit": "2faa3621ef607de9388e404bc614cc9555542f2a",
+    "vps_bridge_ci_run": 40980084601,
+    "fresh_ssh_health_run": 40980208602,
+    "fresh_ssh_health_operations_passed": 4,
+    "fresh_ssh_health_legacy_suppliers": 0,
+    "fresh_ssh_strict_separation_run": 40980322799,
+    "fresh_ssh_strict_separation_status": "PASS",
+    "strict_scan_checkout_items": 9252,
+    "strict_scan_runtime_items": 64713,
+    "strict_scan_runtime_symlinks": 290,
+    "strict_scan_legacy_symlinks": 0,
+    "strict_scan_legacy_launcher_references": 0,
+    "strict_scan_legacy_active_providers": 0,
+    "installed_plugin_validation": "Installed skill read-back still includes pre-retirement instructions. GitHub source is fixed; release sync not verified."
   }
 }

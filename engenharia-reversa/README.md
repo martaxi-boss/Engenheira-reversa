@@ -47,6 +47,14 @@ No GitHub, as árvores antigas `rea/` e `certifications/` e cinco referências d
 
 A confirmação de funcionamento pós-retirada é um teste real da CLI `providers --json` no motor final, não certificação de todas as ferramentas e interfaces opcionais. Consultar [RETIRADA_LEGADO.md](RETIRADA_LEGADO.md).
 
+
+## Revalidação real após remoção (30/10/2026)
+
+- [Health GitHub Actions #40980208602](https://github.com/martaxi-boss/VPS/actions/runs/40980208602): motor original validado por commit e hashes, `ISOLATED_FINAL_RUNTIME`, 4/4 operações PASS, 25 fornecedores inventariados e 0 referências ativas ao legado.
+- [Separação rigorosa #40980322799](https://github.com/martaxi-boss/VPS/actions/runs/40980322799): 9 252 itens do checkout e 64 713 do runtime verificados, 290 links simbólicos examinados, 0 links ou fornecedores ativos a apontar para o legado, 0 lançadores antigos nos ficheiros examinados.
+- [Limpeza do GitHub/VPS #40980084601](https://github.com/martaxi-boss/VPS/actions/runs/40980084601): ponte existente validada após retirada dos scripts do legado na branch operacional por PR #310.
+- **Limite:** a Skill já foi corrigida no repositório, mas a release atualmente instalada no ChatGPT ainda contém instruções anteriores à retirada. A atualização da release requer identificar o plugin original; não confundir fonte GitHub atualizada com release do plugin efetivamente instalada.
+
 ## Verificação, documentação e Skill
 
 - `project.json` guarda identidade, estado real e IDs das provas.

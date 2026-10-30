@@ -116,6 +116,18 @@ class FinalProject(unittest.TestCase):
         self.assertIn("legacy_installation_absent", source)
         self.assertNotIn("PRESENT_BUT_SHARED_LOCATION", source)
 
+    def test_evidence_after_legacy_retirement(self):
+        state = json.loads((NEW / "project.json").read_text(encoding="utf-8"))
+        audit = state["post_retirement_audit"]
+        self.assertEqual(audit["vps_operational_bridge_cleanup"], "COMPLETED_PR_310")
+        self.assertEqual(audit["fresh_ssh_post_cleanup_test"], "PASS")
+        self.assertEqual(audit["fresh_ssh_health_run"], 40980208602)
+        self.assertEqual(audit["fresh_ssh_strict_separation_run"], 40980322799)
+        self.assertEqual(audit["strict_scan_legacy_symlinks"], 0)
+        self.assertEqual(audit["strict_scan_legacy_active_providers"], 0)
+        self.assertIn("160d821ac9a0310afcb8d1fc427862dd6508add5", json.dumps(state))
+        self.assertNotEqual(audit["installed_plugin_skill_release"], "UPDATED")
+
     def test_old_duplicate_script_removed(self):
         self.assertFalse((NEW / "scripts" / "vps_install.sh").exists())
 
