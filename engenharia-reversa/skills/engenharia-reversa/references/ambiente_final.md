@@ -16,14 +16,14 @@
 
 Os testes acima nao provam que todas as ferramentas e fornecedores foram certificados sem excecoes. Nao repetir ensaios validos sem alteracao material do ambiente.
 
-## Dependencias e regra de eliminacao
+## Dependencias proprias e retirada concluida em 30/10/2026
 
-- Estado verificado em [40968620168](https://github.com/martaxi-boss/VPS/actions/runs/40968620168): `node_modules` do motor final foi movido, como copia independente, para `/home/ubuntu/rea-final-runtime/node_modules`, mantendo um symlink do checkout para esse caminho. O motor passou 8/8 ensaios; o legado nao foi alterado.
-- [40968899758](https://github.com/martaxi-boss/VPS/actions/runs/40968899758): provas funcionais Ghidra, JADX, Unblob e limpeza de processos depois da independencia npm.
-- [40969427731](https://github.com/martaxi-boss/VPS/actions/runs/40969427731): copiaram-se 12 distribuicoes externas para `/home/ubuntu/rea-final-runtime/vendors`; hashes dos 12 executaveis/artefactos coincidem, mas ainda nao se demonstrou independencia integral dos fornecedores.
-- [40969647492](https://github.com/martaxi-boss/VPS/actions/runs/40969647492): 11 testes reais de fornecedores copiados PASS; [40970111752](https://github.com/martaxi-boss/VPS/actions/runs/40970111752): Python do Unblob independente e extração comprovada; [40970285268](https://github.com/martaxi-boss/VPS/actions/runs/40970285268): Skill health 4/4 nos novos caminhos, único item ainda referenciado na árvore antiga no inventário atual: Chromium.
-- A independencia completa **continua pendente** porque alguns fornecedores e processos ativos ainda referenciam pastas antigas. Antes de eliminar o legado, obter dependencias e fornecedores autonomos, verificar o ambiente atual da VPS e repetir os testes afetados.
-- Nao eliminar, relocalizar, parar servicos ou limpar ficheiros do projeto antigo sem nova ordem explicita do proprietario, apos certificacao de autonomia.
+- A versao de codigo que permanece e a **original do autor**, `morluto/rea` no commit `160d821ac9a0310afcb8d1fc427862dd6508add5`, pacote oficial `6.8.0`. A versao do pacote nao deve ser renomeada por causa da retirada da instalacao antiga.
+- `node_modules` do motor final agora liga exclusivamente a `/home/ubuntu/rea-final-runtime/node_modules`; demonstrado em [40968620168](https://github.com/martaxi-boss/VPS/actions/runs/40968620168).
+- Os fornecedores ativos ficam na pasta independente `/home/ubuntu/rea-final-runtime/vendors`, e os opcionais no runtime privado, validados nos ensaios [40969647492](https://github.com/martaxi-boss/VPS/actions/runs/40969647492), [40974350944](https://github.com/martaxi-boss/VPS/actions/runs/40974350944) e [40974645346](https://github.com/martaxi-boss/VPS/actions/runs/40974645346). Isto nao certifica automaticamente todos os fornecedores.
+- **Legado retirado:** os dois servicos antigos foram parados e desativados; a pasta `/opt/rea-reversa` foi eliminada pelo proprietario em 30/10/2026. O comando de teste de fornecedores do motor final passou **apos** a retirada e o terminal mostrou `LEGADO ELIMINADO` e `MOTOR FINAL: OK`.
+- No GitHub final, `rea/`, `certifications/` e cinco submodulos antigos foram removidos do HEAD pelo PR #10. Os commits antigos mantem-se no historico, sem reescrita.
+- **Nao** reinstalar dependencias, fornecedores, processos ou servicos antigos. Manter isolado o motor final, sem modificar o codigo do autor.
 
 ## Uso na Skill
 

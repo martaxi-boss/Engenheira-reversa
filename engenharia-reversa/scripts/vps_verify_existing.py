@@ -41,7 +41,7 @@ def inventory(root=CANONICAL, evidence=EVIDENCE, legacy=LEGACY):
         "source": "NOT_TESTED",
         "dependency_isolation": "NOT_TESTED",
         "providers": "NOT_TESTED",
-        "legacy_retirement_permitted": False,
+        "legacy_retirement_completed": not legacy.parent.exists(),
         "changes_made": False,
         "observations": {},
     }
@@ -86,12 +86,13 @@ def inventory(root=CANONICAL, evidence=EVIDENCE, legacy=LEGACY):
     else:
         r["dependency_isolation"] = "MISSING"
     r["observations"]["evidence_dir_exists"] = evidence.is_dir()
-    providers = Path("/opt/rea-reversa/providers")
-    r["providers"] = "PRESENT_BUT_SHARED_LOCATION" if providers.is_dir() else "NOT_VERIFIED"
     copies = FINAL_RUNTIME / "vendors"
+    r["providers"] = ("FINAL_VENDOR_RUNTIME_PRESENT" if copies.is_dir() and not copies.is_symlink()
+                      else "FINAL_VENDOR_RUNTIME_MISSING")
     r["observations"]["final_vendor_copies_present"] = copies.is_dir() and not copies.is_symlink()
     r["observations"]["final_runtime_present"] = FINAL_RUNTIME.is_dir() and not FINAL_RUNTIME.is_symlink()
-    # Copy alone is not a certified provider and does not authorize legacy removal.
+    r["observations"]["legacy_installation_absent"] = not legacy.parent.exists()
+    # Presence of a program does not imply functional certification.
     return r
 
 
@@ -106,7 +107,7 @@ def main():
         result = inventory(args.root, args.evidence, args.legacy)
     except (OSError, RuntimeError, subprocess.TimeoutExpired) as exc:
         result = {"project": "engenharia-reversa-final", "source": "BLOCKED",
-                  "error_type": type(exc).__name__, "legacy_retirement_permitted": False}
+                  "error_type": type(exc).__name__, "legacy_retirement_completed": None}
     print(json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2))
     return 0 if result.get("source") == "PASS" else 2
 

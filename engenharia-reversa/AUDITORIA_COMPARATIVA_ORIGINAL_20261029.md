@@ -1,5 +1,8 @@
 # Auditoria comparativa do motor FINAL com o original do autor — 29/10/2026
 
+> **Levantamento historico de 29/10/2026.** Frases abaixo sobre fornecedores ainda partilhados, retirada futura, servicos ativos e Chromium na arvore antiga descrevem a situacao na data do levantamento. **Estado atualizado em 30/10/2026:** o legado foi desinstalado e o codigo do autor permanece intacto no checkout final. Consultar [RETIRADA_LEGADO.md](RETIRADA_LEGADO.md) e [ambiente atual](skills/engenharia-reversa/references/ambiente_final.md).
+
+
 ## Âmbito, identidade e provas
 
 **Comparador:** código original do autor [`morluto/rea` no commit imutável `160d821ac9a0310afcb8d1fc427862dd6508add5`](https://github.com/morluto/rea/tree/160d821ac9a0310afcb8d1fc427862dd6508add5), não a instalação antiga `/opt/rea-reversa/rea`. A versão do original neste commit é `rea-agents 6.8.0`; trata-se da referência do autor e não de uma comparação com o legado.
