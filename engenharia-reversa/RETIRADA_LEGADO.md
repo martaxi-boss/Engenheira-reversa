@@ -29,3 +29,9 @@ Os ensaios da CLI não certificam cada ferramenta MCP, fornecedores comerciais, 
 - [#40980322799](https://github.com/martaxi-boss/VPS/actions/runs/40980322799) — auditoria rigorosa de 73 965 elementos e 290 links simbólicos, **0** caminhos operacionais antigos dentro do âmbito examinado.
 - [#40980084601](https://github.com/martaxi-boss/VPS/actions/runs/40980084601) — workflow SSH existente validado depois da limpeza dos scripts legados no GitHub (PR #310), sem novas instalações nem alterações na VPS.
 - **Pendente fora do runtime:** sincronizar a release da Skill já instalada no ChatGPT com as instruções corrigidas da pasta `engenharia-reversa/skills/engenharia-reversa/`. A fonte GitHub já está atualizada.
+
+## Higienização do ChatGPT — 30/10/2026
+
+- O **conector antigo** `rea-6-8-0` foi **desinstalado** do ChatGPT, com confirmação explícita de sucesso pelo gestor de plugins. Esta ação não eliminou o motor final nem a Skill final.
+- A **Skill Engenharia Reversa** mantém-se instalada. O ficheiro canónico atualizado é `engenharia-reversa/skills/engenharia-reversa/SKILL.md`. A release instalada ainda tem instruções pré-retirada; a sua atualização pelo gestor exige identificar o ID de plugin e release da própria instalação e não deve criar duplicados.
+- O código oficial do autor `160d821ac9a0310afcb8d1fc427862dd6508add5` e a ponte operacional GitHub Actions → SSH → CLI final permanecem intactos.
