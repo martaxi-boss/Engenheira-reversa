@@ -106,9 +106,9 @@ class FinalProject(unittest.TestCase):
             self.assertNotIn("continua pendente", text)
             self.assertNotIn("O legado conserva-se", text)
             self.assertNotIn("Nao apagar o legado", text)
-        self.assertIn("30/10/2026", skill)
+        self.assertIn("mcp_requests", skill)
         self.assertIn("30/10/2026", env)
-        self.assertIn("strict_separation_audit", bridge)
+        self.assertIn("mcp_requests", bridge)
 
     def test_verifier_uses_private_final_vendor_runtime(self):
         source = (NEW / "scripts/vps_verify_existing.py").read_text(encoding="utf-8")

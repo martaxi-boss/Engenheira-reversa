@@ -1,65 +1,53 @@
-# Ponte real Engenharia Reversa FINAL
+# Transporte MCP original: ChatGPT / Codex compatível → VPS
 
-- Motor: checkout `morluto/rea`, commit original `160d821ac9a0310afcb8d1fc427862dd6508add5`, em `/home/ubuntu/rea-original-upstream-680`.
-- Dependências e Node da CLI: `/home/ubuntu/rea-final-runtime`; não aceder a `/opt/rea-reversa`.
-- Repositório de transporte: `martaxi-boss/VPS`.
-- Branch operacional: `rea/one-skill-bridge-20261023`.
-- Workflow existente: `.github/workflows/rea-mcp-transport-20261027.yml`.
-- Request: `rea-linux/skill-requests/current.json`.
-- Executor real na VPS (via SSH verificado): `rea-linux/skill-bridge/execute_request.py`.
+Esta referência descreve apenas **como comunicar com o REA original**. Não define ferramentas REA novas, operações de engenharia reversa, políticas de fornecedores ou outra IA.
 
-## Catalogo e chamada dinamica do MCP ORIGINAL
+## Destino único
 
-A mesma ponte existente suporta `mcp_catalog`, `mcp_describe`, `mcp_call` e `mcp_sequence`. Nao utiliza uma lista manual de ferramentas: descobre os contratos do proprio checkout e interroga o servidor MCP original por stdio durante o trabalho. Nenhum MCP adicional e instalado.
+- Motor: `/home/ubuntu/rea-original-upstream-680/scripts/rea.mjs mcp` (versão do autor 6.8.0, commit `160d821ac9a0310afcb8d1fc427862dd6508add5`).
+- Runtime independente: `/home/ubuntu/rea-final-runtime`.
+- Repositório: `martaxi-boss/VPS`; branch `rea/one-skill-bridge-20261023`.
+- Workflow **existente**: `.github/workflows/rea-mcp-transport-20261027.yml`.
+- Pedido: `rea-linux/skill-requests/current.json`.
+- Transporte: `rea-linux/skill-bridge/execute_request.py` (cliente stdio MCP simples, enviado pelo SSH já autenticado).
 
-A estrutura de pedido mantem cinco campos: `schema_version`, `project`, `engine_commit`, `request_id` e `operation`.
+## Formato do pedido
 
-```json
-{"schema_version":1,"project":"engenharia-reversa-final","engine_commit":"160d821ac9a0310afcb8d1fc427862dd6508add5","request_id":"rea-final-catalog-example-20261030","operation":"mcp_catalog"}
-```
+O objeto contém somente `request_id` (único) e `mcp_requests` (lista não vazia). Cada elemento é uma mensagem de pedido MCP com `method` e `params` opcionais. O transporte inicia o MCP do REA, envia `initialize`, envia `notifications/initialized`, e encaminha cada pedido ao mesmo processo MCP na ordem recebida.
 
-Para ver o esquema exato da ferramenta, escolher `operation:"mcp_describe"` e adicionar `"tool_name":"inspect_analysis_settings"`. Para a executar, escolher `operation:"mcp_call"` e adicionar `"tool_name":"inspect_analysis_settings","arguments":{}`. Os nomes sao exemplos: a escolha e dinamica a partir do catalogo original. Consultar primeiro o `input_schema` devolvido.
-
-Ler `REA_SKILL_BRIDGE_RESULT` nos logs. `mcp_operation.status=PASS` e `mcp_operation.isError=false` sao necessarios para afirmar execucao da ferramenta. Confirmar `transport="original-mcp-stdio"`, `tool`, campos de resultado e tempo. A ponte bloqueia efeitos que alterem alvos/dispositivos, executem codigo alheio, destruam dados ou mudem estado de UI. Ficheiros temporarios criados pelo REA para analises nao equivalem a autorizar alteracoes ao alvo. Sessao, caminhos e fornecedores necessarios continuam sujeitos ao ambiente real.
-
-Provas reais de 30/10/2026: catalogo 229 em [41027641420](https://github.com/martaxi-boss/VPS/actions/runs/41027641420), esquema MCP em [41028138424](https://github.com/martaxi-boss/VPS/actions/runs/41028138424), ferramenta MCP executada em [41028238883](https://github.com/martaxi-boss/VPS/actions/runs/41028238883).
-
-## Sequencias de ferramentas na mesma sessao
-
-`mcp_sequence` permite chamar varias ferramentas originais de forma encadeada dentro de uma unica sessao MCP. O pedido usa `tool_name` (igual ao primeiro passo) e `calls`, cada qual com `tool_name` e `arguments`. O catalogo define os nomes e esquemas; nao existe uma lista manual de ferramentas. O executor limita efeitos que possam alterar alvos, executar codigo de terceiros, mudar dispositivos, perder dados ou alterar UI. A recolha de Evidence pode criar temporarios no ambiente isolado.
-
-Exemplo TESTADO com artefacto de demonstracao disponivel na VPS:
+Consultar ferramentas:
 
 ```json
-{"schema_version":1,"project":"engenharia-reversa-final","engine_commit":"160d821ac9a0310afcb8d1fc427862dd6508add5","request_id":"rea-final-sequence-example-20261030","operation":"mcp_sequence","tool_name":"open_binary","calls":[{"tool_name":"open_binary","arguments":{"path":"/home/ubuntu/rea-original-upstream-680-evidence/functional-suppliers-step2-20261029/ApiDemos-debug.apk"}},{"tool_name":"inspect_artifact","arguments":{"detail":"summary"}}]}
+{"request_id":"rea-list-20261030-001","mcp_requests":[{"method":"tools/list","params":{}}]}
 ```
 
-Resultado [41029326156](https://github.com/martaxi-boss/VPS/actions/runs/41029326156): `PASS`, duas ferramentas `open_binary` e `inspect_artifact` na mesma sessao e Evidence identificada. Este caminho nao analisa automaticamente projetos privados nem garante que cada fornecedor esteja pronto. Para outros alvos, identificar primeiro o ficheiro realmente acessivel/permitido.
-
-## Contrato
-
-Operações básicas: `health`, `providers`, `inspect_elf`, `apk_demo`, `isolation_audit`, `environment_audit`, `provider_diagnostics`, `strict_separation_audit`, `optional_source_symlinks`, `hygiene_inventory`.
-
-Análise real de JavaScript de projeto público do proprietário:
+Chamar uma ferramenta já identificada:
 
 ```json
-{
-  "schema_version": 1,
-  "project": "engenharia-reversa-final",
-  "engine_commit": "160d821ac9a0310afcb8d1fc427862dd6508add5",
-  "request_id": "rea-project-source-example-20261030",
-  "operation": "analyze_project_javascript",
-  "source_repo": "martaxi-boss/lowcost-europa",
-  "revision": "28c998e88bb723424c8ed36d4ba93904339ec877",
-  "javascript_dir": "apps/storefront/static/storefront",
-  "source_paths": ["catalog-explorer.js", "product-images.js"]
-}
+{"request_id":"rea-call-20261030-001","mcp_requests":[{"method":"tools/call","params":{"name":"inspect_analysis_settings","arguments":{}}}]}
 ```
 
-Substituir `revision` pelo HEAD atual do GitHub e selecionar os ficheiros relevantes dentro da mesma pasta; nunca copiar cegamente o SHA do exemplo para um trabalho posterior. O servidor rejeita URLs fora do namespace, revisões não SHA-40, caminhos com `..`, ficheiros fora da pasta e diretórios/ficheiros simbólicos.
+Sequência no mesmo alvo e na mesma sessão MCP:
 
-Fluxo obrigatório: GitHub `fetch_file` -> `update_file` (na branch operacional, com o SHA consultado, mensagem `skill-request: <request_id>`) -> localizar Actions pelo novo commit SHA -> `fetch_workflow_run_jobs` -> `fetch_workflow_job_logs` -> validar `REA_SKILL_BRIDGE_RESULT`.
+```json
+{"request_id":"rea-artifact-20261030-001","mcp_requests":[{"method":"tools/call","params":{"name":"open_binary","arguments":{"path":"/caminho/autorizado/exemplo.apk"}}},{"method":"tools/call","params":{"name":"inspect_artifact","arguments":{"detail":"summary"}}}]}
+```
 
-Resultado real de referência: [41022019825](https://github.com/martaxi-boss/VPS/actions/runs/41022019825) `PASS` após correção do parâmetro obrigatório `--evidence_output` para o modo `--detail summary` da CLI do autor. A fonte é clonada para diretório temporário; a CLI executa a análise estática e devolve estrutura de Evidence, sem executar o JavaScript do alvo, sem alterar o projeto de produção e sem guardar cópias permanentes.
+A escolha de ferramentas pertence ao agente de IA e à descrição do catálogo MCP original. A escolha de fornecedor interno, quando automática, pertence ao REA. Não existem nomes de ferramentas impostos pelo transporte nem um limite artificial para o número de chamadas numa sessão. Os limites de recursos reais do GitHub, SSH e motor continuam a aplicar-se.
 
-Relatórios devem indicar qual o comando da CLI realmente executado, os hashes, fornecedores usados, resultados e limites. Não usar o `health` ou o sucesso dos testes de outro projeto como prova de análise REA.
+## Enviar e verificar
+
+1. GitHub `fetch_file` do pedido na branch para obter o blob SHA.
+2. GitHub `update_file` com o novo JSON, `sha` observado, branch indicada e commit message `skill-request: <request_id>`.
+3. Consultar GitHub Actions desse **commit SHA**. Esperar a conclusão do job `engenharia-reversa-skill`.
+4. Ler o log do job. O marcador `REA_SKILL_BRIDGE_RESULT=` contém `request_id`, `status` e `responses`. Em resposta grande, contém `parts`; os registos `REA_MCP_RESULT_PART=índice/total:trecho` transportam o JSON completo, sem perda de conteúdo. Ordenar, concatenar e fazer parse; verificar todos os índices e o `request_id`.
+5. Considerar sucesso apenas se o job foi bem-sucedido e os resultados individuais de `tools/call` não indicam `isError` nem erro de protocolo.
+
+**Ação não concluída ou resposta ausente não é PASS.** Não confundir sucesso do workflow com sucesso de outra ferramenta ou fornecedor.
+
+## Testes de 30/10/2026
+
+- [41035333062](https://github.com/martaxi-boss/VPS/actions/runs/41035333062): resposta MCP original para `inspect_analysis_settings`.
+- [41035502436](https://github.com/martaxi-boss/VPS/actions/runs/41035502436): `tools/list` com 229 nomes e contratos + `tools/call` numa única sessão. Resultado original preservado em 587 partes de log, recompostas com sucesso.
+
+**Nota:** a Skill é portátil como instrução. Outro chat/agente, como Codex Cloud, só utiliza esta VPS se também tiver acesso funcional e autorizado ao mesmo GitHub e workflow. Não é necessário instalar uma IA na VPS.

@@ -248,11 +248,11 @@
   "chatgpt_skill": {
     "installed": "CONFIRMED",
     "bound_to_final_motor": "NO_LEGACY_PROVIDERS_STRICT_GUARD_ACTIVE",
-    "end_to_end": "MCP_CATALOG_41027641420_DESCRIBE_41028138424_CALL_41028238883_SEQUENCE_41029326156",
+    "end_to_end": "NATIVE_MCP_CALL_41035333062_CATALOG_PLUS_CALL_41035502436",
     "repository_source": "engenharia-reversa/skills/engenharia-reversa/SKILL.md",
     "update_archive_prepared": true,
-    "installed_skill_source_sync": "SYNCHRONIZED_PLUGIN_V1_0_3_DYNAMIC_ORIGINAL_MCP",
-    "live_ops_limit": "ORIGINAL_MCP_DYNAMIC_CATALOG_SINGLE_CALL_AND_STATEFUL_SEQUENCE; EFFECT_AWARE_AUTHORIZATION"
+    "installed_skill_source_sync": "SYNCHRONIZED_PLUGIN_V1_0_4_NATIVE_MCP_TRANSPORT",
+    "live_ops_limit": "MCP_ORIGINAL_NO_BRIDGE_TOOL_WHITELIST; SSH_AUTH_AND_ENGINE_CONTRACTS"
   },
   "prohibitions": [
     "DELETE_LEGACY_WITHOUT_NEW_OWNER_ORDER",
@@ -298,7 +298,7 @@
     "auxiliary_docs_corrected": true,
     "verifier_checks_final_runtime": true,
     "vps_operational_bridge_cleanup": "COMPLETED_PR_310",
-    "installed_plugin_skill_release": "PUBLISHED_PLUGIN_V1_0_3",
+    "installed_plugin_skill_release": "PUBLISHED_PLUGIN_V1_0_4",
     "fresh_ssh_post_cleanup_test": "PASS",
     "vps_bridge_cleanup_commit": "2faa3621ef607de9388e404bc614cc9555542f2a",
     "vps_bridge_ci_run": 40980084601,
@@ -313,7 +313,7 @@
     "strict_scan_legacy_symlinks": 0,
     "strict_scan_legacy_launcher_references": 0,
     "strict_scan_legacy_active_providers": 0,
-    "installed_plugin_validation": "Read-back verified existing plugin release v1.0.3: original MCP dynamic discovery, one selected tool call and two tool calls in one session; no new engine/server/workflow.",
+    "installed_plugin_validation": "Verified plugin v1.0.4 and native stdio MCP through the existing Actions SSH link. No extra engine/MCP server/workflow, no tool whitelist in transport.",
     "legacy_chatgpt_connector": {
       "slug": "rea-6-8-0",
       "result": "UNINSTALLED",
@@ -361,6 +361,14 @@
       ],
       "sequence_status": "PASS",
       "artifact_evidence_id": "ev_25049a890a46214f2d181fee7b3fb6b6b4ae9b83b710e0d65416b68b13d0c779"
+    },
+    "simple_native_mcp_20261030": {
+      "single_call_run": 41035333062,
+      "catalog_and_call_run": 41035502436,
+      "catalog_tools": 229,
+      "native_tool": "inspect_analysis_settings",
+      "bridge_tool_whitelist": false,
+      "original_unchanged": true
     }
   }
 }
