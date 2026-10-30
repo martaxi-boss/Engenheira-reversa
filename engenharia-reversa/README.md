@@ -10,7 +10,7 @@
 - **Fonte canónica no GitHub:** `martaxi-boss/Engenheira-reversa`, pasta `engenharia-reversa/`; submódulo `engenharia-reversa/original` fixado no commit acima.
 - **Transporte operacional existente:** `martaxi-boss/VPS`, branch `rea/one-skill-bridge-20261023`, workflow `.github/workflows/rea-mcp-transport-20261027.yml`; GitHub Actions → SSH de host fixado → CLI do motor final.
 - **Evidências locais:** `/home/ubuntu/rea-original-upstream-680-evidence`.
-- **Legado preservado:** `rea/` no GitHub e `/opt/rea-reversa/rea` na VPS.
+- **Legado retirado em 30/10/2026:** `/opt/rea-reversa` eliminado da VPS; `rea/` e `certifications/` retirados da árvore Git atual, mantendo o histórico.
 
 ## Estrutura de dependências reorganizada na VPS
 
@@ -20,7 +20,7 @@
 | Módulos Node.js próprios (~866 MiB) | `/home/ubuntu/rea-final-runtime/node_modules` | **Ativos; 8/8 testes PASS** |
 | Cópias independentes de 12 fornecedores (~2,19 GiB) | `/home/ubuntu/rea-final-runtime/vendors` | **Cópias ativas na ligação da Skill; 11 testes funcionais PASS em fornecedores selecionados** |
 | Provas e inventários | `/home/ubuntu/rea-original-upstream-680-evidence/isolation-20261029` | Preservados |
-| Instalação anterior | `/opt/rea-reversa/rea` | Preservada; sem remoção |
+| Instalação anterior | `/opt/rea-reversa` | Eliminada após confirmação de autonomia; motor final testado novamente |
 
 As cópias incluem Node 24, JDK 21, Ghidra, JADX, Unblob, Binwalk, Rizin, Kuna, Wakaru, Mitmproxy, Cutter e WABT. A Skill já usa os novos caminhos; isto não certifica individualmente todas as funções dos doze programas. O Chromium foi copiado para a pasta privada final e teve versão verificada; a sessão de navegador continua sem certificação por limitações de sandbox/AppArmor. O Hopper comercial foi excluído do inventário ativo do projeto final. A presença ou cópia de um programa **não equivale** a todas as suas funções estarem certificadas.
 
@@ -39,16 +39,13 @@ As cópias incluem Node 24, JDK 21, Ghidra, JADX, Unblob, Binwalk, Rizin, Kuna, 
 
 Estes resultados não significam que todas as 229 ferramentas do catálogo tenham sido certificadas neste motor.
 
-## O que falta para remover o legado
+## Retirada concluída da instalação antiga (30/10/2026)
 
-1. **Rever apenas capacidades opcionais não certificadas**, sem reintroduzir dependências do sistema antigo. O Chromium já está na pasta privada final, mas a sessão de navegador ainda não está certificada; Hopper foi excluído do inventário ativo, sem partilhar a instalação global.
-2. Validar os serviços/processos que continuam a utilizar a instalação antiga (na auditoria anterior foram encontrados dois), antes de interromper ou remover qualquer um.
-3. Repetir os testes afetados, confirmar a Skill, preservar os dados e obter uma ordem separada de remoção.
-4. Para redução de espaço no GitHub, lembrar que apagar ficheiros do HEAD não remove automaticamente os objetos do histórico Git; nunca reescrever histórico ou fazer force-push sem aprovação específica.
+O proprietário autorizou a retirada. Os serviços `rea-reversa-mcp.service` e `rea-mcp-oauth.service` foram desativados e parados. A VPS eliminou `/opt/rea-reversa` (incluindo `rea`, `providers`, `tools`, `oauth-auth` e os resíduos finais), com confirmação de `LEGADO ELIMINADO` e `MOTOR FINAL: OK` e cerca de 29 GB livres no disco, demonstrada no terminal do proprietário.
 
-**Não apagar já `rea/`, `/opt/rea-reversa/rea`, os fornecedores antigos nem as evidências.** Consultar [RETIRADA_LEGADO.md](RETIRADA_LEGADO.md) para as condições verificáveis.
+No GitHub, as árvores antigas `rea/` e `certifications/` e cinco referências de submódulos antigos foram retiradas da versão atual. O submódulo `engenharia-reversa/original`, a Skill, o código e as provas do motor final foram preservados. O histórico Git anterior não foi reescrito e os registos anteriores podem ser consultados por commit.
 
-A [auditoria 40971066042](https://github.com/martaxi-boss/VPS/actions/runs/40971066042) mediu ~1,01 GiB no motor legado, ~3,00 GiB de fornecedores antigos e ~1,24 GiB em ferramentas antigas, mas ainda encontrou um processo ativo ligado ao motor legado e outro processo referenciando caminhos antigos. São **candidatos à futura limpeza**, não espaço automaticamente recuperável.
+A confirmação de funcionamento pós-retirada é um teste real da CLI `providers --json` no motor final, não certificação de todas as ferramentas e interfaces opcionais. Consultar [RETIRADA_LEGADO.md](RETIRADA_LEGADO.md).
 
 ## Verificação, documentação e Skill
 
@@ -57,7 +54,7 @@ A [auditoria 40971066042](https://github.com/martaxi-boss/VPS/actions/runs/40971
 - `skills/engenharia-reversa/SKILL.md` define a execução por GitHub Actions na VPS.
 - `.github/workflows/engenharia-reversa-novo.yml` certifica a estrutura canónica no GitHub, sem criar instalações na VPS.
 
-O motor final é único; as provas são rastreáveis e cada migração é reversível até à eliminação expressamente autorizada do legado.
+O motor final continua único e independente; a retirada do legado foi expressamente autorizada e concluída.
 
 ## Auditoria integral comparativa com o autor (29/10/2026)
 
@@ -65,4 +62,4 @@ Foi executada auditoria read-only na VPS [40971914250](https://github.com/martax
 
 ## Separação rigorosa do motor antigo — verificada
 
-Os componentes específicos do motor final têm agora cópias próprias, sem qualquer caminho ativo para a instalação 6.8 antiga. Foram analisados 9 252 itens no checkout e 64 713 no runtime, incluindo 290 symlinks (0 para o legado): [40974645346](https://github.com/martaxi-boss/VPS/actions/runs/40974645346). A Skill passou health 4/4 e APK 3/3 após a migração, com regra de bloqueio de regressão no bridge. Ver [SEPARACAO_ABSOLUTA_20261029.md](SEPARACAO_ABSOLUTA_20261029.md). Isto **não autoriza apagar a instalação antiga enquanto os seus processos estiverem ativos**.
+Os componentes específicos do motor final têm agora cópias próprias, sem qualquer caminho ativo para a instalação 6.8 antiga. Foram analisados 9 252 itens no checkout e 64 713 no runtime, incluindo 290 symlinks (0 para o legado): [40974645346](https://github.com/martaxi-boss/VPS/actions/runs/40974645346). A Skill passou health 4/4 e APK 3/3 após a migração, com regra de bloqueio de regressão no bridge. Ver [SEPARACAO_ABSOLUTA_20261029.md](SEPARACAO_ABSOLUTA_20261029.md). Após identificação e paragem dos dois serviços antigos, a instalação antiga foi retirada; a verificação posterior do motor final passou.

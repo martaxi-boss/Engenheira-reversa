@@ -18,9 +18,12 @@ def git(*args, cwd=ROOT):
 
 
 class FinalProject(unittest.TestCase):
-    def test_legacy_code_and_certifications_preserved(self):
-        self.assertEqual(git("rev-parse", "HEAD:rea"), "15e6fec513dcce08cefdbcf441200986397e2793")
-        self.assertEqual(git("rev-parse", "HEAD:certifications"), "8616de55052a9986bf992f902587abe3d32992af")
+    def test_legacy_code_and_certifications_retired(self):
+        tracked = set(git("ls-tree", "--name-only", "HEAD").splitlines())
+        self.assertNotIn("rea", tracked)
+        self.assertNotIn("certifications", tracked)
+        self.assertFalse((ROOT / "rea").exists())
+        self.assertFalse((ROOT / "certifications").exists())
 
     def test_submodule_points_to_same_original_used_in_live_tests(self):
         entry = git("ls-files", "--stage", "--", "engenharia-reversa/original")
@@ -38,6 +41,7 @@ class FinalProject(unittest.TestCase):
         sect = 'submodule "engenharia-reversa/original"'
         self.assertEqual(cfg.get(sect, "path"), "engenharia-reversa/original")
         self.assertEqual(cfg.get(sect, "url"), URL)
+        self.assertEqual(cfg.sections(), [sect])
 
     def test_final_project_manifest_not_a_duplicate(self):
         obj = json.loads((NEW / "project.json").read_text(encoding="utf-8"))
@@ -45,7 +49,7 @@ class FinalProject(unittest.TestCase):
         self.assertEqual(obj["vps_installation"]["canonical_path"], "/home/ubuntu/rea-original-upstream-680")
         self.assertFalse(obj["vps_installation"]["new_installation_required"])
         self.assertTrue(obj["dependency_isolation"]["fully_independent"])
-        self.assertFalse(obj["previous_legacy"]["retirement_permitted"])
+        self.assertTrue(obj["previous_legacy"]["retirement_permitted"])
         self.assertEqual(obj["acceptance_evidence"][1]["run_id"], 40915197781)
         self.assertNotIn("/home/ubuntu/engenharia-reversa-novo", json.dumps(obj))
 
@@ -78,7 +82,7 @@ class FinalProject(unittest.TestCase):
         self.assertEqual(isolation["node_modules_path"], "/home/ubuntu/rea-final-runtime/node_modules")
         self.assertEqual(isolation["external_supplier_copy_root"], "/home/ubuntu/rea-final-runtime/vendors")
         self.assertTrue(isolation["fully_independent"])
-        self.assertFalse(obj["previous_legacy"]["retirement_permitted"])
+        self.assertTrue(obj["previous_legacy"]["retirement_permitted"])
         self.assertTrue((NEW / "RETIRADA_LEGADO.md").is_file())
 
     def test_strict_legacy_isolation_policy(self):
@@ -91,7 +95,7 @@ class FinalProject(unittest.TestCase):
         self.assertEqual(iso["runtime_launchers_old_path_refs"], 0)
         self.assertEqual(iso["final_strict_symlink_audit_run"], 40974645346)
         self.assertTrue((NEW / "SEPARACAO_ABSOLUTA_20261029.md").is_file())
-        self.assertFalse(obj["previous_legacy"]["retirement_permitted"])
+        self.assertTrue(obj["previous_legacy"]["retirement_permitted"])
 
     def test_old_duplicate_script_removed(self):
         self.assertFalse((NEW / "scripts" / "vps_install.sh").exists())
