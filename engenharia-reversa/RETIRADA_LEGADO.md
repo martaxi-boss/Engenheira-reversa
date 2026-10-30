@@ -22,3 +22,10 @@
 ## Limitações
 
 Os ensaios da CLI não certificam cada ferramenta MCP, fornecedores comerciais, sessão gráfica ou dispositivos não ligados. O código original e os fornecedores independentes do motor final permanecem preservados.
+
+## Testes finais pós-retirada — 30/10/2026
+
+- [#40980208602](https://github.com/martaxi-boss/VPS/actions/runs/40980208602) — health 4/4 PASS, commit e hashes corretos, `ISOLATED_FINAL_RUNTIME`, fornecedores antigos ativos: **0**.
+- [#40980322799](https://github.com/martaxi-boss/VPS/actions/runs/40980322799) — auditoria rigorosa de 73 965 elementos e 290 links simbólicos, **0** caminhos operacionais antigos dentro do âmbito examinado.
+- [#40980084601](https://github.com/martaxi-boss/VPS/actions/runs/40980084601) — workflow SSH existente validado depois da limpeza dos scripts legados no GitHub (PR #310), sem novas instalações nem alterações na VPS.
+- **Pendente fora do runtime:** sincronizar a release da Skill já instalada no ChatGPT com as instruções corrigidas da pasta `engenharia-reversa/skills/engenharia-reversa/`. A fonte GitHub já está atualizada.
