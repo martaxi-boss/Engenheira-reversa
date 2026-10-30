@@ -97,6 +97,25 @@ class FinalProject(unittest.TestCase):
         self.assertTrue((NEW / "SEPARACAO_ABSOLUTA_20261029.md").is_file())
         self.assertTrue(obj["previous_legacy"]["retirement_permitted"])
 
+    def test_operational_skill_docs_after_retirement(self):
+        skill = (NEW / "skills/engenharia-reversa/SKILL.md").read_text(encoding="utf-8")
+        env = (NEW / "skills/engenharia-reversa/references/ambiente_final.md").read_text(encoding="utf-8")
+        bridge = (NEW / "skills/engenharia-reversa/references/ponte_operacional.md").read_text(encoding="utf-8")
+        for text in (skill, env, bridge):
+            self.assertNotIn("alguns continuam partilhados", text)
+            self.assertNotIn("continua pendente", text)
+            self.assertNotIn("O legado conserva-se", text)
+            self.assertNotIn("Nao apagar o legado", text)
+        self.assertIn("30/10/2026", skill)
+        self.assertIn("30/10/2026", env)
+        self.assertIn("strict_separation_audit", bridge)
+
+    def test_verifier_uses_private_final_vendor_runtime(self):
+        source = (NEW / "scripts/vps_verify_existing.py").read_text(encoding="utf-8")
+        self.assertIn("FINAL_VENDOR_RUNTIME_PRESENT", source)
+        self.assertIn("legacy_installation_absent", source)
+        self.assertNotIn("PRESENT_BUT_SHARED_LOCATION", source)
+
     def test_old_duplicate_script_removed(self):
         self.assertFalse((NEW / "scripts" / "vps_install.sh").exists())
 
