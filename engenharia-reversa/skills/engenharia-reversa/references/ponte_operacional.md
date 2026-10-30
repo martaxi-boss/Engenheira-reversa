@@ -10,7 +10,7 @@
 
 ## Catalogo e chamada dinamica do MCP ORIGINAL
 
-A mesma ponte existente suporta `mcp_catalog`, `mcp_describe` e `mcp_call`. Nao utiliza uma lista manual de ferramentas: descobre os contratos do proprio checkout e interroga o servidor MCP original por stdio durante o trabalho. Nenhum MCP adicional e instalado.
+A mesma ponte existente suporta `mcp_catalog`, `mcp_describe`, `mcp_call` e `mcp_sequence`. Nao utiliza uma lista manual de ferramentas: descobre os contratos do proprio checkout e interroga o servidor MCP original por stdio durante o trabalho. Nenhum MCP adicional e instalado.
 
 A estrutura de pedido mantem cinco campos: `schema_version`, `project`, `engine_commit`, `request_id` e `operation`.
 
@@ -20,9 +20,21 @@ A estrutura de pedido mantem cinco campos: `schema_version`, `project`, `engine_
 
 Para ver o esquema exato da ferramenta, escolher `operation:"mcp_describe"` e adicionar `"tool_name":"inspect_analysis_settings"`. Para a executar, escolher `operation:"mcp_call"` e adicionar `"tool_name":"inspect_analysis_settings","arguments":{}`. Os nomes sao exemplos: a escolha e dinamica a partir do catalogo original. Consultar primeiro o `input_schema` devolvido.
 
-Ler `REA_SKILL_BRIDGE_RESULT` nos logs. `mcp_operation.status=PASS` e `mcp_operation.isError=false` sao necessarios para afirmar execucao da ferramenta. Confirmar `transport="original-mcp-stdio"`, `tool`, campos de resultado e tempo. Para ferramentas com efeitos sobre alvos, ficheiros ou dispositivos, a ponte devolve `BLOCKED`; estas exigem um fluxo de autorizacao especifico antes da sua execucao. Sessao, caminhos e fornecedores necessarios continuam sujeitos ao ambiente real.
+Ler `REA_SKILL_BRIDGE_RESULT` nos logs. `mcp_operation.status=PASS` e `mcp_operation.isError=false` sao necessarios para afirmar execucao da ferramenta. Confirmar `transport="original-mcp-stdio"`, `tool`, campos de resultado e tempo. A ponte bloqueia efeitos que alterem alvos/dispositivos, executem codigo alheio, destruam dados ou mudem estado de UI. Ficheiros temporarios criados pelo REA para analises nao equivalem a autorizar alteracoes ao alvo. Sessao, caminhos e fornecedores necessarios continuam sujeitos ao ambiente real.
 
 Provas reais de 30/10/2026: catalogo 229 em [41027641420](https://github.com/martaxi-boss/VPS/actions/runs/41027641420), esquema MCP em [41028138424](https://github.com/martaxi-boss/VPS/actions/runs/41028138424), ferramenta MCP executada em [41028238883](https://github.com/martaxi-boss/VPS/actions/runs/41028238883).
+
+## Sequencias de ferramentas na mesma sessao
+
+`mcp_sequence` permite chamar varias ferramentas originais de forma encadeada dentro de uma unica sessao MCP. O pedido usa `tool_name` (igual ao primeiro passo) e `calls`, cada qual com `tool_name` e `arguments`. O catalogo define os nomes e esquemas; nao existe uma lista manual de ferramentas. O executor limita efeitos que possam alterar alvos, executar codigo de terceiros, mudar dispositivos, perder dados ou alterar UI. A recolha de Evidence pode criar temporarios no ambiente isolado.
+
+Exemplo TESTADO com artefacto de demonstracao disponivel na VPS:
+
+```json
+{"schema_version":1,"project":"engenharia-reversa-final","engine_commit":"160d821ac9a0310afcb8d1fc427862dd6508add5","request_id":"rea-final-sequence-example-20261030","operation":"mcp_sequence","tool_name":"open_binary","calls":[{"tool_name":"open_binary","arguments":{"path":"/home/ubuntu/rea-original-upstream-680-evidence/functional-suppliers-step2-20261029/ApiDemos-debug.apk"}},{"tool_name":"inspect_artifact","arguments":{"detail":"summary"}}]}
+```
+
+Resultado [41029326156](https://github.com/martaxi-boss/VPS/actions/runs/41029326156): `PASS`, duas ferramentas `open_binary` e `inspect_artifact` na mesma sessao e Evidence identificada. Este caminho nao analisa automaticamente projetos privados nem garante que cada fornecedor esteja pronto. Para outros alvos, identificar primeiro o ficheiro realmente acessivel/permitido.
 
 ## Contrato
 
