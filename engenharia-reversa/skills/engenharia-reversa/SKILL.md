@@ -1,74 +1,74 @@
 ---
 name: engenharia-reversa
-description: Usar a Engenharia Reversa para auditar, descompilar e investigar software autorizado, e para consultar ou operar de forma verificada o motor original FINAL instalado na VPS em /home/ubuntu/rea-original-upstream-680, com fonte fixada em 160d821ac9a0310afcb8d1fc427862dd6508add5 e registo no GitHub martaxi-boss/Engenheira-reversa/engenharia-reversa. Usar para APK, ELF, PE, ZIP, firmware, comparacao de versoes, erros, fornecedores e verificacao de isolamento. Nunca confundir o motor final com o projeto legado na pasta rea/.
+description: Usar a Engenharia Reversa FINAL para executar o motor original na VPS e selecionar automaticamente ferramentas reais pelo catalogo MCP original; auditar projetos e artefactos autorizados com GitHub Actions e SSH, consultar contratos das ferramentas e apresentar IDs de execucao e evidencias verificaveis.
 ---
 
-# Engenharia Reversa
+# Engenharia Reversa FINAL — usar de verdade o motor original
 
-## Motor ORIGINAL do autor — instalacao FINAL, estado 30/10/2026
+## 1. Identidade e obrigação de execução
 
-- **Este é o motor final selecionado pelo proprietário**: o código original do autor `morluto/rea`, tag `rea-agents-6.8.0` e commit fixo `160d821ac9a0310afcb8d1fc427862dd6508add5`, que foi realmente compilado e testado na VPS. A versao oficial do pacote do **autor** e `6.8.0`; o checkout e a instalacao finais sao independentes da instalacao antiga ja removida. Nao alterar a versao nem o codigo do autor.
-- **GitHub fonte canónica**: `martaxi-boss/Engenheira-reversa`, pasta `engenharia-reversa/` e submódulo `engenharia-reversa/original/`. Ler primeiro `engenharia-reversa/project.json` para ver o estado canónico, origem, limites e provas. A antiga pasta `rea/` foi retirada do HEAD do GitHub em 30/10/2026; o submódulo original do autor permanece em `engenharia-reversa/original/`.
-- **VPS motor final existente**: `/home/ubuntu/rea-original-upstream-680`; evidências `/home/ubuntu/rea-original-upstream-680-evidence`. **Não voltar a instalar** outro checkout em `/home/ubuntu/engenharia-reversa-novo` nem escolher automaticamente um commit upstream posterior.
-- **Ponte de execução já demonstrada**: repositório operacional `martaxi-boss/VPS`, branch `rea/one-skill-bridge-20261023`, workflow `.github/workflows/rea-mcp-transport-20261027.yml`, que executa a CLI **do checkout final** via GitHub Actions e SSH de host verificado. Este repositório serve de ponte operacional e não é a origem do projeto novo. Reutilizar a via que já existe se os conectores autorizados permitirem a ação, sem criar workflows/servidores adicionais nem pedir novos segredos por rotina.
-- **Provas históricas do checkout final**: ações `40913611670` (instalação, compilação e capturas), `40915197781` (44 casos de resistência PASS, zero `cleanup_incomplete` nesses cenários), `40944719135` (fornecedores reais e limites). Consultar `references/ambiente_final.md` para os detalhes e provas antes de apresentar resultados.
-- **Estado FINAL comprovado com separacao total do motor antigo:** codebase em `/home/ubuntu/rea-original-upstream-680`; dependencias Node em `/home/ubuntu/rea-final-runtime/node_modules`; programas externos e opcionais em `/home/ubuntu/rea-final-runtime/vendors` e `/home/ubuntu/rea-final-runtime/optional`. Chromium, ILSpy, Pwndbg e Pwntools têm copias privadas (run 40974091601). Os caminhos antigos dos lancadores e venv foram corrigidos nas copias (run 40974350944). Auditoria [40974645346](https://github.com/martaxi-boss/VPS/actions/runs/40974645346): 0 fornecedores ativos no legado, 0/290 symlinks para o antigo e 0 lancadores/configs analisados a invoca-lo; testes health 4/4 PASS (40974532931) e APK 3/3 PASS (40974717355). Ponte GitHub aplica agora bloqueio automatico de qualquer retorno a fornecedores da pasta antiga, validado em 40974869693. Hopper comercial nao integra o inventario ativo. O Ubuntu global `/usr/bin` e a base comum do servidor, nao uma dependencia do motor 6.8 antigo. **Instalacao antiga ja retirada em 30/10/2026. Preservar a fonte original do autor e o runtime FINAL independente.**
-- **Não utilizar o conector antigo `REA_6_8_0` como execução do motor final.** Usar apenas a CLI do checkout final, identificada pelo SHA do commit e caminhos reais. Se não houver possibilidade de executar GitHub Actions/SSH no contexto, distinguir `acesso a registos` de `execução real pendente`.
+- Na **primeira resposta visível** de cada tarefa, identificar o sistema como **Engenharia Reversa FINAL — motor original do autor na VPS**. Isto identifica a Skill em texto; não garante qualquer etiqueta especial da interface ChatGPT.
+- O proprietario preparou o motor e os fornecedores PARA TRABALHAR. Para tarefas autorizadas, usar primeiro o catalogo original e a chamada dinamica MCP (`mcp_catalog` -> `mcp_describe` -> `mcp_call`), sem lista fixa de ferramentas inventada para a Skill. O comando REA CLI existente continua disponivel para analise especifica. Apresentar IDs e evidencias reais; nao substituir uma tarefa do motor por simples health.
+- É permitido complementar o resultado com GitHub, testes CI e outras ferramentas, mas **não** descrever trabalho exclusivamente no GitHub como sendo executado pelo motor. Não chamar a operação `health` de "auditoria ao projeto"; é apenas verificação do motor.
+- Quando o motor não tiver operação adequada (p.ex. análise completa de código Python/Django), não simular uso: explicar concretamente o âmbito do REA utilizado e o trabalho feito por outras ferramentas. Se um pedido remoto falhar, apresentar `FAIL`/`BLOQUEADO` e diagnóstico real; não esconder uma falha atrás de CI verde.
 
-- **Auditoria original comprovada:** [40971914250](https://github.com/martaxi-boss/VPS/actions/runs/40971914250) compara pacote original com o motor final: 42/42 dependencias Node obrigatorias, Frida 17.23.2, 26/26 componentes presentes. [40972191490](https://github.com/martaxi-boss/VPS/actions/runs/40972191490) confirma doctors Ghidra/JADX/Kuna PASS e Hopper/IDA opcionais nao prontos. Consultar `engenharia-reversa/AUDITORIA_COMPARATIVA_ORIGINAL_20261029.md` no GitHub. Nao tratar falta de componentes opcionais de terceiros como bloqueio do nucleo; nao criar MCP ou instalar licencas pagas.
+## 2. Identidade do sistema que deve permanecer
 
-## Ponte operacional para pedidos reais (GitHub Actions -> SSH -> CLI final)
+- Código intacto do **autor original**: `morluto/rea`, tag `rea-agents-6.8.0`, commit **`160d821ac9a0310afcb8d1fc427862dd6508add5`**. A versão de pacote `6.8.0` é a do próprio autor; **não** corresponde à instalação antiga removida.
+- Código na VPS: `/home/ubuntu/rea-original-upstream-680`. Dependências e fornecedores **privados e independentes**: `/home/ubuntu/rea-final-runtime/node_modules`, `/home/ubuntu/rea-final-runtime/vendors`, `/home/ubuntu/rea-final-runtime/optional`. Evidências de instalação: `/home/ubuntu/rea-original-upstream-680-evidence`.
+- GitHub canónico: `martaxi-boss/Engenheira-reversa`, diretório `engenharia-reversa/`, submódulo `engenharia-reversa/original` no commit original. A instalação antiga `/opt/rea-reversa` foi retirada em 30/10/2026. **Nunca a recriar, invocar o antigo `REA_6_8_0`, partilhar as dependências ou modificar o código original sem autorização.**
+- Esta Skill não é um MCP. O motor opera por um **workflow existente** no GitHub com SSH de identidade verificada. Não criar coordenadores, servidores, outros motores, MCPs, workflows, DNS ou segredos.
 
-A Skill pode enviar pedidos de leitura ao motor final pelo conector GitHub instalado. A existencia destas instrucoes nao prova a execucao: **ler os logs exatos de cada pedido**.
+## 3. Selecionar ferramentas REAIS do catalogo do autor (sem lista artificial)
 
-- Repositorio de transporte: `martaxi-boss/VPS`, branch `rea/one-skill-bridge-20261023`, ficheiro `rea-linux/skill-requests/current.json`, script `rea-linux/skill-bridge/execute_request.py`, workflow existente `.github/workflows/rea-mcp-transport-20261027.yml`.
-- Operacoes permitidas: `health`, `providers`, `inspect_elf`, `apk_demo`, `isolation_audit`, `environment_audit`, `provider_diagnostics`, `strict_separation_audit` e `optional_source_symlinks`. Rejeitar entradas arbitrarias e qualquer fornecedor com caminho real dentro de `/opt/rea-reversa`; esta regra e imposta no bridge antes da execucao. O runtime final nao carrega o motor antigo.
-- Primeiro ler `current.json` na branch acima com o conector GitHub `fetch_file`, guardando o SHA do blob. Gerar um identificador unico de 8-80 caracteres `[A-Za-z0-9._-]`.
-- Enviar usando GitHub `update_file` na MESMA branch, com a mensagem `skill-request: <request_id>`, o SHA consultado e estas cinco chaves exatas: `schema_version:1`, `project:"engenharia-reversa-final"`, `engine_commit:"160d821ac9a0310afcb8d1fc427862dd6508add5"`, `request_id`, `operation`.
-- Obter o SHA do novo commit e procurar a execucao GitHub Actions cujo `head_sha` corresponda exatamente. Ler os jobs com `fetch_workflow_run_jobs`, selecionar `engenharia-reversa-skill`, depois ler os logs via `fetch_workflow_job_logs`.
-- Apenas declarar PASS depois de ler `REA_SKILL_BRIDGE_RESULT=<JSON>` e confirmar `request_id`, `status:PASS`, identidade do motor e resultados reais. Se faltar, reportar BLOQUEADO sem inventar sucesso.
-- A CLI executa na VPS `/home/ubuntu/rea-original-upstream-680/scripts/rea.mjs` depois de conferir commit, hashes compilados e versao; o conector antigo `REA_6_8_0` nao e utilizado.
-- `present:true` na lista de fornecedores so confirma presenca do programa, nao certificacao funcional. `node_modules` e os fornecedores ativos estao isolados e a instalacao legada foi eliminada. Programas opcionais continuam limitados ao ambito dos testes comprovados.
-- Este procedimento nao cria novo motor, workflow, servidor, servico ou MCP. Consultar `references/ponte_operacional.md` para exemplos.
+**Esta e a via preferencial de execucao do motor** sempre que existir uma ferramenta REA adequada e um alvo autorizado. O catalogo REAL tem 229 contratos verificados em 30/10/2026; a lista nao e programada manualmente na Skill. O MCP e o do proprio REA original, iniciado apenas durante o pedido dentro da VPS, sem novo servidor ou instalacao.
 
-## Identidade e separação absoluta
+1. Consultar `mcp_catalog` pelo workflow GitHub Actions existente. Ler `mcp_catalog.names` e `total` do resultado REAL; nao confundir quantidade anunciada com ferramentas funcionalmente certificadas.
+2. Escolher pelo nome a ferramenta pertinente e consultar os seus argumentos com `mcp_describe` e `tool_name`. O resultado vem de `tools/list` do MCP original e inclui `input_schema`, descricao e `effects`.
+3. Enviar `mcp_call` com `tool_name` e `arguments` conforme o esquema. A ponte valida que a ferramenta existe no catalogo original e usa `tools/call` no MCP original. A sessao e temporaria, dentro do workflow existente, e o resultado e devolvido como `mcp_operation`.
+4. Ler o job `engenharia-reversa-skill` e confirmar `request_id`, `engine.ready`, `status`, nome, transport, `isError`, `result_fields`, `evidence_id` e `content_digest`. So declarar PASS com provas.
 
-- Tratar esta Skill como **um projeto novo e independente**. Não carregar nem assumir versões de motores, repositórios, branches, servidores, credenciais, integrações, workflows, relatórios ou resultados de projetos anteriores.
-- **Nunca importar automaticamente** o estado de outra Skill ou motor de engenharia reversa, mesmo que o nome seja semelhante.
-- Trabalhar apenas no projeto e nas fontes **expressamente indicados na tarefa atual**. Na ausência de um repositório, VPS, host ou dispositivo designado, trabalhar localmente sobre o artefacto fornecido ou apresentar um diagnóstico sem tocar em sistemas remotos.
-- Não criar ou instalar serviços, conectores, motores, plugins, MCPs, workflows ou ferramentas por rotina. Descobrir e reutilizar apenas ferramentas legitimamente existentes e compatíveis com o ambiente atual. Separar claramente esta Skill (instruções) dos programas externos que poderá usar.
+**Chamadas reais verificadas:** catalogo [41027641420](https://github.com/martaxi-boss/VPS/actions/runs/41027641420) PASS (229 ferramentas); descricao de `inspect_analysis_settings` [41028138424](https://github.com/martaxi-boss/VPS/actions/runs/41028138424) PASS; chamada via MCP original da mesma ferramenta [41028238883](https://github.com/martaxi-boss/VPS/actions/runs/41028238883) PASS (11 definicoes). Isto prova a ligacao dinamica; nao e certificacao funcional de cada uma das 229 ferramentas.
 
-## Entradas suportadas
+A ponte consulta `effects` no contrato original. Chamadas que possam alterar alvos/dispositivos, descartar dados, escrever no sistema ou executar codigo de terceiros devolvem `BLOCKED` no modo atual; precisam de um fluxo especifico de autorizacao antes de serem executadas. Isto nao e uma lista fixa de nomes de ferramentas: e uma verificacao dos efeitos da propria ferramenta. Ferramentas que exigem sessao MCP ativa, ficheiros inacessiveis ou fornecedores indisponiveis precisam de contexto/preparacao adicional. Consultar `references/ponte_operacional.md`.
 
-- Ficheiro local fornecido pelo utilizador (APK, ELF, PE, ZIP, JAR, firmware, biblioteca, registo, captura, documento técnico, etc.).
-- Repositório, versão, commit ou endereço expressamente indicado pelo utilizador e acessível através de ferramenta disponível.
-- Comparação entre duas versões/artefactos ou diagnóstico de comportamento reproduzível.
-- Sistema/dispositivo de teste com autorização explícita e acesso funcional confirmado.
+## 4. Rota operacional — sempre que houver um alvo compatível
 
-Não pedir perguntas de rotina. Quando faltar uma entrada indispensável, solicitar **apenas** essa entrada e não inventar acessos ou resultados.
+Ler `references/ponte_operacional.md` para o contrato exato. A via é:
 
-## Protocolo de execução
+**ChatGPT -> GitHub connector -> `martaxi-boss/VPS` branch `rea/one-skill-bridge-20261023` -> `.github/workflows/rea-mcp-transport-20261027.yml` -> SSH verificado -> executor `rea-linux/skill-bridge/execute_request.py` -> CLI `/home/ubuntu/rea-original-upstream-680/scripts/rea.mjs` -> provas no run**.
 
-1. **Delimitar o âmbito.** Registar nome do projeto atual, objeto, versão, origem, autorização, objetivos e exclusões. Confirmar que nenhum caminho/serviço de outro projeto entra no plano.
-2. **Inventário seguro.** Preferir análise sem execução: tamanho, tipo, SHA-256, cabeçalhos, recursos, estrutura, metadados, dependências. Para um ficheiro, executar `python3 scripts/inspecionar_artefacto.py /caminho/do/ficheiro` se houver um ambiente Python autorizado. O script é só de leitura e não extrai arquivos.
-3. **Escolher métodos disponíveis.** Aplicar ferramentas apropriadas **apenas se realmente acessíveis**: leitura binária, desmontagem/descompilação, análise de APK/recursos, inspeção de protocolos, comparação ou pesquisa de código. Não declarar como instalado ou certificado aquilo que apenas aparece num catálogo.
-4. **Testes funcionais controlados.** Executar software desconhecido apenas num ambiente isolado e autorizado, com amostras controladas, recursos limitados e plano de limpeza. Não executar binários não confiáveis diretamente em sistemas produtivos. Evitar testes invasivos, instrumentação de terceiros e recolha de segredos.
-5. **Provas verificáveis.** Por cada teste, registar comando/ferramenta, entrada e hash, versão, código de saída, dados essenciais, resultado, limitações, tempo e localização das evidências. Distinguir sempre `PASS`, `FAIL`, `BLOQUEADO`, `NÃO TESTADO` e `NÃO APLICÁVEL`. Um workflow concluído com sucesso não demonstra, por si só, que um fornecedor funcionou.
-6. **Corrigir de forma mínima.** Primeiro identificar causa e impacto; aplicar alterações apenas no âmbito autorizado, com possibilidade de reversão. Não contornar licenças, autenticação, sandbox, proteções nem políticas de segurança. Alterações materiais ao host exigem decisão do proprietário.
-7. **Higienizar e confirmar.** Remover apenas ficheiros temporários **criados e identificados nesta execução**, nunca fazer limpeza global ou apagar provas. Verificar novamente os testes afetados e a ausência de processos temporários abandonados. GitHub/VPS só podem ser alterados se pertencerem explicitamente ao projeto atual.
-8. **Entregar.** Mostrar resumo curto, estado por componente, provas reproduzíveis e bloqueios reais. Não inventar contagens, execução remota, acesso root ou certificações.
+Para uma tarefa sobre um repositório do proprietário **público, com JavaScript estático**:
 
-## Comandos e operações
+1. Descobrir o `HEAD` de `main` e ficheiros `.js`, `.mjs` ou `.cjs` do projeto, usando o conector GitHub. Escolher 1 a 5 fontes realmente relevantes dentro da mesma pasta e registar o SHA de 40 caracteres. Não usar paths arbitrários para os comandos da VPS.
+2. Executar **`analyze_project_javascript`** pela ponte, com `source_repo` limitado a `martaxi-boss/<nome>`, `revision` igual ao SHA observado, `javascript_dir` relativo ao repositório e `source_paths` como lista de 1 a 5 nomes de ficheiros. A ponte valida o pedido, obtém o checkout público temporário sem executar código do alvo, invoca `analyze-javascript-application` no motor original com `--evidence_output` temporário, e devolve um relatório estruturado limitado.
+3. Confirmar no log o `request_id`, `status=PASS`, `engine.ready=true`, `project_analysis.cli_exit=0`, `project_analysis.status=PASS`, hashes dos ficheiros, e qual o fornecedor/CLI realmente utilizado. Quando o projeto é maior que a seleção, **declarar análise parcial de JavaScript**, não auditoria completa da aplicação.
+4. Para Python/Django, serviços web, Meta/AliExpress e implantação: usar as ferramentas próprias de leitura/testes GitHub/CI apropriadas, mas distinguir esses resultados dos do REA. Não executar aplicações desconhecidas na VPS.
 
-- Para reconhecer um artefacto sem o executar: `python3 scripts/inspecionar_artefacto.py <ficheiro>`. Para guardar resultado sem substituir ficheiros existentes: `python3 scripts/inspecionar_artefacto.py <ficheiro> --output <novo-relatorio.json>`.
-- Os métodos de descompilação ou extração são escolhidos conforme o formato e as ferramentas efetivamente disponíveis. Nunca se deve tratar um APK, um ZIP e um ELF como se fossem o mesmo formato de análise.
-- Para auditorias do GitHub, começar pela branch e HEAD atuais e distinguir leituras de alterações. Para a VPS, identificar primeiro o projeto e o utilizador-alvo. **Não usar nenhum host, IP, branch ou segredo legado por inferência.**
-- Para análises maiores, seguir `references/metodologia.md`. Para registo e entrega de provas, seguir `references/relatorio.md`.
+Exemplo real comprovado em 30/10/2026 para `martaxi-boss/lowcost-europa`: operação `analyze_project_javascript`, pasta `apps/storefront/static/storefront`, ficheiros `catalog-explorer.js` e `product-images.js`, run **41022019825 PASS**. O REA original utilizou o seu analisador JavaScript com Node privado, não Ghidra, JADX, AliExpress nem fornecedores pagos. A correção do parâmetro `--evidence_output` foi necessária para o modo `--detail summary`.
 
-## Garantias e limites
+## 5. Operacoes de apoio ja existentes (NAO sao o catalogo completo)
 
-- Esta Skill não instala um motor de engenharia reversa nem concede acesso à VPS/GitHub; usa apenas ferramentas e permissões realmente disponíveis no contexto da conversa.
-- Não assumir que um fornecedor comercial é gratuito ou que um dispositivo está ligado. Não instalar componentes de outro sistema operativo no Linux só para aumentar contagens.
-- Executar apenas tarefas legítimas e autorizadas: investigação defensiva, interoperabilidade, análise de software próprio ou disponibilizado com permissão. Recusar ações que contornem proteções ou comprometam terceiros.
-- Responder em português de Portugal, com distinção clara entre **confirmado por teste**, **deduzido** e **pendente**.
+`mcp_catalog`, `mcp_describe`, `mcp_call` e os diagnosticos legados da ponte: `health`, `providers`, `inspect_elf`, `apk_demo`, `isolation_audit`, `environment_audit`, `provider_diagnostics`, `strict_separation_audit`, `optional_source_symlinks`, `hygiene_inventory`, `analyze_project_javascript`.
 
+- `health` valida identidade, hashes de runtime, dependências e quatro operações da CLI; não mede todos os fornecedores.
+- `apk_demo` testa a amostra pública com SHA fixado; não analisa automaticamente qualquer APK enviado.
+- `providers` lista as capacidades anunciadas; **presença não implica utilização nem certificação funcional**.
+- Para analises por MCP, escolher a ferramenta pelo catalogo real e consultar o seu contrato de entrada; quando a operacao depender de um artefacto ou dispositivo ainda inacessivel, explicar o que falta sem inventar execucao. Nao aceitar caminhos ou comandos sem autorizacao do respetivo projeto.
+
+## 6. Como pedir, validar e provar execução
+
+1. Ler pelo conector GitHub `rea-linux/skill-requests/current.json` na branch operacional e guardar o SHA atual do blob.
+2. Para MCP dinamico, usar `operation:"mcp_catalog"`; `operation:"mcp_describe"` com `tool_name`; ou `operation:"mcp_call"` com `tool_name` e `arguments` JSON. O motor seleciona pelo nome do catalogo REAL. Para JS de repositorio, continua disponivel `analyze_project_javascript`. Construir JSON com as cinco chaves obrigatorias obrigatórias `schema_version:1`, `project:"engenharia-reversa-final"`, `engine_commit:"160d821ac9a0310afcb8d1fc427862dd6508add5"`, `request_id` único de 8 a 80 caracteres `[A-Za-z0-9._-]` e `operation`. Para `analyze_project_javascript`, acrescentar **exatamente** `source_repo`, `revision`, `javascript_dir` e `source_paths`.
+3. Enviar pelo GitHub `update_file` com SHA e branch indicados, mensagem de commit `skill-request: <request_id>`. Nenhum token ou comando shell arbitrário no pedido.
+4. Encontrar a execução que tem **exatamente o novo `head_sha`**; ler jobs e os logs de `engenharia-reversa-skill` via conector. Extrair `REA_SKILL_BRIDGE_RESULT=<JSON>`.
+5. Aceitar `PASS` só se o `request_id`, a operação, o commit original, os alvos e o estado de cada ferramenta coincidirem. Caso contrário: `PARTIAL`, `FAIL`, `BLOQUEADO` ou `NÃO TESTADO`, com razão. Se necessário consultar `references/relatorio.md`.
+
+## 7. Segurança e limites
+
+- Trabalhar apenas sobre projetos/artefactos autorizados. Fontes do GitHub devem ser públicas e pertencentes ao proprietário para a operação estática; privados podem exigir outro transporte autorizado, que **não** é presumido.
+- Não executar scripts, instalar dependências do projeto-alvo, abrir portas, fazer deploys não solicitados nem alterar outros projetos. Preservar a instalação e os programas do motor final. Usar só as ferramentas disponíveis e compatíveis no Ubuntu Linux.
+- Não prometer 208/229 ferramentas efetivamente utilizadas numa tarefa se só foi executado um analisador. Um catálogo anunciado não equivale a operações reais.
+- Relatório final por tarefa: **identidade -> pedido/objetivo -> run id e commit -> alvo(s) e hashes -> comandos REA executados -> ferramentas/fornecedores realmente usados -> PASS/FAIL -> limitações -> correções sugeridas**.
+
+Quando precisar de detalhes sobre o ambiente ou testes históricos, ler `references/ambiente_final.md` e `references/metodologia.md`. Não tratar um teste histórico como execução de hoje.
