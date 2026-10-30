@@ -43,7 +43,33 @@
     "repository_folder": "rea/",
     "installation_path": "/opt/rea-reversa/rea",
     "retirement_permitted": false,
-    "untouched": true
+    "untouched": false,
+    "vps_cleanup": {
+      "observed_on": "2026-10-30",
+      "evidence": "USER_SUPPLIED_CONNECTBOT_SCREENSHOTS_AFTER_EXECUTION",
+      "status": "LEGACY_RUNTIME_MAIN_DIRECTORIES_REMOVED_RESIDUAL_FILES_PRESENT",
+      "services_disabled": [
+        "rea-reversa-mcp.service",
+        "rea-mcp-oauth.service"
+      ],
+      "deleted_directories": [
+        "/opt/rea-reversa/rea",
+        "/opt/rea-reversa/providers",
+        "/opt/rea-reversa/tools",
+        "/opt/rea-reversa/oauth-auth"
+      ],
+      "remaining_entries_unverified": [
+        "/opt/rea-reversa/.rea-reversa-deployment-v1",
+        "/opt/rea-reversa/bin",
+        "/opt/rea-reversa/rollbacks",
+        "/opt/rea-reversa/upgrades"
+      ],
+      "final_cli_post_cleanup": "PROVIDERS_EXIT_ZERO_USER_SCREENSHOT",
+      "free_disk_before_gb_rounded": 23,
+      "free_disk_after_gb_rounded": 28,
+      "github_legacy_removed": false,
+      "reminder": "Do not delete remaining entries until ownership and dependencies have been inspected; source version 6.8.0 belongs to the distinct final checkout as well."
+    }
   },
   "acceptance_evidence": [
     {
