@@ -4,22 +4,28 @@
 
 ## Identidade e repositórios
 
-- **Motor na VPS Ubuntu:** `/home/ubuntu/rea-original-upstream-680`
+- **Motor na VPS Ubuntu:** `/srv/projects/Engenheira-reversa/original`
 - **Código original do autor:** `morluto/rea`, commit fixo `160d821ac9a0310afcb8d1fc427862dd6508add5`, tag `rea-agents-6.8.0`.
 - **Versão do pacote:** `6.8.0`. O projeto final usa a instalação separada e comprovada; este número não corresponde a um motor novo inventado.
 - **Fonte canónica no GitHub:** `martaxi-boss/Engenheira-reversa`, pasta `engenharia-reversa/`; submódulo `engenharia-reversa/original` fixado no commit acima.
 - **Transporte operacional existente:** `martaxi-boss/VPS`, branch `rea/one-skill-bridge-20261023`, workflow `.github/workflows/rea-mcp-transport-20261027.yml`; GitHub Actions → SSH de host fixado → CLI do motor final.
-- **Evidências locais:** `/home/ubuntu/rea-original-upstream-680-evidence`.
+- **Evidências locais:** `/srv/projects/Engenheira-reversa/evidence`.
 - **Legado retirado em 30/10/2026:** `/opt/rea-reversa` eliminado da VPS; `rea/` e `certifications/` retirados da árvore Git atual, mantendo o histórico.
+
+## Estrutura fisica atual no VPS — 04/11/2026
+
+A instalacao FINAL do repositorio `martaxi-boss/Engenheira-reversa` esta fisicamente em `/srv/projects/Engenheira-reversa`, dividida em `original/`, `runtime/` e `evidence/`. O Trial agora reside em **`/srv/projects/REA-Trial`**, com dependencias e conteudos separados. Prova real: [#41785168890](https://github.com/martaxi-boss/VPS/actions/runs/41785168890), `MOVED_VERIFIED` e hashes/SHAs da fonte original preservados.
+
+Os caminhos anteriores em `/home/ubuntu/` sao **aliases temporarios**, nao copias de instalacoes. As referencias historicas nesta documentacao sao evidencias da fase anterior, nao instrucao para voltar a instalar fora das pastas. O transporte GitHub Actions/SSH do REA nao foi alterado nesta migracao.
 
 ## Estrutura de dependências reorganizada na VPS
 
 | Elemento | Caminho | Estado verificado |
 | --- | --- | --- |
-| Motor final (código original) | `/home/ubuntu/rea-original-upstream-680` | PASS |
-| Módulos Node.js próprios (~866 MiB) | `/home/ubuntu/rea-final-runtime/node_modules` | **Ativos; 8/8 testes PASS** |
-| Cópias independentes de 12 fornecedores (~2,19 GiB) | `/home/ubuntu/rea-final-runtime/vendors` | **Cópias ativas na ligação da Skill; 11 testes funcionais PASS em fornecedores selecionados** |
-| Provas e inventários | `/home/ubuntu/rea-original-upstream-680-evidence/isolation-20261029` | Preservados |
+| Motor final (código original) | `/srv/projects/Engenheira-reversa/original` | PASS (migracao fisica 04-11) |
+| Módulos Node.js próprios (~866 MiB) | `/srv/projects/Engenheira-reversa/runtime/node_modules` | **Ativos; 8/8 testes PASS** |
+| Cópias independentes de 12 fornecedores (~2,19 GiB) | `/srv/projects/Engenheira-reversa/runtime/vendors` | **Cópias ativas na ligação da Skill; 11 testes funcionais PASS em fornecedores selecionados** |
+| Provas e inventários | `/srv/projects/Engenheira-reversa/evidence/isolation-20261029` | Preservados |
 | Instalação anterior | `/opt/rea-reversa` | Eliminada após confirmação de autonomia; motor final testado novamente |
 
 As cópias incluem Node 24, JDK 21, Ghidra, JADX, Unblob, Binwalk, Rizin, Kuna, Wakaru, Mitmproxy, Cutter e WABT. A Skill já usa os novos caminhos; isto não certifica individualmente todas as funções dos doze programas. O Chromium foi copiado para a pasta privada final e teve versão verificada; a sessão de navegador continua sem certificação por limitações de sandbox/AppArmor. O Hopper comercial foi excluído do inventário ativo do projeto final. A presença ou cópia de um programa **não equivale** a todas as suas funções estarem certificadas.
