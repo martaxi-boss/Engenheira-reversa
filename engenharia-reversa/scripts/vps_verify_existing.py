@@ -9,10 +9,10 @@ from pathlib import Path
 
 PIN = "160d821ac9a0310afcb8d1fc427862dd6508add5"
 URL = "https://github.com/morluto/rea.git"
-CANONICAL = Path("/home/ubuntu/rea-original-upstream-680")
-EVIDENCE = Path("/home/ubuntu/rea-original-upstream-680-evidence")
+CANONICAL = Path("/srv/projects/Engenheira-reversa/original")
+EVIDENCE = Path("/srv/projects/Engenheira-reversa/evidence")
 LEGACY = Path("/opt/rea-reversa/rea")
-FINAL_RUNTIME = Path("/home/ubuntu/rea-final-runtime")
+FINAL_RUNTIME = Path("/srv/projects/Engenheira-reversa/runtime")
 EXPECTED_BINARIES = {
     "dist/process/ProcessOwnership.js": "2171c79dfa0e49c8836cef350c966746ceb90b246a2d678b2e98578167aff852",
     "dist/process/ProcessOwnershipObservation.js": "81b1aaeded14556d884adaffa570cef41909deb01f76fc25a2d7bd0f9a775655",
