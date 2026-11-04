@@ -16,7 +16,7 @@
 
 A instalacao FINAL do repositorio `martaxi-boss/Engenheira-reversa` esta fisicamente em `/srv/projects/Engenheira-reversa`, dividida em `original/`, `runtime/` e `evidence/`. O Trial agora reside em **`/srv/projects/REA-Trial`**, com dependencias e conteudos separados. Prova real: [#41785168890](https://github.com/martaxi-boss/VPS/actions/runs/41785168890), `MOVED_VERIFIED` e hashes/SHAs da fonte original preservados.
 
-Os caminhos anteriores em `/home/ubuntu/` sao **aliases temporarios**, nao copias de instalacoes. As referencias historicas nesta documentacao sao evidencias da fase anterior, nao instrucao para voltar a instalar fora das pastas. O transporte GitHub Actions/SSH do REA nao foi alterado nesta migracao.
+O lançador privado `runtime/bin/rea-mcp` foi corrigido para localizar o código original no diretório irmão `original/`, preservando o motor e a ponte. [Teste real de inicialização MCP #41785849901](https://github.com/martaxi-boss/VPS/actions/runs/41785849901): `FIXED_VERIFIED`, `original_mcp_initialize=true`, shell syntax PASS e cópia anterior preservada dentro do projeto.\n\nOs caminhos anteriores em `/home/ubuntu/` sao **aliases temporarios**, nao copias de instalacoes. As referencias historicas nesta documentacao sao evidencias da fase anterior, nao instrucao para voltar a instalar fora das pastas. O transporte GitHub Actions/SSH do REA nao foi alterado nesta migracao.
 
 ## Estrutura de dependências reorganizada na VPS
 
