@@ -10,8 +10,8 @@ description: Aceder ao motor original Engenharia Reversa FINAL instalado na VPS 
 ## Motor preservado
 
 - Autor: `morluto/rea`, versão original do pacote `rea-agents 6.8.0`, commit fixado `160d821ac9a0310afcb8d1fc427862dd6508add5`.
-- Instalação Linux: `/home/ubuntu/rea-original-upstream-680`.
-- Dependências e fornecedores independentes: `/home/ubuntu/rea-final-runtime/{node_modules,vendors,optional}`.
+- Instalação Linux: `/srv/projects/Engenheira-reversa/original`.
+- Dependências e fornecedores independentes: `/srv/projects/Engenheira-reversa/runtime/{node_modules,vendors,optional}`.
 - **Não alterar nem duplicar o motor original, os fornecedores ou as dependências.** A instalação antiga em `/opt/rea-reversa` foi retirada.
 
 ## Ligação única, já existente
