@@ -12,13 +12,16 @@
     "package_version": "6.8.0"
   },
   "vps_installation": {
-    "canonical_path": "/home/ubuntu/rea-original-upstream-680",
-    "evidence_path": "/home/ubuntu/rea-original-upstream-680-evidence",
+    "canonical_path": "/srv/projects/Engenheira-reversa/original",
+    "evidence_path": "/srv/projects/Engenheira-reversa/evidence",
     "previously_installed_and_compiled": "PASS_FROM_2026_10_29_SSH_TESTS",
     "new_installation_required": false,
     "live_readback_this_change": "STRICT_INDEPENDENCE_PASS_40974645346_AND_GUARD_HEALTH_40974869693",
-    "final_runtime_path": "/home/ubuntu/rea-final-runtime",
-    "post_legacy_cleanup_verification": "2026-10-30_USER_TERMINAL_PROVIDERS_PASS_LEGACY_ABSENT_29G_FREE"
+    "final_runtime_path": "/srv/projects/Engenheira-reversa/runtime",
+    "post_legacy_cleanup_verification": "2026-10-30_USER_TERMINAL_PROVIDERS_PASS_LEGACY_ABSENT_29G_FREE",
+    "physical_project_root": "/srv/projects/Engenheira-reversa",
+    "trial_separate_root": "/srv/projects/REA-Trial",
+    "latest_physical_migration": "MOVED_VERIFIED_VPS_ACTION_41785168890"
   },
   "operational_bridge": {
     "repository": "martaxi-boss/VPS",
@@ -198,10 +201,10 @@
   ],
   "dependency_isolation": {
     "node_modules": "ISOLATED_COPY_ACTIVE_VERIFIED_8_OF_8_RUN_40968620168",
-    "node_modules_path": "/home/ubuntu/rea-final-runtime/node_modules",
+    "node_modules_path": "/srv/projects/Engenheira-reversa/runtime/node_modules",
     "node_modules_copy_mib_approx": 866,
     "external_supplier_runtime": "PRIVATE_NEW_PATHS_ONLY_HEALTH_AND_APK_PASS",
-    "external_supplier_copy_root": "/home/ubuntu/rea-final-runtime/vendors",
+    "external_supplier_copy_root": "/srv/projects/Engenheira-reversa/runtime/vendors",
     "copied_supplier_directories": 12,
     "external_supplier_stage_run": 40969427731,
     "external_suppliers_still_point_to_old_paths": false,
@@ -210,7 +213,7 @@
     "active_legacy_supplier_names": [],
     "retested_copied_supplier_run": 40969647492,
     "unblob_independent_wrapper_run": 40970111752,
-    "unblob_independent_wrapper_path": "/home/ubuntu/rea-final-runtime/bin/unblob",
+    "unblob_independent_wrapper_path": "/srv/projects/Engenheira-reversa/runtime/bin/unblob",
     "activated_supplier_bridge_run": 40970285268,
     "legacy_running_processes_observed_in_audit": 2,
     "legacy_processes_rechecked_after_migration": true,

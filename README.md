@@ -6,10 +6,17 @@ O pacote original declara versão `6.8.0`, mas **a instalação final não é a 
 
 ## VPS e funcionamento
 
-- Motor final: `/home/ubuntu/rea-original-upstream-680`
-- Dependências e fornecedores exclusivos: `/home/ubuntu/rea-final-runtime`
+- Motor FINAL: `/srv/projects/Engenheira-reversa/original`
+- Dependências e fornecedores exclusivos: `/srv/projects/Engenheira-reversa/runtime`
 - Ligação operacional já existente: [`martaxi-boss/VPS`](https://github.com/martaxi-boss/VPS), branch `rea/one-skill-bridge-20261023`, GitHub Actions → SSH → CLI final.
 - Health real [40974869693](https://github.com/martaxi-boss/VPS/actions/runs/40974869693), análise Android [40974717355](https://github.com/martaxi-boss/VPS/actions/runs/40974717355), isolamento [40974645346](https://github.com/martaxi-boss/VPS/actions/runs/40974645346).
+
+
+## Organizacao fisica verificada — 04/11/2026
+
+A pasta principal **fisica** deste repositorio na VPS e `/srv/projects/Engenheira-reversa/`. Contem `original/` (motor original do autor no commit `160d821ac9a0310afcb8d1fc427862dd6508add5`), `runtime/` (dependencias/fornecedores exclusivos) e `evidence/` (provas). A instalacao Trial foi preservada **separadamente** em `/srv/projects/REA-Trial/` e nao partilha o runtime FINAL.
+
+**Prova:** [GitHub Actions #41785168890](https://github.com/martaxi-boss/VPS/actions/runs/41785168890) — `MOVED_VERIFIED`, inodes e propriedade preservados, checkouts fixos e servicos protegidos estaveis. Os nomes historicos `/home/ubuntu/rea-original-upstream-680`, `/home/ubuntu/rea-final-runtime` e `/home/ubuntu/rea-original-upstream-680-evidence` continuam provisoriamente como symlinks para a mesma instalacao fisica. Nao os confundir com novas instalacoes nem apagar antes do teste pela Skill e da revisao dos consumidores.
 
 ## Retirada do motor antigo — 30/10/2026
 
